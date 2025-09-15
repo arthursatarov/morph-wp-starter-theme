@@ -1,0 +1,11 @@
+# ========================================
+# WordPress
+# ========================================
+www/core
+www/uploads/
+www/plugins/
+
+# Ignore all themes except `morph`
+www/themes/*
+!www/themes/morph
+

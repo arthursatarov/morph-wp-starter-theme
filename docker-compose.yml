@@ -1,0 +1,91 @@
+services:
+  wp:
+    image: wordpress:6.8-php8.2-apache
+    container_name: ${PROJECT_NAME}_wp
+    depends_on:
+      - db
+    volumes:
+      # WordPress core
+      - ./www/core:/var/www/html
+
+      # wp-content
+      - ./www/themes:/var/www/html/wp-content/themes
+      - ./www/plugins:/var/www/html/wp-content/plugins
+      - ./www/uploads:/var/www/html/wp-content/uploads
+
+      # Docker
+      - ./config/php.ini:/usr/local/etc/php/conf.d/php.ini
+    ports:
+      - ${WP_PORTS}
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: ${DB_HOST}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DEBUG: ${WP_DEBUG}
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_CACHE', false);
+    networks:
+      - wp-network
+
+  wpcli:
+    image: wordpress:cli-php8.2
+    container_name: ${PROJECT_NAME}_wpcli
+    entrypoint: wp
+    depends_on:
+      - db
+      - wp
+    volumes:
+      # WordPress core
+      - ./www/core:/var/www/html
+
+      # wp-content
+      - ./www/themes:/var/www/html/wp-content/themes
+      - ./www/plugins:/var/www/html/wp-content/plugins
+      - ./www/uploads:/var/www/html/wp-content/uploads
+    environment:
+      WORDPRESS_DB_HOST: ${DB_HOST}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - wp-network
+
+  db:
+    image: mariadb:10.11
+    container_name: ${PROJECT_NAME}_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wp-network
+
+  pma:
+    image: phpmyadmin:5.2
+    container_name: ${PROJECT_NAME}_pma
+    depends_on:
+      - db
+    restart: unless-stopped
+    profiles: ["dev"]
+    ports:
+      - ${PMA_PORTS}
+    environment:
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USER}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    networks:
+      - wp-network
+
+networks:
+  wp-network:
+    driver: bridge
+
+volumes:
+  db_data:

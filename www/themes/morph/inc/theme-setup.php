@@ -55,7 +55,6 @@ function morph_preload_local_fonts() {
 	}
 }
 
-
 /* THEME SUPPORT
 /––––––––––––––––––––––––*/
 // registers support for WordPress features

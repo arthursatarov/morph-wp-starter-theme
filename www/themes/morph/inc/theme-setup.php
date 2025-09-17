@@ -9,6 +9,7 @@ add_action( 'after_setup_theme', 'morph_theme_support' );
 add_action( 'after_setup_theme', 'morph_register_theme_menus' );
 add_action( 'wp_enqueue_scripts', 'morph_enqueue_assets' );
 add_action( 'wp_head', 'morph_preload_local_fonts' );
+add_action( 'wp_head', 'morph_preconnect_google_fonts', 1 );
 
 /* REGISTER MENUS
 /––––––––––––––––––––––––*/
@@ -53,6 +54,20 @@ function morph_preload_local_fonts() {
 			);
 		}
 	}
+}
+
+/* PRECONNECT GOOGLE FONTS
+/––––––––––––––––––––––––*/
+// preconnect to Google Fonts for faster resource fetching.
+function morph_preconnect_google_fonts() {
+	$enabled = false;
+
+	if ( ! $enabled ) {
+		return;
+	}
+
+	echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . PHP_EOL;
+	echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . PHP_EOL;
 }
 
 /* THEME SUPPORT

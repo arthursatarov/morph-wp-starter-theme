@@ -8,6 +8,7 @@
 add_action( 'after_setup_theme', 'morph_theme_support' );
 add_action( 'after_setup_theme', 'morph_register_theme_menus' );
 add_action( 'wp_enqueue_scripts', 'morph_enqueue_assets' );
+add_action( 'wp_head', 'morph_preload_local_fonts' );
 
 /* REGISTER MENUS
 /––––––––––––––––––––––––*/
@@ -28,6 +29,32 @@ function morph_enqueue_assets() {
 	// scripts
 	wp_enqueue_script( 'morph', MORPH_THEME_URI . '/assets/scripts/main.js', array(), MORPH_THEME_VERSION, true );
 }
+
+/* PRELOAD LOCAL FONTS
+/––––––––––––––––––––––––*/
+// preload local font files for performance optimization.
+function morph_preload_local_fonts() {
+	$enabled = false;
+
+	if ( ! $enabled ) {
+		return;
+	}
+
+	$fonts = [
+		'Inter' => [ 'woff2' ],
+	];
+
+	foreach ( $fonts as $name => $formats ) {
+		foreach ( $formats as $format ) {
+			printf(
+				'<link rel="preload" href="%s" as="font" type="font/%s" crossorigin>' . PHP_EOL,
+				esc_url( MORPH_THEME_URI . '/assets/fonts/' . $name . '.' . $format ),
+				esc_attr( $format )
+			);
+		}
+	}
+}
+
 
 /* THEME SUPPORT
 /––––––––––––––––––––––––*/

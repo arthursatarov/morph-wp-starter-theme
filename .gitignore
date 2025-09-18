@@ -10,6 +10,12 @@ www/themes/*
 !www/themes/morph
 
 # ========================================
+# Theme
+# ========================================
+www/themes/morph/assets
+www/themes/morph/node_modules
+
+# ========================================
 # Composer
 # ========================================
 vendor/

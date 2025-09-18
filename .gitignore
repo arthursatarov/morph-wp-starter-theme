@@ -1,26 +1,33 @@
 # ========================================
+# System and IDE
+# ========================================
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.idea/
+.vscode/
+
+# ========================================
 # WordPress
 # ========================================
-www/core
+www/core/
 www/uploads/
 www/plugins/
 
-# Ignore all themes except `morph`
+# Themes (ignore all except MORPH)
 www/themes/*
-!www/themes/morph
+!www/themes/morph/
 
 # ========================================
 # Theme
 # ========================================
-www/themes/morph/assets
-www/themes/morph/node_modules
+www/themes/morph/assets/
+www/themes/morph/node_modules/
 
 # ========================================
 # Composer
 # ========================================
 vendor/
-
-# ========================================
-# ACF
-# ========================================
+composer.lock
 auth.json

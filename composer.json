@@ -18,8 +18,6 @@
   "require": {
     "php": "^8.2",
     "composer/installers": "^2.0",
-    "wpackagist-plugin/wordfence": "^8.0",
-    "wpackagist-plugin/updraftplus": "^1.23",
     "wpackagist-plugin/cyr2lat": "^6.1",
     "wpengine/advanced-custom-fields-pro": "^6.3"
   },

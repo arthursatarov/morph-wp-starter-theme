@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "599b1abc7cc4268ada77743b960d9cd0",
+    "content-hash": "9f3f01d383e4fcfbab334efe3ebbdc65",
     "packages": [
         {
             "name": "composer/installers",
@@ -169,42 +169,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/cyr2lat/"
-        },
-        {
-            "name": "wpackagist-plugin/updraftplus",
-            "version": "1.25.7",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/updraftplus/",
-                "reference": "tags/1.25.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/updraftplus.1.25.7.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/updraftplus/"
-        },
-        {
-            "name": "wpackagist-plugin/wordfence",
-            "version": "8.1.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordfence/",
-                "reference": "tags/8.1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordfence.8.1.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wordfence/"
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",

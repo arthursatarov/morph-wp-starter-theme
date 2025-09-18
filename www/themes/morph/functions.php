@@ -9,3 +9,8 @@ define( 'MORPH_THEME_URI', get_template_directory_uri() );
 ==================================================================================*/
 require_once MORPH_THEME_DIR . '/inc/setup/theme-setup.php';
 require_once MORPH_THEME_DIR . '/inc/setup/theme-assets.php';
+
+/*==================================================================================
+  HOOKS
+==================================================================================*/
+require_once MORPH_THEME_DIR . '/inc/hooks/body-classes.php';

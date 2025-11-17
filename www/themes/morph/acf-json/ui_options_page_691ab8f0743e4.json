@@ -1,0 +1,26 @@
+{
+    "key": "ui_options_page_691ab8f0743e4",
+    "title": "MORPH",
+    "active": true,
+    "menu_order": 0,
+    "page_title": "MORPH",
+    "menu_slug": "morph-settings",
+    "parent_slug": "none",
+    "advanced_configuration": 1,
+    "icon_url": "",
+    "menu_title": "",
+    "position": "",
+    "redirect": 0,
+    "description": "",
+    "menu_icon": {
+        "type": "dashicons",
+        "value": "dashicons-admin-generic"
+    },
+    "update_button": "Обновить",
+    "updated_message": "Настройки были обновлены",
+    "capability": "edit_posts",
+    "data_storage": "options",
+    "post_id": "",
+    "autoload": 0,
+    "modified": 1763377388
+}

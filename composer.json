@@ -19,7 +19,10 @@
     "php": "^8.2",
     "composer/installers": "^2.0",
     "wpackagist-plugin/cyr2lat": "^6.1",
-    "wpengine/advanced-custom-fields-pro": "^6.3"
+    "wpengine/advanced-custom-fields-pro": "^6.3",
+    "wpackagist-plugin/acf-extended": "^0.9.1",
+    "wpackagist-plugin/polylang": "^3.7",
+    "wpackagist-plugin/classic-editor": "^1.6"
   },
   "require-dev": {
     "wpackagist-plugin/query-monitor": "^3.15"

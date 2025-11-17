@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f3f01d383e4fcfbab334efe3ebbdc65",
+    "content-hash": "bc36a308d2f3a00db188ece4d1922366",
     "packages": [
         {
             "name": "composer/installers",
@@ -153,6 +153,42 @@
             "time": "2024-06-24T20:46:46+00:00"
         },
         {
+            "name": "wpackagist-plugin/acf-extended",
+            "version": "0.9.1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/acf-extended/",
+                "reference": "tags/0.9.1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/acf-extended.0.9.1.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/acf-extended/"
+        },
+        {
+            "name": "wpackagist-plugin/classic-editor",
+            "version": "1.6.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/classic-editor/",
+                "reference": "tags/1.6.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.6.7.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/classic-editor/"
+        },
+        {
             "name": "wpackagist-plugin/cyr2lat",
             "version": "6.5.0",
             "source": {
@@ -169,6 +205,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/cyr2lat/"
+        },
+        {
+            "name": "wpackagist-plugin/polylang",
+            "version": "3.7.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/polylang/",
+                "reference": "tags/3.7.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/polylang.3.7.5.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/polylang/"
         },
         {
             "name": "wpengine/advanced-custom-fields-pro",

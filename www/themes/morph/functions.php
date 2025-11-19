@@ -1,21 +1,22 @@
 <?php
 /**
  * Central configuration and function loader for the MORPH theme.
+ *
  * This file defines all global constants (paths, URIs, version) and
  * includes all core functionality files located in the /inc directory.
  *
  * @package MORPH
+ * @since 0.0.1
  */
 
 /*=======================================================
 Table of Contents
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	1.0 GLOBAL CONSTANTS
-		1.1 theme info
-		1.2 theme directory paths
+		1.1 Theme info
+		1.2 Theme directory paths
 	2.0 THEME INCLUDES
 =======================================================*/
-
 
 /*=======================================================
 	1.0 GLOBAL CONSTANTS
@@ -29,15 +30,19 @@ define( 'MORPH_THEME_VERSION', wp_get_theme()->get( 'Version' ) );
 /––––––––––––––––––––––––-------------*/
 define( 'MORPH_THEME_DIR', get_template_directory() );
 define( 'MORPH_THEME_URI', get_template_directory_uri() );
+
 // Fonts
 define( 'MORPH_FONTS_DIR', MORPH_THEME_DIR . '/assets/fonts' );
 define( 'MORPH_FONTS_URI', MORPH_THEME_URI . '/assets/fonts' );
+
 // Images
 define( 'MORPH_IMG_DIR', MORPH_THEME_DIR . '/assets/images' );
 define( 'MORPH_IMG_URI', MORPH_THEME_URI . '/assets/images' );
+
 // Styles
 define( 'MORPH_STYLES_DIR', MORPH_THEME_DIR . '/assets/styles' );
 define( 'MORPH_STYLES_URI', MORPH_THEME_URI . '/assets/styles' );
+
 // Scripts
 define( 'MORPH_SCRIPTS_DIR', MORPH_THEME_DIR . '/assets/scripts' );
 define( 'MORPH_SCRIPTS_URI', MORPH_THEME_URI . '/assets/scripts' );
@@ -45,6 +50,18 @@ define( 'MORPH_SCRIPTS_URI', MORPH_THEME_URI . '/assets/scripts' );
 /*=======================================================
 	2.0 THEME INCLUDES
 =======================================================*/
+
+/**
+ * Loads all theme functionality files.
+ *
+ * Includes files from specified directories and individual files.
+ * Automatically loads all PHP files from directories.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_load_theme_files() {
 	$files = [
 		'inc/functions',

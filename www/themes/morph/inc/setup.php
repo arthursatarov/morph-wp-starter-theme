@@ -3,6 +3,7 @@
  * Theme Setup and Core Functionality
  *
  * @package MORPH
+ * @since 0.0.1
  */
 
 
@@ -10,13 +11,13 @@
 Table of Contents
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 	1.0 THEME SETTINGS
-		1.1 register menus
-		1.2 theme support
-		1.3 head cleanup / optimization
+		1.1 Register menus
+		1.2 Theme support
+		1.3 Head cleanup / optimization
 	2.0 THEME ASSETS
-		2.1 enqueue styles/scripts
-		2.2 preload local hosted fonts
-		2.3 enqueue google fonts
+		2.1 Enqueue styles/scripts
+		2.2 Preload local hosted fonts
+		2.3 Enqueue Google fonts
 =======================================================*/
 
 
@@ -26,6 +27,14 @@ Table of Contents
 
 /* 1.1 REGISTER MENUS
 /––––––––––––––––––––––––-------------*/
+/**
+ * Registers navigation menus.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_register_menus() {
 	register_nav_menus(
 		array(
@@ -38,6 +47,14 @@ add_action( 'after_setup_theme', 'morph_register_menus' );
 
 /* 1.2 THEME SUPPORT
 /––––––––––––––––––––––––-------------*/
+/**
+ * Adds theme support for various WordPress features.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_theme_support() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'automatic-feed-links' );
@@ -59,28 +76,36 @@ add_action( 'after_setup_theme', 'morph_theme_support' );
 
 /* 1.3 HEAD CLEANUP / OPTIMIZATION
 /––––––––––––––––––––––––-------------*/
+/**
+ * Removes unnecessary elements from wp_head for optimization.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_wphead_cleanup() {
-	// remove the generator meta tag
+	// Remove the generator meta tag
 	remove_action( 'wp_head', 'wp_generator' );
-	// remove wlwmanifest link
+	// Remove wlwmanifest link
 	remove_action( 'wp_head', 'wlwmanifest_link' );
-	// remove RSD API connection
+	// Remove RSD API connection
 	remove_action( 'wp_head', 'rsd_link' );
-	// remove wp shortlink support
+	// Remove wp shortlink support
 	remove_action( 'wp_head', 'wp_shortlink_wp_head' );
-	// remove next/previous links (this is not affecting blog-posts)
+	// Remove next/previous links (this is not affecting blog-posts)
 	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
-	// remove generator name from RSS
+	// Remove generator name from RSS
 	add_filter( 'the_generator', '__return_false' );
-	// disable emoji support
+	// Disable emoji support
 	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 	remove_action( 'wp_print_styles', 'print_emoji_styles' );
-	// disable automatic feeds
+	// Disable automatic feeds
 	remove_action( 'wp_head', 'feed_links_extra', 3 );
 	remove_action( 'wp_head', 'feed_links', 2 );
-	// remove rest API link
+	// Remove rest API link
 	remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-	// remove oEmbed link
+	// Remove oEmbed link
 	remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
 	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 }
@@ -92,10 +117,18 @@ add_action( 'after_setup_theme', 'morph_wphead_cleanup' );
 
 /* 2.1 ENQUEUE STYLES/SCRIPTS
 /––––––––––––––––––––––––-------------*/
+/**
+ * Enqueues theme styles and scripts.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_enqueue_scripts() {
 	// jQuery
-  wp_deregister_script( 'jquery' );
-  wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1' );
+	wp_deregister_script( 'jquery' );
+	wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1' );
 	wp_enqueue_script( 'jquery' );
 
 	// Theme scripts/styles
@@ -104,8 +137,16 @@ function morph_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'morph_enqueue_scripts' );
 
-/* 2.1 PRELOAD LOCAL HOSTED FONTS
+/* 2.2 PRELOAD LOCAL HOSTED FONTS
 /––––––––––––––––––––––––-------------*/
+/**
+ * Preloads local hosted fonts for better performance.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_preload_local_fonts() {
 	$fonts = [
 		// 'Inter' => [ 'woff2' ],
@@ -131,12 +172,28 @@ add_action( 'wp_head', 'morph_preload_local_fonts', 1 );
 
 /* 2.3 ENQUEUE GOOGLE FONTS
 /––––––––––––––––––––––––-------------*/
+/**
+ * Returns an array of Google Fonts to load.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return array Array of Google Font family strings.
+ */
 function morph_get_google_fonts() {
 	return [
 		// 'Roboto:ital,wght@0,100..900;1,100..900',
 	];
 }
 
+/**
+ * Adds preconnect links for Google Fonts domains.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_preconnect_google_fonts() {
 	$fonts = morph_get_google_fonts();
 
@@ -149,6 +206,14 @@ function morph_preconnect_google_fonts() {
 }
 add_action( 'wp_head', 'morph_preconnect_google_fonts', 1 );
 
+/**
+ * Enqueues Google Fonts stylesheet.
+ *
+ * @package MORPH
+ * @since 0.0.1
+ *
+ * @return void
+ */
 function morph_enqueue_google_fonts() {
 	$fonts = morph_get_google_fonts();
 
@@ -161,7 +226,3 @@ function morph_enqueue_google_fonts() {
 	wp_enqueue_style( 'morph-google-fonts', $fonts_url, [], null );
 }
 add_action( 'wp_enqueue_scripts', 'morph_enqueue_google_fonts' );
-
-
-
-

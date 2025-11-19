@@ -14,6 +14,7 @@
  *     @type string $icon_field ACF field name for icon. Default empty string (no icon).
  *     @type bool $include_url Include term URL in result. Default true.
  * }
+ *
  * @return array|null Array with terms data or null if no terms found
  */
 function morph_get_taxonomy_terms( $post_id = null, $taxonomy = 'category', $args = array() ) {

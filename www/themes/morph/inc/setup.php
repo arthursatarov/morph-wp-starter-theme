@@ -111,6 +111,7 @@ function morph_wphead_cleanup() {
 }
 add_action( 'after_setup_theme', 'morph_wphead_cleanup' );
 
+
 /*=======================================================
 	2.0 THEME ASSETS
 =======================================================*/

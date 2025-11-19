@@ -3,6 +3,7 @@
  * Print an SVG icon from sprite.
  *
  * @package MORPH
+ * @since 0.0.1
  *
  * @param array $args {
  *     Icon parameters.

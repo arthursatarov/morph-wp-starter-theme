@@ -21,9 +21,9 @@
 </head>
 
 <body <?php body_class(); ?>>
-
-	<!-- WP_BODY_OPEN -->
 	<?php wp_body_open(); ?>
 
 	<!-- HEADER -->
-	<header class="header" id="header"></header>
+	<?php get_template_part( 'templates/components/header' ); ?>
+
+	<main <?php morph_main_class(); ?>>

@@ -9,10 +9,10 @@
 
 ?>
 
-		<!-- FOOTER -->
-		<footer class="footer" id="footer"></footer>
+		</main>
 
-		<!-- WP_FOOTER -->
+		<!-- FOOTER -->
+		<?php get_template_part( 'templates/components/footer' ); ?>
 		<?php wp_footer(); ?>
 
 	</body>

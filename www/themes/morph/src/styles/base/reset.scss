@@ -1,0 +1,92 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+	text-size-adjust: none;
+}
+
+// Prevent horizontal overflow in body
+html,
+body {
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+	overflow-wrap: break-word;
+}
+
+p {
+	text-wrap: pretty;
+	overflow-wrap: break-word;
+}
+
+:where(ul, ol)[role="list"],
+:where(ul, ol)[role="menu"] {
+	list-style: none;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+	display: block;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	inline-size: 100%;
+	block-size: auto;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+// Sets a min block size for textarea without rows
+textarea:not([rows]) {
+	min-block-size: 10em;
+}
+
+:target {
+	scroll-margin-block-start: 5ex;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+	}
+}

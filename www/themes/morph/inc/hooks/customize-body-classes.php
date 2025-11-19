@@ -4,9 +4,6 @@
  *
  * @package MORPH
  */
-
-add_filter( 'body_class', 'morph_customize_body_classes' );
-
 function morph_customize_body_classes( $classes ) {
 	$classes = [ 'page' ];
 
@@ -17,3 +14,4 @@ function morph_customize_body_classes( $classes ) {
 
 	return $classes;
 }
+add_filter( 'body_class', 'morph_customize_body_classes' );

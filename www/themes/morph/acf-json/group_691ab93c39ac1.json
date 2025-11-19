@@ -76,6 +76,11 @@
                 "id": ""
             },
             "layout": "block",
+            "acfe_seamless_style": 0,
+            "acfe_group_modal": 0,
+            "acfe_group_modal_close": 0,
+            "acfe_group_modal_button": "",
+            "acfe_group_modal_size": "large",
             "sub_fields": [
                 {
                     "key": "field_691adf9e224c3",
@@ -116,12 +121,7 @@
                     "allow_in_bindings": 0,
                     "placeholder": ""
                 }
-            ],
-            "acfe_seamless_style": 0,
-            "acfe_group_modal": 0,
-            "acfe_group_modal_close": 0,
-            "acfe_group_modal_button": "",
-            "acfe_group_modal_size": "large"
+            ]
         },
         {
             "key": "field_691ac7662e48b",
@@ -137,10 +137,13 @@
                 "class": "",
                 "id": ""
             },
+            "acfe_repeater_stylised_button": 0,
             "layout": "table",
             "pagination": 0,
+            "acfe_settings": "",
             "min": 0,
             "max": 0,
+            "acfe_permissions": "",
             "collapsed": "",
             "button_label": "Добавить",
             "rows_per_page": 20,
@@ -198,8 +201,7 @@
                     "placeholder": "",
                     "parent_repeater": "field_691ac7662e48b"
                 }
-            ],
-            "acfe_repeater_stylised_button": 0
+            ]
         }
     ],
     "location": [
@@ -229,5 +231,5 @@
     "acfe_form": 1,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1763375526
+    "modified": 1763541426
 }

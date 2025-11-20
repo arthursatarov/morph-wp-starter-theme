@@ -1,14 +1,38 @@
 ////
-/// Color tokens
+/// Color Token Definitions
+///
+/// This file defines the complete color system for the design system,
+/// including base color palettes and semantic theme mappings. Base colors
+/// provide the raw color scales, while theme maps assign semantic meaning
+/// to those colors for specific use cases.
 ///
 /// @group Tokens
 /// @since 0.0.1
 ////
 
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 DEPENDENCIES
+	2.0 BASE COLOR PALETTES
+	3.0 SEMANTIC THEMES
+====================================================== */
+
+/* ======================================================
+  1.0 DEPENDENCIES
+====================================================== */
+
+/* 1.1 SASS MODULES
+/––––––––––––––––––––––––------------ */
 @use "sass:map";
 @use "../functions/get-base-color" as *;
 
-// Base colors (default)
+/* ======================================================
+  2.0 BASE COLOR PALETTES
+====================================================== */
+
+/* 2.1 BASE COLORS - DEFAULT THEME
+/––––––––––––––––––––––––------------ */
 $base-colors-default: (
 	"neutral": (
 		"white": #ffffff,
@@ -78,7 +102,12 @@ $base-colors-default: (
 	),
 );
 
-// Theme default
+/* ======================================================
+  3.0 SEMANTIC THEMES
+====================================================== */
+
+/* 3.1 DEFAULT THEME
+/––––––––––––––––––––––––------------ */
 $theme-default: (
 	"text": (
 		"default": get-base-color($base-colors-default, "neutral", 13),

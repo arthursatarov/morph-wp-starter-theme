@@ -1,6 +1,43 @@
+////
+/// Color Variables Generator Mixin
+///
+/// This mixin provides functionality to generate CSS custom properties
+/// from nested Sass maps. It iterates through theme color maps and creates
+/// CSS variables in the format --clr-{category}-{variant}.
+///
+/// @group Mixins
+/// @since 0.0.1
+////
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 COLOR VARIABLE GENERATION
+====================================================== */
+
+/* ======================================================
+  1.0 COLOR VARIABLE GENERATION
+====================================================== */
+
+/* 1.1 GENERATE COLOR VARIABLES MIXIN
+/––––––––––––––––––––––––------------ */
+/// Generates CSS custom properties from a nested theme map.
+///
+/// This mixin iterates through a two-level nested map structure and creates
+/// CSS custom properties for each color token. The resulting variables follow
+/// the naming convention: --clr-{category}-{variant}.
+///
+/// @group Mixins
+/// @since 0.0.1
+///
+/// @param {Map} $theme-map - Nested map containing color categories and variants
+
 @mixin generate-color-variables($theme-map) {
+	// Iterate through each color category (e.g., "text", "bg")
 	@each $category, $variants in $theme-map {
+		// Iterate through each variant within the category (e.g., "default", "muted")
 		@each $variant, $value in $variants {
+			// Generate CSS custom property with naming pattern: --clr-{category}-{variant}
 			--clr-#{$category}-#{$variant}: #{$value};
 		}
 	}

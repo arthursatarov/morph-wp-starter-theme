@@ -1,16 +1,41 @@
 ////
-/// Typography tokens
+/// Typography Token Definitions
 ///
+/// This file defines the complete typography system for the design system,
+/// including font families, size scales, weights, and line heights. These
+/// tokens provide a consistent typographic foundation across all components
+/// and should be accessed via the get-token() function.
+///
+/// @group Tokens
 /// @since 0.0.1
 ////
 
-// Font-family
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 FONT FAMILIES
+	2.0 FONT SIZES
+	3.0 FONT WEIGHTS
+	4.0 LINE HEIGHTS
+====================================================== */
+
+/* ======================================================
+  1.0 FONT FAMILIES
+====================================================== */
+
+/* 1.1 FONT FAMILY DEFINITIONS
+/––––––––––––––––––––––––------------ */
 $font-family: (
 	"base": "Inter, system-ui",
 	"heading": "Inter, system-ui",
 );
 
-// Font-size
+/* ======================================================
+  2.0 FONT SIZES
+====================================================== */
+
+/* 2.1 RESPONSIVE FONT SIZE SCALE
+/––––––––––––––––––––––––------------ */
 $font-size: (
 	"xs": 0.75rem,
 	"sm": 0.875rem,
@@ -24,7 +49,12 @@ $font-size: (
 	"6xl": clamp(2.5rem, 1.7188rem + 3.9063vw, 5.625rem),
 );
 
-// Font-weight
+/* ======================================================
+  3.0 FONT WEIGHTS
+====================================================== */
+
+/* 3.1 FONT WEIGHT SCALE
+/––––––––––––––––––––––––------------ */
 $font-weight: (
 	"light": 300,
 	"normal": 400,
@@ -33,7 +63,12 @@ $font-weight: (
 	"bold": 700,
 );
 
-// Line-height
+/* ======================================================
+  4.0 LINE HEIGHTS
+====================================================== */
+
+/* 4.1 LINE HEIGHT (LEADING) SCALE
+/––––––––––––––––––––––––------------ */
 $leading: (
 	"none": 1,
 	"tight": 1.2,

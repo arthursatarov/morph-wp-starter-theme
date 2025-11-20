@@ -1,9 +1,61 @@
+////
+/// Design Token Retrieval Function
+///
+/// This function provides a unified interface for accessing design tokens
+/// across different categories (colors, typography, spacing, etc.). It navigates
+/// nested token maps and returns either CSS custom properties for colors or
+/// direct values for other token types.
+///
+/// @group Functions
+/// @since 0.0.1
+////
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 DEPENDENCIES
+	2.0 CONFIGURATION
+	3.0 TOKEN FUNCTIONS
+====================================================== */
+
+/* ======================================================
+  1.0 DEPENDENCIES
+====================================================== */
+
+/* 1.1 SASS MODULES
+/––––––––––––––––––––––––------------ */
+// Import Sass built-in modules
 @use "sass:map";
 @use "sass:list";
 @use "sass:meta";
+
+// Import token definitions
 @use "../tokens/colors" as colors;
 @use "../tokens/typography" as typo;
 
+/* ======================================================
+  2.0 CONFIGURATION
+====================================================== */
+
+/* 2.1 TOKEN MAP REGISTRY
+/––––––––––––––––––––––––------------ */
+/// Central registry of all available token maps.
+///
+/// This private map serves as a lookup table for all design token categories.
+/// Each key corresponds to a token type (color, font-family, etc.) and points
+/// to its respective token map.
+///
+/// @group Configuration
+/// @since 0.0.1
+/// @access private
+///
+/// @type Map
+///
+/// @prop {Map} color - Theme color tokens
+/// @prop {Map} font-family - Font family definitions
+/// @prop {Map} font-size - Font size scale with responsive values
+/// @prop {Map} font-weight - Font weight scale
+/// @prop {Map} leading - Line height (leading) values
 $_token-maps: (
 	"color": colors.$theme-default,
 	"font-family": typo.$font-family,
@@ -12,43 +64,73 @@ $_token-maps: (
 	"leading": typo.$leading,
 );
 
+/* ======================================================
+  3.0 TOKEN FUNCTIONS
+====================================================== */
+
+/* 3.1 GET TOKEN
+/––––––––––––––––––––––––------------ */
+/// Retrieves a design token value from the token system.
+///
+/// This function provides a flexible way to access deeply nested token values
+/// using a variadic key path. For color tokens, it returns CSS custom property
+/// references (var(--clr-...)), while other tokens return their direct values.
+///
+/// The function validates each step of the path and provides helpful error
+/// messages showing available options when keys are not found.
+///
+/// @group Functions
+/// @since 0.0.1
+///
+/// @param {String} $map-name - Token category name (color, font-family, font-size, font-weight, leading)
+/// @param {String...} $keys - Variadic list of keys forming the path to the desired token
+///
+/// @return {*} CSS variable for colors, or direct value for other tokens
+///
+/// @throw Error if the token map doesn't exist
+/// @throw Error if any key in the path is not found
+/// @throw Error if the path is incomplete (stops at a nested map)
 @function get-token($map-name, $keys...) {
 	// Check if the token map exists
 	@if not map.has-key($_token-maps, $map-name) {
 		@error "Token map '#{$map-name}' not found. Available maps: #{map.keys($_token-maps)}";
 	}
 
+	// Get the base token map
 	$map: map.get($_token-maps, $map-name);
 
-	// Iterate through nested keys
+	// Iterate through nested keys to navigate the map structure
 	@each $key in $keys {
+		// Validate that the current key exists in the map
 		@if not map.has-key($map, $key) {
 			@error "Key '#{$key}' not found in '#{$map-name}'. Available keys: #{map.keys($map)}";
 		}
 
+		// Get the value for the current key
 		$value: map.get($map, $key);
 
 		// If the value is a map, continue navigation
 		@if meta.type-of($value) == "map" {
 			$map: $value;
 		} @else {
-			// For colors, return a CSS variable
+			// For colors, return a CSS variable reference
 			@if $map-name == "color" or $map-name == "color-dark" {
-				// Construct the path for the CSS variable
+				// Construct the CSS variable path from all keys
 				$css-var-path: "";
 
 				@each $k in $keys {
 					$css-var-path: $css-var-path + "-" + $k;
 				}
 
+				// Return CSS custom property reference
 				@return var(--clr#{$css-var-path});
 			}
 
-			// For all others, return the value as is
+			// For all other token types, return the value directly
 			@return $value;
 		}
 	}
 
-	// Error if the path is incomplete (stopped on a map)
+	// Error if the path is incomplete (stopped on a nested map)
 	@error "Incomplete path to token value. Current location is a map with keys: #{map.keys($map)}";
 }

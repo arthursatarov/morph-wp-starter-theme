@@ -1,0 +1,14 @@
+////
+/// CSS Custom Properties
+///
+/// @group Tokens
+/// @since 0.0.1
+////
+
+@use "sass:map";
+@use "mixins/generate-color-variables" as mixin;
+@use "tokens/colors" as colors;
+
+[data-theme="default"] {
+	@include mixin.generate-color-variables(colors.$theme-default);
+}

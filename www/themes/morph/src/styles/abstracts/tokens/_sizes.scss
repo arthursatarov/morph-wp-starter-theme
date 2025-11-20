@@ -56,7 +56,7 @@ $base-sizes: (
 /––––––––––––––––––––––––------------ */
 /// Spacing scale for margins, padding, and gaps
 $spacing: (
-	"none": get-base-size($base-sizes, 0),
+	"none": 0,
 	"3xs": get-base-size($base-sizes, 2),
 	"2xs": get-base-size($base-sizes, 4),
 	"xs": get-base-size($base-sizes, 8),

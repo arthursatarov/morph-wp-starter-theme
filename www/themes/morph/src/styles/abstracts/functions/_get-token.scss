@@ -31,6 +31,7 @@ Table of Contents
 
 // Import token definitions
 @use "../tokens/colors" as colors;
+@use "../tokens/sizes" as sizes;
 @use "../tokens/typography" as typo;
 
 /* ======================================================
@@ -57,11 +58,23 @@ Table of Contents
 /// @prop {Map} font-weight - Font weight scale
 /// @prop {Map} leading - Line height (leading) values
 $_token-maps: (
+	// Colors
 	"color": colors.$theme-default,
+
+	// Sizes
+	"breakpoints": sizes.$breakpoints,
+	"spacing": sizes.$spacing,
+	"border-width": sizes.$border-widths,
+	"border-radius": sizes.$border-radius,
+	"control-size": sizes.$control-sizes,
+	"icon-size": sizes.$icon-sizes,
+	"aspect-ratio": sizes.$aspect-ratio,
+
+	// Typography
 	"font-family": typo.$font-family,
 	"font-size": typo.$font-size,
 	"font-weight": typo.$font-weight,
-	"leading": typo.$leading,
+	"leading": typo.$leading
 );
 
 /* ======================================================

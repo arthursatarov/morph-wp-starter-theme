@@ -1,0 +1,110 @@
+////
+/// Size Tokens Definitions
+///
+/// This file defines the complete sizing system for the design system,
+/// including a uniform numerical scale, units (rem), and related tokens.
+/// These tokens provide a consistent foundation for spacing, sizing,
+/// and border radii across all components. Values should be accessed
+/// via the get-token() function.
+///
+/// @group Tokens
+/// @since 0.0.1
+////
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 BREAKPOINTS
+	2.0 SPACING
+	3.0 WIDTH & HEIGHT
+		3.1 Controls height
+		3.1 Icon sizes
+		3.1 Aspect ratio
+	4.0 BORDERS/OUTLINES
+		4.1 Border-width
+		4.2 Border-radius
+====================================================== */
+
+/* ======================================================
+  1.0 BREAKPOINTS
+====================================================== */
+$breakpoints: (
+	"xs": 36rem,
+	"sm": 48rem,
+	"md": 64rem,
+	"lg": 80rem,
+	"xl": 90rem,
+	"2xl": 120rem,
+);
+
+/* ======================================================
+  2.0 SPACING
+====================================================== */
+$spacing: (
+	"none": 0,
+	"3xs": 0.125rem,
+	"2xs": 0.25rem,
+	"xs": 0.5rem,
+	"sm": 0.75rem,
+	"md": 1rem,
+	"lg": 1.5rem,
+	"xl": 2rem,
+	"2xl": 3rem,
+	"3xl": 4rem,
+	"4xl": 6rem,
+	"5xl": 8rem,
+	"6xl": 10rem,
+);
+
+/* ======================================================
+  3.0 WIDTH & HEIGHT
+====================================================== */
+
+/* 3.1 CONTROLS HEIGHT
+/––––––––––––––––––––––––------------ */
+$control-sizes: (
+	"xs": 1.5rem,
+	"sm": 2rem,
+	"md": 2.5rem,
+	"lg": 3rem,
+);
+
+/* 3.2 ICONS SIZE
+/––––––––––––––––––––––––------------ */
+$icon-sizes: (
+	"sm": 0.75em,
+	"md": 1em,
+	"lg": 1.25em,
+	"xl": 1.5em,
+);
+
+/* 3.3 ASPECT RATIO
+/––––––––––––––––––––––––------------ */
+$aspect-ratio: (
+	"square": "1 / 1",
+	"landscape": "16 / 9",
+);
+
+/* ======================================================
+  4.0 BORDERS/OUTLINES
+====================================================== */
+
+/* 4.1 BORDER WIDTH
+/––––––––––––––––––––––––------------ */
+$border-widths: (
+	"none": 0,
+	"default": 0.0625rem,
+	"thin": 0.0625rem,
+	"thick": 0.125rem,
+	"thicker": 0.25rem,
+);
+
+/* 4.1 BORDER RADIUS
+/––––––––––––––––––––––––------------ */
+$border-radius: (
+	"default": 0.125rem,
+	"xs": 0.125rem,
+	"sm": 0.25rem,
+	"md": 0.5rem,
+	"full": 624.9375rem,
+);

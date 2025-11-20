@@ -16,15 +16,18 @@
 /* ======================================================
 Table of Contents
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	2.0 BASE SIZE SCALE
-	2.0 SEMANTIC SIZE MAPS
+	1.0 BASE SIZE SCALE
+	2.0 ELEMENT DIMENSIONS
 		2.1 Spacing
 		2.2 Control sizes
-		2.3 Border width
-		2.4 Border radius
-		2.5 Icon sizes
-		2.6 Aspect ratio
-		2.7 Breakpoints
+		2.3 Icon sizes
+		2.4 Max widths
+		2.5 Aspect ratio
+	3.0 DECORATIVE PROPERTIES
+		3.1 Border width
+		3.2 Border radius
+	4.0 RESPONSIVE
+		4.1 Breakpoints
 ====================================================== */
 
 /* ======================================================
@@ -33,23 +36,28 @@ Table of Contents
 /// Base size scale with numeric keys
 /// These values form the foundation for all sizing tokens in the design system
 $base-sizes: (
+	1: 0.0625rem,
 	2: 0.125rem,
 	4: 0.25rem,
+	6: 0.375rem,
 	8: 0.5rem,
 	12: 0.75rem,
 	16: 1rem,
+	20: 1.25rem,
 	24: 1.5rem,
 	32: 2rem,
 	40: 2.5rem,
 	48: 3rem,
+	56: 3.5rem,
 	64: 4rem,
+	80: 5rem,
 	96: 6rem,
 	128: 8rem,
 	160: 10rem,
 );
 
 /* ======================================================
-  2.0 SEMANTIC SIZE MAPS
+  2.0 ELEMENT DIMENSIONS
 ====================================================== */
 
 /* 2.1 SPACING
@@ -81,18 +89,63 @@ $control-sizes: (
 	"lg": get-base-size($base-sizes, 48),
 );
 
-/* 2.3 BORDER WIDTH
+/* 2.3 ICON SIZES
+/––––––––––––––––––––––––------------ */
+/// Icon size values (em-based for relative sizing)
+$icon-sizes: (
+	"sm": 0.75em,
+	"md": 1em,
+	"lg": 1.25em,
+	"xl": 1.5em,
+);
+
+/* 2.4 MAX WIDTHS
+/––––––––––––––––––––––––------------ */
+/// Maximum width constraints for content and containers
+$max-widths: (
+	// Text widths
+	"prose": 65ch,
+	"prose-narrow": 55ch,
+	"prose-wide": 80ch,
+
+	// Component widths
+	"xs": 20rem,
+	"sm": 24rem,
+	"md": 28rem,
+	"lg": 32rem,
+	"xl": 40rem,
+	"2xl": 48rem,
+	"3xl": 56rem
+);
+
+/* 2.5 ASPECT RATIO
+/––––––––––––––––––––––––------------ */
+/// Aspect ratio values for maintaining proportions
+$aspect-ratio: (
+	"square": "1 / 1",
+	"landscape": "16 / 9",
+	"wide": "21 / 9",
+	"classic": "4 / 3",
+	"portrait": "3 / 4",
+	"story": "9 / 16",
+);
+
+/* ======================================================
+  3.0 DECORATIVE PROPERTIES
+====================================================== */
+
+/* 3.1 BORDER WIDTH
 /––––––––––––––––––––––––------------ */
 /// Border and outline thickness values
 $border-widths: (
 	"none": 0,
-	"thin": 0.0625rem,
-	"default": 0.0625rem,
+	"default": get-base-size($base-sizes, 1),
+	"thin": get-base-size($base-sizes, 1),
 	"thick": get-base-size($base-sizes, 2),
 	"thicker": get-base-size($base-sizes, 4),
 );
 
-/* 2.4 BORDER RADIUS
+/* 3.2 BORDER RADIUS
 /––––––––––––––––––––––––------------ */
 /// Corner radius values
 $border-radius: (
@@ -105,25 +158,11 @@ $border-radius: (
 	"full": 624.9375rem,
 );
 
-/* 2.5 ICON SIZES
-/––––––––––––––––––––––––------------ */
-/// Icon size values (em-based for relative sizing)
-$icon-sizes: (
-	"sm": 0.75em,
-	"md": 1em,
-	"lg": 1.25em,
-	"xl": 1.5em,
-);
+/* ======================================================
+  4.0 RESPONSIVE
+====================================================== */
 
-/* 2.6 ASPECT RATIO
-/––––––––––––––––––––––––------------ */
-/// Aspect ratio values for maintaining proportions
-$aspect-ratio: (
-	"square": "1 / 1",
-	"landscape": "16 / 9",
-);
-
-/* 2.7 BREAKPOINTS
+/* 4.1 BREAKPOINTS
 /––––––––––––––––––––––––------------ */
 /// Responsive breakpoint values
 $breakpoints: (

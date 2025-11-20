@@ -41,10 +41,11 @@ $_token-maps: (
 	// Sizes
 	"spacing": sizes.$spacing,
 	"control-size": sizes.$control-sizes,
+	"icon-size": sizes.$icon-sizes,
+	"max-width": sizes.$max-widths,
+	"aspect-ratio": sizes.$aspect-ratio,
 	"border-width": sizes.$border-widths,
 	"border-radius": sizes.$border-radius,
-	"icon-size": sizes.$icon-sizes,
-	"aspect-ratio": sizes.$aspect-ratio,
 	"breakpoints": sizes.$breakpoints,
 
 	// Typography

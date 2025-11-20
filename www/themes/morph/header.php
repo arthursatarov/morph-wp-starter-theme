@@ -10,7 +10,7 @@
 ?>
 
 <!doctype html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> data-theme="default">
 
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">

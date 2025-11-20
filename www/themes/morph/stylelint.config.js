@@ -17,6 +17,7 @@ export default {
 			{ camelCaseSvgKeywords: true },
 		],
 		'color-function-notation': 'modern',
+		'color-hex-length': 'long',
 		'hue-degree-notation': 'number',
 
 		/* Media queries */

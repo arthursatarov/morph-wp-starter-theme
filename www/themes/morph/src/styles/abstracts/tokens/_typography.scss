@@ -1,0 +1,42 @@
+////
+/// Typography tokens
+///
+/// @since 0.0.1
+////
+
+// Font-family
+$font-family: (
+	"base": "Inter, system-ui",
+	"heading": "Inter, system-ui",
+);
+
+// Font-size
+$font-size: (
+	"xs": 0.75rem,
+	"sm": 0.875rem,
+	"md": 1rem,
+	"lg": clamp(1.25rem, 1.1875rem + 0.3125vw, 1.5rem),
+	"xl": clamp(1.375rem, 1.2188rem + 0.7813vw, 2rem),
+	"2xl": clamp(1.5rem, 1.25rem + 1.25vw, 2.5rem),
+	"3xl": clamp(1.75rem, 1.4375rem + 1.5625vw, 3rem),
+	"4xl": clamp(2rem, 1.5313rem + 2.3438vw, 3.875rem),
+	"5xl": clamp(2.25rem, 1.625rem + 3.125vw, 4.75rem),
+	"6xl": clamp(2.5rem, 1.7188rem + 3.9063vw, 5.625rem),
+);
+
+// Font-weight
+$font-weight: (
+	"light": 300,
+	"normal": 400,
+	"medium": 500,
+	"semibold": 600,
+	"bold": 700,
+);
+
+// Line-height
+$leading: (
+	"none": 1,
+	"tight": 1.2,
+	"normal": 1.5,
+	"relaxed": 1.6,
+);

@@ -1,0 +1,113 @@
+////
+/// Color tokens
+///
+/// @group Tokens
+/// @since 0.0.1
+////
+
+@use "sass:map";
+@use "../functions/get-base-color" as *;
+
+// Base colors (default)
+$base-colors-default: (
+	"neutral": (
+		"white": #ffffff,
+		"black": #1f2328,
+		0: #ffffff,
+		1: #f6f8fa,
+		2: #eff2f5,
+		3: #e6eaef,
+		4: #e0e6eb,
+		5: #dae0e7,
+		6: #d1d9e0,
+		7: #c8d1da,
+		8: #818b98,
+		9: #59636e,
+		10: #454c54,
+		11: #393f46,
+		12: #25292e,
+		13: #1f2328,
+	),
+	"accent": (
+		0: #ddf4ff,
+		1: #b6e3ff,
+		2: #80ccff,
+		3: #54aeff,
+		4: #218bff,
+		5: #0969da,
+		6: #0550ae,
+		7: #033d8b,
+		8: #0a3069,
+		9: #002155,
+	),
+	"success": (
+		0: #dafbe1,
+		1: #aceebb,
+		2: #6fdd8b,
+		3: #4ac26b,
+		4: #2da44e,
+		5: #1a7f37,
+		6: #116329,
+		7: #044f1e,
+		8: #003d16,
+		9: #002d11,
+	),
+	"attention": (
+		0: #fff8c5,
+		1: #fae17d,
+		2: #eac54f,
+		3: #d4a72c,
+		4: #bf8700,
+		5: #9a6700,
+		6: #7d4e00,
+		7: #633c01,
+		8: #4d2d00,
+		9: #3b2300,
+	),
+	"danger": (
+		0: #ffebe9,
+		1: #ffcecb,
+		2: #ffaba8,
+		3: #ff8182,
+		4: #fa4549,
+		5: #cf222e,
+		6: #a40e26,
+		7: #82071e,
+		8: #660018,
+		9: #4c0014,
+	),
+);
+
+// Theme default
+$theme-default: (
+	"text": (
+		"default": get-base-color($base-colors-default, "neutral", 13),
+		"muted": get-base-color($base-colors-default, "neutral", 9),
+		"disabled": get-base-color($base-colors-default, "neutral", 8),
+		"onEmphasis": get-base-color($base-colors-default, "neutral", 0),
+		"onInverse": get-base-color($base-colors-default, "neutral", 0),
+		"link": get-base-color($base-colors-default, "accent", 5),
+		"accent": get-base-color($base-colors-default, "accent", 5),
+		"success": get-base-color($base-colors-default, "success", 5),
+		"attention": get-base-color($base-colors-default, "attention", 5),
+		"danger": get-base-color($base-colors-default, "danger", 5),
+		"black": get-base-color($base-colors-default, "neutral", "black"),
+		"white": get-base-color($base-colors-default, "neutral", "white"),
+	),
+	"bg": (
+		"default": get-base-color($base-colors-default, "neutral", 0),
+		"inset": get-base-color($base-colors-default, "neutral", 1),
+		"emphasis": get-base-color($base-colors-default, "neutral", 12),
+		"inverse": get-base-color($base-colors-default, "neutral", 12),
+		"accent-fn.emphasis": get-base-color($base-colors-default, "accent", 5),
+		"accent-fn.muted": get-base-color($base-colors-default, "accent", 0),
+		"success-fn.emphasis": get-base-color($base-colors-default, "success", 5),
+		"success-fn.muted": get-base-color($base-colors-default, "success", 0),
+		"attention-fn.emphasis": get-base-color($base-colors-default, "attention", 5),
+		"attention-fn.muted": get-base-color($base-colors-default, "attention", 0),
+		"danger-fn.emphasis": get-base-color($base-colors-default, "danger", 5),
+		"danger-fn.muted": get-base-color($base-colors-default, "danger", 0),
+		"black": get-base-color($base-colors-default, "neutral", "black"),
+		"white": get-base-color($base-colors-default, "neutral", "white"),
+	),
+);

@@ -1,0 +1,106 @@
+////
+/// Responsive Breakpoint Mixin
+///
+/// This mixin provides a flexible and type-safe way to create responsive
+/// media queries using named breakpoints from the design system. It supports
+/// minimum (min-width), maximum (max-width), and range (min and max) queries
+/// with automatic validation and error handling.
+///
+/// @group Mixins
+/// @since 0.0.1
+////
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 DEPENDENCIES
+	2.0 BREAKPOINT MIXIN
+====================================================== */
+
+/* ======================================================
+  1.0 DEPENDENCIES
+====================================================== */
+
+/* 1.1 SASS MODULES
+/––––––––––––––––––––––––------------ */
+// Import Sass built-in modules for map and list operations
+@use "sass:map";
+@use "sass:list";
+
+// Import breakpoint tokens from design system
+@use "../tokens/sizes" as sizes;
+
+/* ======================================================
+  2.0 BREAKPOINT MIXIN
+====================================================== */
+
+/* 2.1 RESPONSIVE BREAKPOINT MIXIN
+/––––––––––––––––––––––––------------ */
+/// Creates responsive media queries using named breakpoints.
+///
+/// This mixin generates media queries based on the breakpoint tokens defined
+/// in the design system. It supports three types of queries:
+/// 1. Min-width only (mobile-first approach)
+/// 2. Max-width only (desktop-first approach)
+/// 3. Range (both min and max for targeting specific viewport ranges)
+///
+/// The mixin automatically validates breakpoint names and prevents overlap
+/// by subtracting 0.001em from max-width values. This ensures that adjacent
+/// breakpoint ranges don't overlap (e.g., max "md" ends where min "md" begins).
+///
+/// @group Mixins
+/// @since 0.0.1
+///
+/// @param {String|Null} $min [null] - Named minimum breakpoint (e.g., "sm", "md", "lg")
+/// @param {String|Null} $max [null] - Named maximum breakpoint (e.g., "sm", "md", "lg")
+///
+/// @content Styles to apply within the media query
+///
+/// @throw Error if $min breakpoint name is not found in breakpoints map
+/// @throw Error if $max breakpoint name is not found in breakpoints map
+/// @warn Warning if neither $min nor $max is provided
+@mixin breakpoint($min: null, $max: null) {
+	// Get breakpoints map from design tokens
+	$breakpoints: sizes.$breakpoints;
+	$media-query: null;
+
+	// Handle minimum breakpoint (min-width)
+	@if $min {
+		// Validate that the minimum breakpoint exists
+		@if not map.has-key($breakpoints, $min) {
+			@error "breakpoint(): unknown min breakpoint `#{$min}`. Available breakpoints: #{map.keys($breakpoints)}";
+		}
+
+		// Build min-width media query
+		$media-query: "(min-width: #{map.get($breakpoints, $min)})";
+	}
+
+	// Handle maximum breakpoint (max-width)
+	@if $max {
+		// Validate that the maximum breakpoint exists
+		@if not map.has-key($breakpoints, $max) {
+			@error "breakpoint(): unknown max breakpoint `#{$max}`. Available breakpoints: #{map.keys($breakpoints)}";
+		}
+
+		// Build max-width media query
+		// Subtract 0.001em to prevent overlap with next breakpoint
+		$max-query: "(max-width: calc(#{map.get($breakpoints, $max)} - 0.001em))";
+
+		// Combine min and max queries if both are provided
+		@if $media-query {
+			$media-query: "#{$media-query} and #{$max-query}";
+		} @else {
+			$media-query: $max-query;
+		}
+	}
+
+	// Output the media query if valid parameters were provided
+	@if $media-query {
+		@media #{$media-query} {
+			@content;
+		}
+	} @else {
+		// Warn if no valid breakpoints were provided
+		@warn "breakpoint(): no valid breakpoints provided. Please specify at least $min or $max parameter.";
+	}
+}

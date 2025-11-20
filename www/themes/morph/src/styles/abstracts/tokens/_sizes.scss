@@ -1,76 +1,117 @@
 ////
-/// Size Tokens Definitions
+/// Size Token Definitions
 ///
 /// This file defines the complete sizing system for the design system,
-/// including a uniform numerical scale, units (rem), and related tokens.
-/// These tokens provide a consistent foundation for spacing, sizing,
-/// and border radii across all components. Values should be accessed
-/// via the get-token() function.
+/// including base size scales and semantic size mappings. Base sizes
+/// provide the raw size scales, while semantic maps assign meaningful
+/// names to those sizes for specific use cases.
 ///
 /// @group Tokens
 /// @since 0.0.1
 ////
 
+@use "sass:map";
+@use "../functions/get-base-size" as *;
+
 /* ======================================================
 Table of Contents
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	1.0 BREAKPOINTS
-	2.0 SPACING
-	3.0 WIDTH & HEIGHT
-		3.1 Controls height
-		3.1 Icon sizes
-		3.1 Aspect ratio
-	4.0 BORDERS/OUTLINES
-		4.1 Border-width
-		4.2 Border-radius
+	2.0 BASE SIZE SCALE
+	2.0 SEMANTIC SIZE MAPS
+		2.1 Spacing
+		2.2 Control sizes
+		2.3 Border width
+		2.4 Border radius
+		2.5 Icon sizes
+		2.6 Aspect ratio
+		2.7 Breakpoints
 ====================================================== */
 
 /* ======================================================
-  1.0 BREAKPOINTS
+  1.0 BASE SIZE SCALE
 ====================================================== */
-$breakpoints: (
-	"xs": 36rem,
-	"sm": 48rem,
-	"md": 64rem,
-	"lg": 80rem,
-	"xl": 90rem,
-	"2xl": 120rem,
+
+/* 1.1 BASE SIZES
+/––––––––––––––––––––––––------------ */
+/// Base size scale with numeric keys
+/// These values form the foundation for all sizing tokens in the design system
+$base-sizes: (
+	0: 0,
+	2: 0.125rem,
+	4: 0.25rem,
+	8: 0.5rem,
+	12: 0.75rem,
+	16: 1rem,
+	24: 1.5rem,
+	32: 2rem,
+	40: 2.5rem,
+	48: 3rem,
+	64: 4rem,
+	96: 6rem,
+	128: 8rem,
+	160: 10rem,
 );
 
 /* ======================================================
-  2.0 SPACING
+  2.0 SEMANTIC SIZE MAPS
 ====================================================== */
+
+/* 2.1 SPACING
+/––––––––––––––––––––––––------------ */
+/// Spacing scale for margins, padding, and gaps
 $spacing: (
-	"none": 0,
-	"3xs": 0.125rem,
-	"2xs": 0.25rem,
-	"xs": 0.5rem,
-	"sm": 0.75rem,
-	"md": 1rem,
-	"lg": 1.5rem,
-	"xl": 2rem,
-	"2xl": 3rem,
-	"3xl": 4rem,
-	"4xl": 6rem,
-	"5xl": 8rem,
-	"6xl": 10rem,
+	"none": get-base-size($base-sizes, 0),
+	"3xs": get-base-size($base-sizes, 2),
+	"2xs": get-base-size($base-sizes, 4),
+	"xs": get-base-size($base-sizes, 8),
+	"sm": get-base-size($base-sizes, 12),
+	"md": get-base-size($base-sizes, 16),
+	"lg": get-base-size($base-sizes, 24),
+	"xl": get-base-size($base-sizes, 32),
+	"2xl": get-base-size($base-sizes, 48),
+	"3xl": get-base-size($base-sizes, 64),
+	"4xl": get-base-size($base-sizes, 96),
+	"5xl": get-base-size($base-sizes, 128),
+	"6xl": get-base-size($base-sizes, 160),
 );
 
-/* ======================================================
-  3.0 WIDTH & HEIGHT
-====================================================== */
-
-/* 3.1 CONTROLS HEIGHT
+/* 2.2 CONTROL SIZES
 /––––––––––––––––––––––––------------ */
+/// Height values for form controls and interactive elements
 $control-sizes: (
-	"xs": 1.5rem,
-	"sm": 2rem,
-	"md": 2.5rem,
-	"lg": 3rem,
+	"xs": get-base-size($base-sizes, 24),
+	"sm": get-base-size($base-sizes, 32),
+	"md": get-base-size($base-sizes, 40),
+	"lg": get-base-size($base-sizes, 48),
 );
 
-/* 3.2 ICONS SIZE
+/* 2.3 BORDER WIDTH
 /––––––––––––––––––––––––------------ */
+/// Border and outline thickness values
+$border-widths: (
+	"none": get-base-size($base-sizes, 0),
+	"thin": 0.0625rem,
+	"default": 0.0625rem,
+	"thick": get-base-size($base-sizes, 2),
+	"thicker": get-base-size($base-sizes, 4),
+);
+
+/* 2.4 BORDER RADIUS
+/––––––––––––––––––––––––------------ */
+/// Corner radius values
+$border-radius: (
+	"none": get-base-size($base-sizes, 0),
+	"xs": get-base-size($base-sizes, 2),
+	"sm": get-base-size($base-sizes, 4),
+	"md": get-base-size($base-sizes, 8),
+	"lg": get-base-size($base-sizes, 12),
+	"xl": get-base-size($base-sizes, 16),
+	"full": 624.9375rem,
+);
+
+/* 2.5 ICON SIZES
+/––––––––––––––––––––––––------------ */
+/// Icon size values (em-based for relative sizing)
 $icon-sizes: (
 	"sm": 0.75em,
 	"md": 1em,
@@ -78,33 +119,22 @@ $icon-sizes: (
 	"xl": 1.5em,
 );
 
-/* 3.3 ASPECT RATIO
+/* 2.6 ASPECT RATIO
 /––––––––––––––––––––––––------------ */
+/// Aspect ratio values for maintaining proportions
 $aspect-ratio: (
 	"square": "1 / 1",
 	"landscape": "16 / 9",
 );
 
-/* ======================================================
-  4.0 BORDERS/OUTLINES
-====================================================== */
-
-/* 4.1 BORDER WIDTH
+/* 2.7 BREAKPOINTS
 /––––––––––––––––––––––––------------ */
-$border-widths: (
-	"none": 0,
-	"default": 0.0625rem,
-	"thin": 0.0625rem,
-	"thick": 0.125rem,
-	"thicker": 0.25rem,
-);
-
-/* 4.1 BORDER RADIUS
-/––––––––––––––––––––––––------------ */
-$border-radius: (
-	"default": 0.125rem,
-	"xs": 0.125rem,
-	"sm": 0.25rem,
-	"md": 0.5rem,
-	"full": 624.9375rem,
+/// Responsive breakpoint values
+$breakpoints: (
+	"xs": 36rem,
+	"sm": 48rem,
+	"md": 64rem,
+	"lg": 80rem,
+	"xl": 90rem,
+	"2xl": 120rem,
 );

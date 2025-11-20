@@ -62,13 +62,13 @@ $_token-maps: (
 	"color": colors.$theme-default,
 
 	// Sizes
-	"breakpoints": sizes.$breakpoints,
 	"spacing": sizes.$spacing,
+	"control-size": sizes.$control-sizes,
 	"border-width": sizes.$border-widths,
 	"border-radius": sizes.$border-radius,
-	"control-size": sizes.$control-sizes,
 	"icon-size": sizes.$icon-sizes,
 	"aspect-ratio": sizes.$aspect-ratio,
+	"breakpoints": sizes.$breakpoints,
 
 	// Typography
 	"font-family": typo.$font-family,

@@ -1,0 +1,54 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:meta";
+@use "../tokens/colors" as colors;
+@use "../tokens/typography" as typo;
+
+$_token-maps: (
+	"color": colors.$theme-default,
+	"font-family": typo.$font-family,
+	"font-size": typo.$font-size,
+	"font-weight": typo.$font-weight,
+	"leading": typo.$leading,
+);
+
+@function get-token($map-name, $keys...) {
+	// Check if the token map exists
+	@if not map.has-key($_token-maps, $map-name) {
+		@error "Token map '#{$map-name}' not found. Available maps: #{map.keys($_token-maps)}";
+	}
+
+	$map: map.get($_token-maps, $map-name);
+
+	// Iterate through nested keys
+	@each $key in $keys {
+		@if not map.has-key($map, $key) {
+			@error "Key '#{$key}' not found in '#{$map-name}'. Available keys: #{map.keys($map)}";
+		}
+
+		$value: map.get($map, $key);
+
+		// If the value is a map, continue navigation
+		@if meta.type-of($value) == "map" {
+			$map: $value;
+		} @else {
+			// For colors, return a CSS variable
+			@if $map-name == "color" or $map-name == "color-dark" {
+				// Construct the path for the CSS variable
+				$css-var-path: "";
+
+				@each $k in $keys {
+					$css-var-path: $css-var-path + "-" + $k;
+				}
+
+				@return var(--clr#{$css-var-path});
+			}
+
+			// For all others, return the value as is
+			@return $value;
+		}
+	}
+
+	// Error if the path is incomplete (stopped on a map)
+	@error "Incomplete path to token value. Current location is a map with keys: #{map.keys($map)}";
+}

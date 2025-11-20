@@ -1,0 +1,7 @@
+@mixin generate-color-variables($theme-map) {
+	@each $category, $variants in $theme-map {
+		@each $variant, $value in $variants {
+			--clr-#{$category}-#{$variant}: #{$value};
+		}
+	}
+}

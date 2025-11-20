@@ -1,0 +1,15 @@
+@use "sass:map";
+
+@function get-base-color($theme, $color, $shade) {
+	@if not map.has-key($theme, $color) {
+		@error "Base color '#{$color}' not found. Available: #{map.keys($theme)}";
+	}
+
+	$color-map: map.get($theme, $color);
+
+	@if not map.has-key($color-map, $shade) {
+		@error "Shade '#{$shade}' not found in '#{$color}'. Available: #{map.keys($color-map)}";
+	}
+
+	@return map.get($color-map, $shade);
+}

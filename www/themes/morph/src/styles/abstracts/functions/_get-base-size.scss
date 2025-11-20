@@ -9,28 +9,8 @@
 /// @since 0.0.1
 ////
 
-/* ======================================================
-Table of Contents
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	1.0 DEPENDENCIES
-	2.0 BASE SIZE FUNCTIONS
-====================================================== */
-
-/* ======================================================
-  1.0 DEPENDENCIES
-====================================================== */
-
-/* 1.1 SASS MODULES
-/––––––––––––––––––––––––------------ */
-// Import Sass built-in map module for map operations
 @use "sass:map";
 
-/* ======================================================
-  2.0 BASE SIZE FUNCTIONS
-====================================================== */
-
-/* 2.1 GET BASE SIZE
-/––––––––––––––––––––––––------------ */
 /// Retrieves a specific size value from a base size scale.
 ///
 /// This function safely extracts size values from the provided size scale map by

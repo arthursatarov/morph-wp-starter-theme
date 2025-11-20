@@ -10,32 +10,10 @@
 /// @since 0.0.1
 ////
 
-/* ======================================================
-Table of Contents
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	1.0 DEPENDENCIES
-	2.0 BREAKPOINT MIXIN
-====================================================== */
-
-/* ======================================================
-  1.0 DEPENDENCIES
-====================================================== */
-
-/* 1.1 SASS MODULES
-/––––––––––––––––––––––––------------ */
-// Import Sass built-in modules for map and list operations
 @use "sass:map";
 @use "sass:list";
-
-// Import breakpoint tokens from design system
 @use "../tokens/sizes" as sizes;
 
-/* ======================================================
-  2.0 BREAKPOINT MIXIN
-====================================================== */
-
-/* 2.1 RESPONSIVE BREAKPOINT MIXIN
-/––––––––––––––––––––––––------------ */
 /// Creates responsive media queries using named breakpoints.
 ///
 /// This mixin generates media queries based on the breakpoint tokens defined

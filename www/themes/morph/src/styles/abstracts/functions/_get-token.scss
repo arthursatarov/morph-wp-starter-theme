@@ -10,36 +10,13 @@
 /// @since 0.0.1
 ////
 
-/* ======================================================
-Table of Contents
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	1.0 DEPENDENCIES
-	2.0 CONFIGURATION
-	3.0 TOKEN FUNCTIONS
-====================================================== */
-
-/* ======================================================
-  1.0 DEPENDENCIES
-====================================================== */
-
-/* 1.1 SASS MODULES
-/––––––––––––––––––––––––------------ */
-// Import Sass built-in modules
 @use "sass:map";
 @use "sass:list";
 @use "sass:meta";
-
-// Import token definitions
 @use "../tokens/colors" as colors;
 @use "../tokens/sizes" as sizes;
 @use "../tokens/typography" as typo;
 
-/* ======================================================
-  2.0 CONFIGURATION
-====================================================== */
-
-/* 2.1 TOKEN MAP REGISTRY
-/––––––––––––––––––––––––------------ */
 /// Central registry of all available token maps.
 ///
 /// This private map serves as a lookup table for all design token categories.
@@ -77,12 +54,6 @@ $_token-maps: (
 	"leading": typo.$leading
 );
 
-/* ======================================================
-  3.0 TOKEN FUNCTIONS
-====================================================== */
-
-/* 3.1 GET TOKEN
-/––––––––––––––––––––––––------------ */
 /// Retrieves a design token value from the token system.
 ///
 /// This function provides a flexible way to access deeply nested token values

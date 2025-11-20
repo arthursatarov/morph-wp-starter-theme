@@ -10,29 +10,10 @@
 /// @since 0.0.1
 ////
 
-/* ======================================================
-Table of Contents
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	1.0 DEPENDENCIES
-	2.0 THEME GENERATION
-====================================================== */
-
-/* ======================================================
-  1.0 DEPENDENCIES
-====================================================== */
-
-/* 1.1 SASS MODULES
-/––––––––––––––––––––––––------------ */
 @use "sass:map";
 @use "mixins/generate-color-variables" as mixin;
 @use "tokens/colors" as colors;
 
-/* ======================================================
-  2.0 THEME GENERATION
-====================================================== */
-
-/* 2.1 DEFAULT THEME
-/––––––––––––––––––––––––------------ */
 // Generate CSS custom properties for the default theme
 // Output format: --clr-{category}-{variant}: {value}
 [data-theme="default"] {

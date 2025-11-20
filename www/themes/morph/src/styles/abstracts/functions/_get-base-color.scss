@@ -9,28 +9,8 @@
 /// @since 0.0.1
 ////
 
-/* ======================================================
-Table of Contents
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-	1.0 DEPENDENCIES
-	2.0 BASE COLOR FUNCTIONS
-====================================================== */
-
-/* ======================================================
-  1.0 DEPENDENCIES
-====================================================== */
-
-/* 1.1 SASS MODULES
-/––––––––––––––––––––––––------------ */
-// Import Sass built-in map module for map operations
 @use "sass:map";
 
-/* ======================================================
-  2.0 BASE COLOR FUNCTIONS
-====================================================== */
-
-/* 2.1 GET BASE COLOR
-/––––––––––––––––––––––––------------ */
 /// Retrieves a specific color shade from a base color palette.
 ///
 /// This function safely extracts color values from nested theme maps by

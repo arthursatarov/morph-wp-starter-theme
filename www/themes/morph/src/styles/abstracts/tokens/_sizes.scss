@@ -30,13 +30,9 @@ Table of Contents
 /* ======================================================
   1.0 BASE SIZE SCALE
 ====================================================== */
-
-/* 1.1 BASE SIZES
-/––––––––––––––––––––––––------------ */
 /// Base size scale with numeric keys
 /// These values form the foundation for all sizing tokens in the design system
 $base-sizes: (
-	0: 0,
 	2: 0.125rem,
 	4: 0.25rem,
 	8: 0.5rem,
@@ -89,7 +85,7 @@ $control-sizes: (
 /––––––––––––––––––––––––------------ */
 /// Border and outline thickness values
 $border-widths: (
-	"none": get-base-size($base-sizes, 0),
+	"none": 0,
 	"thin": 0.0625rem,
 	"default": 0.0625rem,
 	"thick": get-base-size($base-sizes, 2),
@@ -100,7 +96,7 @@ $border-widths: (
 /––––––––––––––––––––––––------------ */
 /// Corner radius values
 $border-radius: (
-	"none": get-base-size($base-sizes, 0),
+	"none": 0,
 	"xs": get-base-size($base-sizes, 2),
 	"sm": get-base-size($base-sizes, 4),
 	"md": get-base-size($base-sizes, 8),

@@ -1,0 +1,56 @@
+@use "../abstracts/functions/get-token" as *;
+
+body {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-block-size: 100vh;
+	font-family: get-token("font-family", "base");
+	font-weight: get-token("font-weight", "normal");
+	line-height: get-token("leading", "normal");
+	color: get-token("color", "text", "default");
+	background-color: get-token("color", "bg", "default");
+
+	& > :where(header, main, footer) {
+		flex: 0 0 auto;
+	}
+
+	& > :where(main) {
+		flex-grow: 1;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: get-token("font-family", "heading");
+	font-weight: get-token("font-weight", "bold");
+	line-height: get-token("leading", "tight");
+	color: get-token("color", "text", "default");
+}
+
+/* stylelint-disable prettier/prettier */
+h1 { font-size: get-token("font-size", "3xl"); }
+h2 { font-size: get-token("font-size", "2xl"); }
+h3 { font-size: get-token("font-size", "xl"); }
+h4 { font-size: get-token("font-size", "lg"); }
+h5 { font-size: get-token("font-size", "md"); }
+h6 { font-size: get-token("font-size", "sm"); }
+/* stylelint-enable prettier/prettier */
+
+a {
+	color: get-token("color", "text", "link");
+	text-decoration: underline;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+ul,
+ol {
+	list-style-position: inside;
+}

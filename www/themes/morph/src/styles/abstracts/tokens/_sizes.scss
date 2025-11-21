@@ -34,7 +34,13 @@ Table of Contents
   1.0 BASE SIZE SCALE
 ====================================================== */
 /// Base size scale with numeric keys
-/// These values form the foundation for all sizing tokens in the design system
+///
+/// These values form the foundation for all sizing tokens in the design system.
+/// The scale is used for:
+/// - Spacing (padding, margin, gap)
+/// - Element dimensions (width, height)
+/// - Positioning offsets (top, left, inset)
+/// - Border widths and radii
 $base-sizes: (
 	1: 0.0625rem,
 	2: 0.125rem,
@@ -60,26 +66,7 @@ $base-sizes: (
   2.0 ELEMENT DIMENSIONS
 ====================================================== */
 
-/* 2.1 SPACING
-/––––––––––––––––––––––––------------ */
-/// Spacing scale for margins, padding, and gaps
-$spacing: (
-	"none": 0,
-	"3xs": get-base-size($base-sizes, 2),
-	"2xs": get-base-size($base-sizes, 4),
-	"xs": get-base-size($base-sizes, 8),
-	"sm": get-base-size($base-sizes, 12),
-	"md": get-base-size($base-sizes, 16),
-	"lg": get-base-size($base-sizes, 24),
-	"xl": get-base-size($base-sizes, 32),
-	"2xl": get-base-size($base-sizes, 48),
-	"3xl": get-base-size($base-sizes, 64),
-	"4xl": get-base-size($base-sizes, 96),
-	"5xl": get-base-size($base-sizes, 128),
-	"6xl": get-base-size($base-sizes, 160),
-);
-
-/* 2.2 CONTROL SIZES
+/* 2.1 CONTROL SIZES
 /––––––––––––––––––––––––------------ */
 /// Height values for form controls and interactive elements
 $control-sizes: (
@@ -89,7 +76,7 @@ $control-sizes: (
 	"lg": get-base-size($base-sizes, 48),
 );
 
-/* 2.3 ICON SIZES
+/* 2.2 ICON SIZES
 /––––––––––––––––––––––––------------ */
 /// Icon size values (em-based for relative sizing)
 $icon-sizes: (
@@ -99,7 +86,7 @@ $icon-sizes: (
 	"xl": 1.5em,
 );
 
-/* 2.4 MAX WIDTHS
+/* 2.3 MAX WIDTHS
 /––––––––––––––––––––––––------------ */
 /// Maximum width constraints for content and containers
 $max-widths: (
@@ -118,7 +105,7 @@ $max-widths: (
 	"3xl": 56rem
 );
 
-/* 2.5 ASPECT RATIO
+/* 2.4 ASPECT RATIO
 /––––––––––––––––––––––––------------ */
 /// Aspect ratio values for maintaining proportions
 $aspect-ratio: (

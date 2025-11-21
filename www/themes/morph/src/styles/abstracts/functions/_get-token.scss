@@ -16,6 +16,7 @@
 @use "../tokens/colors" as colors;
 @use "../tokens/sizes" as sizes;
 @use "../tokens/typography" as typo;
+@use "../tokens/z-index" as z-index;
 
 /// Central registry of all available token maps.
 ///
@@ -52,7 +53,10 @@ $_token-maps: (
 	"font-family": typo.$font-family,
 	"font-size": typo.$font-size,
 	"font-weight": typo.$font-weight,
-	"leading": typo.$leading
+	"leading": typo.$leading,
+
+	// Z-Index
+	"z-index": z-index.$layer
 );
 
 /// Retrieves a design token value from the token system.

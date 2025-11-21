@@ -1,0 +1,93 @@
+////
+/// Z-Index Layer System
+///
+/// This file defines the complete z-index layering system for the design system.
+/// It includes both global layers for application-wide components and local layers
+/// for component-specific stacking contexts. The system uses a scale-based approach
+/// to ensure consistent spacing between z-index values.
+///
+/// @group Tokens
+/// @since 0.0.1
+////
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 SYSTEM CONFIGURATION
+	2.0 GLOBAL LAYERS
+		2.1 Main layers
+		2.2 Auxiliary layers
+	3.0 LOCAL LAYERS
+	4.0 LAYER MAP
+====================================================== */
+
+/* ======================================================
+  1.0 SYSTEM CONFIGURATION
+====================================================== */
+/// Base scale unit for z-index spacing
+/// All global layers increment by this value
+$layer-system-scale: 5;
+
+/// Helper variables for incrementing/decrementing layers
+$layer-above: $layer-system-scale;
+$layer-below: $layer-system-scale * -1;
+
+/* ======================================================
+  2.0 GLOBAL LAYERS
+====================================================== */
+
+/* 2.1 MAIN LAYERS
+/––––––––––––––––––––––––------------ */
+/// Application-wide z-index layers for major UI components
+/// These values ensure proper stacking across the entire application
+$z-screen: 0; // base content layer
+$z-elevated: $layer-above + $z-screen; // 5 - cards, elevated content
+$z-navigation: $layer-above + $z-elevated; // 10 - header, main navigation
+$z-off-canvas: $layer-above + $z-navigation; // 15 - sidebars, slide-out menus
+$z-instant-interaction: $layer-above + $z-off-canvas; // 20 - dropdowns, popovers
+$z-modal: $layer-above + $z-instant-interaction; // 25 - modal dialogs
+$z-toast: $layer-above + $z-modal; // 30 - notifications, snackbars
+$z-critical: $layer-above + $z-toast; // 35 - critical overlays, loading screens
+
+/* 2.2 AUXILIARY LAYERS
+/––––––––––––––––––––––––------------ */
+/// Special-purpose z-index values for edge cases
+$z-negative: -1; // hidden elements
+$z-auto: auto; // browser default stacking
+
+/* ======================================================
+  3.0 LOCAL LAYERS
+====================================================== */
+/// Component-specific z-index values for internal stacking contexts
+/// Use these within isolated components to avoid conflicts with global layers
+$z-local-base: 1; // component base
+$z-local-dropdown: 2; // dropdown menus within component
+$z-local-sticky: 3; // sticky elements within component
+$z-local-overlay: 4; // overlays within component
+$z-local-tooltip: 5; // tooltips within component
+
+/* ======================================================
+  4.0 LAYER MAP
+====================================================== */
+/// Consolidated map of all layer values for programmatic access
+$layer: (
+	"global": (
+		"screen": $z-screen,
+		"elevated": $z-elevated,
+		"navigation": $z-navigation,
+		"off-canvas": $z-off-canvas,
+		"instant-interaction": $z-instant-interaction,
+		"modal": $z-modal,
+		"toast": $z-toast,
+		"critical": $z-critical,
+		"negative": $z-negative,
+		"auto": $z-auto,
+	),
+	"local": (
+		"base": $z-local-base,
+		"dropdown": $z-local-dropdown,
+		"sticky": $z-local-sticky,
+		"overlay": $z-local-overlay,
+		"tooltip": $z-local-tooltip,
+	),
+);

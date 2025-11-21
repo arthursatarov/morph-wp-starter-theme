@@ -13,6 +13,9 @@
 @use "sass:map";
 @use "sass:list";
 @use "sass:meta";
+
+// Import tokens
+@use "../tokens/animation" as animation;
 @use "../tokens/colors" as colors;
 @use "../tokens/sizes" as sizes;
 @use "../tokens/typography" as typo;
@@ -36,6 +39,11 @@
 /// @prop {Map} font-weight - Font weight scale
 /// @prop {Map} leading - Line height (leading) values
 $_token-maps: (
+	// Animation
+	"animation-duration": animation.$animation-duration,
+	"animation-easing": animation.$animation-easing,
+	"animation-delay": animation.$animation-delay,
+
 	// Colors
 	"color": colors.$theme-default,
 

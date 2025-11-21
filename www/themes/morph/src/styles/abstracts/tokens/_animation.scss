@@ -1,0 +1,120 @@
+////
+/// Animation Token Definitions
+///
+/// This file defines the animation system for the design system based on
+/// systematic motion design principles. The system includes duration scales,
+/// easing functions categorized by usage type (productive vs expressive),
+/// and choreography delays for multi-object animations.
+///
+/// Motion Principles:
+/// - Productive: Quick, functional movements for frequent interactions
+/// - Expressive: Delightful, personality-driven movements for key moments
+/// - Focus: Direct user attention to important elements
+/// - Inform: Provide context and spatial awareness
+///
+/// @group Tokens
+/// @since 0.0.1
+////
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 DURATION (Timing Scales)
+	2.0 EASING
+		2.1 Productive (Functional)
+		2.2 Expressive (Delightful)
+	3.0 CHOREOGRAPHY
+====================================================== */
+
+/* ======================================================
+  1.0 DURATION (Timing Scales)
+====================================================== */
+/// Duration scale for animations and transitions
+/// Following t-shirt sizing: faster movements for smaller objects/distances,
+/// slower movements for larger objects/complex choreography
+///
+/// Usage Guidelines:
+/// - 100/200: Small components (buttons, icons, tooltips) 100-200ms
+/// - 200/300: Standard transitions (cards, modals) 200-300ms
+/// - 500/700: Page transitions, complex choreography 500-700ms
+$animation-duration: (
+	"100": 100ms,
+	"200": 200ms,
+	"300": 300ms,
+	"500": 500ms,
+	"600": 600ms,
+	"700": 700ms,
+);
+
+/* ======================================================
+  2.0 EASING
+====================================================== */
+
+/// Timing functions organized by motion principle
+///
+/// Productive: Quick, functional movements for frequent interactions
+/// - Use for: closing states, utility animations, work-focused UI
+/// - Character: Linear, efficient, minimal deceleration
+///
+/// Expressive: Delightful, personality-driven movements
+/// - Use for: entrance states, brand moments, first-time interactions
+/// - Character: Springy, playful, noticeable deceleration
+$animation-easing: (
+	"prod-standard": cubic-bezier(0.2, 0, 0.38, 0.9),
+	"prod-enter": cubic-bezier(0, 0, 0.38, 0.9),
+	"prod-exit": cubic-bezier(0.2, 0, 1, 0.9),
+	"expr-standard": cubic-bezier(0.4, 0.14, 0.3, 1),
+	"expr-enter": cubic-bezier(0, 0, 0.3, 1),
+	"expr-exit": cubic-bezier(0.4, 0.14, 1, 1),
+	"expr-elastic": cubic-bezier(0.68, -0.55, 0.265, 1.55),
+);
+
+/* ======================================================
+  3.0 CHOREOGRAPHY
+====================================================== */
+/// Delay values for staggered animations and choreography
+/// Use for: sequencing multiple objects, creating rhythm
+///
+/// Choreography Guidelines:
+/// - 2-3 objects: Use 'sm' delays (50-100ms stagger)
+/// - 4-8 objects: Use 'md' delays with 'lg' total duration
+/// - Consider accessibility: offer reduced motion settings
+$animation-delay: (
+	"50": 50ms,
+	"100": 100ms,
+	"150": 150ms,
+	"200": 200ms,
+);
+
+/* ======================================================
+  USAGE CONTEXT
+====================================================== */
+/// Context-based animation recommendations:
+///
+/// BUTTONS & CONTROLS (Productive):
+/// - Duration: 100-150ms
+/// - Easing: productive/standard
+/// - Example: @include transition(background-color, xs, productive-standard);
+///
+/// MODALS & OVERLAYS (Mixed):
+/// - Entrance: md + expressive/enter (250ms, personality)
+/// - Exit: sm + productive/exit (150ms, quick dismiss)
+///
+/// CARDS & COMPONENTS (Expressive):
+/// - Duration: sm-md (150-250ms)
+/// - Easing: expressive/standard
+/// - Example: @include transition(transform, sm, expressive-standard);
+///
+/// PAGE TRANSITIONS (Expressive):
+/// - Duration: lg-xl (350-500ms)
+/// - Easing: expressive/enter
+/// - Choreography: Use delays for staggered content
+///
+/// FOCUS & ATTENTION (Fast):
+/// - Duration: xs (100ms)
+/// - Easing: productive/standard
+/// - Use for highlighting, pulsing, drawing attention
+///
+/// TOOLTIPS & POPOVERS (Productive):
+/// - Entrance: sm + expressive/enter (subtle presence)
+/// - Exit: xs + productive/exit (instant dismiss)

@@ -1,0 +1,27 @@
+@use "../functions/get-token" as *;
+
+/// Apply a transition to element
+/// @param {String} $property [all] - CSS property to transition
+/// @param {String} $duration [normal] - Duration key from animation-duration
+/// @param {String} $function [ease-in-out] - Easing key from animation-easing
+/// @param {String} $delay [null] - Delay key from animation-delay (optional)
+/// @example
+///   .button {
+///     @include transition(transform, fast, ease-out);
+///   }
+@mixin transition(
+	// stylelint-disable prettier/prettier
+	$property: all,
+	$duration: "normal",
+	$function: "ease-in-out",
+	$delay: null
+	// stylelint-enable prettier/prettier
+) {
+	transition-timing-function: get-token("animation-easing", $function);
+	transition-duration: get-token("animation-duration", $duration);
+	transition-property: $property;
+
+	@if $delay {
+		transition-delay: get-token("animation-delay", $delay);
+	}
+}

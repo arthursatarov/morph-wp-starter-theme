@@ -1,0 +1,14 @@
+@use "../abstracts/functions/get-token" as *;
+
+.grid {
+	--grid-row-gap: #{get-token("space", 16)};
+	--grid-col-gap: #{get-token("space", 16)};
+	--grid-gap: var(--grid-row-gap) var(--grid-col-gap);
+
+	display: grid;
+	grid-template-columns: repeat(
+		var(--grid-cols, 12),
+		minmax(var(--grid-item-min-width, 0), var(--grid-item-max-width, 1fr))
+	);
+	gap: var(--grid-gap, 1rem);
+}

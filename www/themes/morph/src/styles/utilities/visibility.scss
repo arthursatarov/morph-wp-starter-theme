@@ -1,0 +1,34 @@
+@use "sass:map";
+@use "../abstracts/mixins/breakpoint" as *;
+@use "../abstracts/tokens/sizes" as *;
+
+// Hides at the specified breakpoint and below
+@each $breakpoint, $width in $breakpoints {
+	@include breakpoint($max: #{$breakpoint}) {
+		.hidden-to\@#{$breakpoint} {
+			display: none;
+		}
+	}
+}
+
+// Hides at the specified breakpoint and beyond
+@each $breakpoint, $width in $breakpoints {
+	@include breakpoint(#{$breakpoint}) {
+		.hidden-from\@#{$breakpoint} {
+			display: none;
+		}
+	}
+}
+
+// Shown only in the specified range
+.hidden-mobile {
+	@include breakpoint($max: sm) {
+		display: none;
+	}
+}
+
+.hidden-desktop {
+	@include breakpoint(md) {
+		display: none;
+	}
+}

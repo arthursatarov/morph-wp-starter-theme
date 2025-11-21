@@ -1,0 +1,8 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/breakpoint" as *;
+
+.wrapper {
+	max-inline-size: 90rem;
+	padding-inline: get-token("spacing", 16);
+	margin-inline: auto;
+}

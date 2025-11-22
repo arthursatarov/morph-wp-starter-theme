@@ -17,6 +17,12 @@
  *
  * @return array|null Array with terms data or null if no terms found
  */
+
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function morph_get_taxonomy_terms( $post_id = null, $taxonomy = 'category', $args = array() ) {
 	// Default arguments
 	$defaults = array(

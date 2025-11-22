@@ -19,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 /*=======================================================
 Table of Contents
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -35,7 +34,6 @@ Table of Contents
 	4.0 ADMIN UI
 		4.1 Editor disabled notice
 =======================================================*/
-
 
 /*=======================================================
 	1.0 CONFIGURATION
@@ -126,7 +124,6 @@ function morph_get_excluded_page_ids(): array {
 
 	return $excluded_ids;
 }
-
 
 /*=======================================================
 	2.0 EDITOR STATE DETECTION
@@ -219,7 +216,6 @@ function morph_clear_editor_cache( int $post_id ): void {
 }
 add_action( 'save_post', 'morph_clear_editor_cache' );
 
-
 /*=======================================================
 	3.0 EDITOR DISABLING
 =======================================================*/
@@ -300,7 +296,6 @@ function morph_disable_classic_editor(): void {
 	}
 }
 add_action( 'admin_head', 'morph_disable_classic_editor' );
-
 
 /*=======================================================
 	4.0 ADMIN UI

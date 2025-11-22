@@ -11,6 +11,12 @@
  * @param string $position Output position: 'head' or 'body'
  * @return void
  */
+
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function morph_google_tag_manager( $position = 'head' ) {
 	// Don't output on local environment
 	if ( morph_is_localhost() ) {

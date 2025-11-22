@@ -8,6 +8,12 @@
  * @param string|array $class Additional classes as string or array. Default empty.
  * @return array Array of unique class names.
  */
+
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function morph_get_header_class( $class = '' ) {
 	// Base classes
 	$classes = [ 'header' ];

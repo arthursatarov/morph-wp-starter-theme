@@ -19,6 +19,12 @@
  *
  * @return void
  */
+
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function morph_print_sprite_icon( array $args ) {
 	$args = wp_parse_args( $args, [
 		'icon'        => null,

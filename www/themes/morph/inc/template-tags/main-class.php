@@ -8,6 +8,12 @@
  * @param string|array $class Additional classes as string or array. Default empty.
  * @return void
  */
+
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function morph_main_class( $class = '' ) {
 	// Get classes
 	$classes = morph_get_main_class( $class );

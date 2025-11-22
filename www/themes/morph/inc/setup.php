@@ -6,6 +6,10 @@
  * @since 0.0.1
  */
 
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /*=======================================================
 Table of Contents
@@ -19,7 +23,6 @@ Table of Contents
 		2.2 Preload local hosted fonts
 		2.3 Enqueue Google fonts
 =======================================================*/
-
 
 /*=======================================================
 	1.0 THEME SETTINGS
@@ -110,7 +113,6 @@ function morph_wphead_cleanup() {
 	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 }
 add_action( 'after_setup_theme', 'morph_wphead_cleanup' );
-
 
 /*=======================================================
 	2.0 THEME ASSETS

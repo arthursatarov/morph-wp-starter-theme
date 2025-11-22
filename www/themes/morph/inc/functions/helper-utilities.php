@@ -8,6 +8,11 @@
  * @since       0.0.1
  */
 
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*=======================================================
 Table of Contents
 –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -71,7 +76,6 @@ function morph_pp( $var ) {
 	print_r( $var );
 	echo '</pre>';
 }
-
 
 /*=======================================================
   2.0 ENVIRONMENT DETECTION

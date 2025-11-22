@@ -8,6 +8,12 @@
  * @param array $classes Array of main tag class names.
  * @return array Modified array of class names.
  */
+
+// Prevent direct file access
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function morph_custom_main_classes( $classes ) {
 	// Optionally, you can add classes dynamically:
 	// if ( is_front_page() ) {

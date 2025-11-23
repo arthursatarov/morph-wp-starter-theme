@@ -7,71 +7,111 @@
 
 // Import components
 import TooltipManager from './components/tooltip.js';
-
-// Import vendor initializations (если есть)
-// import './vendors/swiper-init.js';
+import AccordionManager from './components/accordion.js';
 
 /**
  * Initialize Application
  */
 class App {
-  constructor() {
-    this.tooltipManager = null;
-    this.init();
-  }
+	constructor() {
+		this.tooltipManager = null;
+		this.accordionManager = null;
+		this.init();
+	}
 
-  /**
-   * Initialize all components
-   */
-  init() {
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.onReady());
-    } else {
-      this.onReady();
-    }
-  }
+	/**
+	 * Initialize all components
+	 */
+	init() {
+		// Wait for DOM to be ready
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', () => this.onReady());
+		} else {
+			this.onReady();
+		}
+	}
 
-  /**
-   * DOM Ready handler
-   */
-  onReady() {
-    console.log('🚀 Morph theme initialized');
+	/**
+	 * DOM Ready handler
+	 */
+	onReady() {
+		console.log('🚀 Morph theme initialized');
 
-    // Initialize Tooltip Manager
-    this.initTooltips();
+		// Initialize components
+		this.initTooltips();
+		this.initAccordions();
+	}
 
-    // Initialize other components
-    // this.initModals();
-    // this.initAccordions();
-  }
+	/**
+	 * Initialize Tooltips
+	 */
+	initTooltips() {
+		this.tooltipManager = new TooltipManager({
+			selector: '[data-tooltip]',
+			placement: 'bottom',
+			offset: [0, 4],
+		});
+		this.tooltipManager.init();
 
-  /**
-   * Initialize Tooltips
-   */
-  initTooltips() {
-    this.tooltipManager = new TooltipManager({
-      selector: '[data-tooltip]',
-      placement: 'bottom',
-      offset: [0, 4]
-    });
+		// Expose globally for debugging
+		if (process.env.NODE_ENV !== 'production') {
+			window.tooltipManager = this.tooltipManager;
+		}
+	}
 
-    this.tooltipManager.init();
+	/**
+	 * Initialize Accordions
+	 */
+	initAccordions() {
+		this.accordionManager = new AccordionManager({
+			selector: '[data-accordion]',
+			itemSelector: '.accordion__item',
+			triggerSelector: '.accordion__item-trigger',
+			contentSelector: '.accordion__item-content',
+			keyboardNav: true,
+		});
+		this.accordionManager.init();
 
-    // Expose globally for debugging
-    if (process.env.NODE_ENV !== 'production') {
-      window.tooltipManager = this.tooltipManager;
-    }
-  }
+		// Listen to accordion events
+		document.addEventListener('accordion:open', (e) => {
+			console.log('📂 Accordion opened:', e.detail.content.id);
+		});
 
-  /**
-   * Refresh tooltips after dynamic content load
-   */
-  refreshTooltips() {
-    if (this.tooltipManager) {
-      this.tooltipManager.refresh();
-    }
-  }
+		document.addEventListener('accordion:close', (e) => {
+			console.log('📁 Accordion closed:', e.detail.content.id);
+		});
+
+		// Expose globally for debugging
+		if (process.env.NODE_ENV !== 'production') {
+			window.accordionManager = this.accordionManager;
+		}
+	}
+
+	/**
+	 * Refresh tooltips after dynamic content load
+	 */
+	refreshTooltips() {
+		if (this.tooltipManager) {
+			this.tooltipManager.refresh();
+		}
+	}
+
+	/**
+	 * Refresh accordions after dynamic content load
+	 */
+	refreshAccordions() {
+		if (this.accordionManager) {
+			this.accordionManager.refresh();
+		}
+	}
+
+	/**
+	 * Refresh all components
+	 */
+	refreshAll() {
+		this.refreshTooltips();
+		this.refreshAccordions();
+	}
 }
 
 // Initialize App

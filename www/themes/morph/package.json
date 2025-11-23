@@ -40,5 +40,8 @@
 		"stylelint-config-standard-scss": "^16.0.0",
 		"stylelint-order": "^7.0.0",
 		"stylelint-prettier": "^5.0.3"
+	},
+	"dependencies": {
+		"@popperjs/core": "^2.11.8"
 	}
 }

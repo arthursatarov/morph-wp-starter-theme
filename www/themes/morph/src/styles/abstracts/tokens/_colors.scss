@@ -11,6 +11,7 @@
 ////
 
 @use "sass:map";
+@use "sass:color";
 @use "../functions/get-base-color" as *;
 
 /* ======================================================
@@ -129,5 +130,17 @@ $theme-default: (
 		"danger-muted": get-base-color($base-colors-default, "danger", 0),
 		"black": get-base-color($base-colors-default, "neutral", "black"),
 		"white": get-base-color($base-colors-default, "neutral", "white"),
+	),
+	"button": (
+		"bgColor": get-base-color($base-colors-default, "neutral", 1),
+		"bgColor-hover": get-base-color($base-colors-default, "neutral", 2),
+		"bgColor-active": get-base-color($base-colors-default, "neutral", 3),
+		"bgColor-disabled": get-base-color($base-colors-default, "neutral", 3),
+		"borderColor": get-base-color($base-colors-default, "neutral", 6),
+		"borderColor-hover": get-base-color($base-colors-default, "neutral", 6),
+		"borderColor-active": get-base-color($base-colors-default, "neutral", 6),
+		"borderColor-disabled": get-base-color($base-colors-default, "neutral", 3),
+		"fgColor": get-base-color($base-colors-default, "neutral", 12),
+		"fgColor-disabled": get-base-color($base-colors-default, "neutral", 9),
 	),
 );

@@ -1,4 +1,5 @@
 @use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
 @use "../abstracts/mixins/transition" as *;
 
 /* ======================================================
@@ -16,7 +17,7 @@
 	overflow: hidden;
 
 	& + & {
-		margin-block-start: get-token("space", 16);
+		margin-block-start: get-token("space", 12);
 	}
 }
 
@@ -27,12 +28,17 @@
 	gap: get-token("space", 16);
 	justify-content: space-between;
 	inline-size: 100%;
+	padding-block: get-token("space", 4);
 	font-size: get-token("font-size", "md");
 	font-weight: get-token("font-weight", "bold");
 	line-height: get-token("leading", "tight");
 	cursor: pointer;
 	background-color: transparent;
 	border: 0;
+
+	&:focus-visible {
+		@include focus-visible;
+	}
 }
 
 .accordion__item-icon {

@@ -143,4 +143,7 @@ $theme-default: (
 		"fgColor": get-base-color($base-colors-default, "neutral", 12),
 		"fgColor-disabled": get-base-color($base-colors-default, "neutral", 9),
 	),
+	"focus": (
+		"outlineColor": get-base-color($base-colors-default, "accent", 5),
+	),
 );

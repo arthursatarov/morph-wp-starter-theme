@@ -145,6 +145,14 @@ $border-radius: (
 	"full": 624.9375rem,
 );
 
+/* 3.3 OUTLINE
+/––––––––––––––––––––––––------------ */
+/// Outline offset and width
+$outline: (
+	"focus-offset": calc(get-base-size($base-sizes, 2) * -1),
+	"focus-width": get-base-size($base-sizes, 2),
+);
+
 /* ======================================================
   4.0 RESPONSIVE
 ====================================================== */

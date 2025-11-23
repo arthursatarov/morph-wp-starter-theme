@@ -1,0 +1,26 @@
+////
+/// Focus Visible Mixin
+///
+/// This mixin provides consistent, accessible focus styling for interactive
+/// elements throughout the design system. It applies standardized outline
+/// and offset values using design tokens to ensure WCAG-compliant focus
+/// indicators across all components.
+///
+/// @group Mixins
+/// @since 0.0.1
+////
+
+@use "../functions/get-token" as *;
+
+/// Apply a focus styles to element
+/// @example
+///   .button {
+/// 		&:focus-visible {
+/// 			@include focus-visible;
+/// 		}
+///   }
+@mixin focus-visible() {
+	outline: get-token("focus", "focus-width") solid get-token("color", "focus", "outlineColor");
+	outline-offset: get-token("focus", "focus-offset");
+	box-shadow: none;
+}

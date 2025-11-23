@@ -38,12 +38,12 @@ Table of Contents
 /// - 200/300: Standard transitions (cards, modals) 200-300ms
 /// - 500/700: Page transitions, complex choreography 500-700ms
 $animation-duration: (
-	"100": 100ms,
-	"200": 200ms,
-	"300": 300ms,
-	"500": 500ms,
-	"600": 600ms,
-	"700": 700ms,
+	100: 100ms,
+	200: 200ms,
+	300: 300ms,
+	500: 500ms,
+	600: 600ms,
+	700: 700ms,
 );
 
 /* ======================================================
@@ -80,10 +80,10 @@ $animation-easing: (
 /// - 4-8 objects: Use 'md' delays with 'lg' total duration
 /// - Consider accessibility: offer reduced motion settings
 $animation-delay: (
-	"50": 50ms,
-	"100": 100ms,
-	"150": 150ms,
-	"200": 200ms,
+	50: 50ms,
+	100: 100ms,
+	150: 150ms,
+	200: 200ms,
 );
 
 /* ======================================================

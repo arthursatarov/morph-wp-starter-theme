@@ -22,9 +22,13 @@ Table of Contents
 /* ======================================================
   1.0 FONT FAMILIES
 ====================================================== */
+$font-base: "Inter", sans-serif;
+$font-heading: "Inter", sans-serif;
+
+// Map
 $font-family: (
-	"base": "Inter, system-ui",
-	"heading": "Inter, system-ui",
+	"base": $font-base,
+	"heading": $font-heading,
 );
 
 /* ======================================================

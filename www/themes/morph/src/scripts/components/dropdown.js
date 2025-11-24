@@ -15,7 +15,7 @@ class DropdownManager {
     this.options = {
       triggerSelector: '[data-dropdown-target]',
       placement: 'bottom-start',
-      offset: [0, 4],
+      offset: [0, 8],
       ...options
     };
 

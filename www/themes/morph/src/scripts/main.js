@@ -47,7 +47,7 @@ class App {
 	 */
 	initTooltips() {
 		this.tooltipManager = new TooltipManager({
-			selector: '[data-tooltip]',
+			selector: '[data-tooltip-target]',
 			placement: 'bottom',
 			offset: [0, 4],
 		});

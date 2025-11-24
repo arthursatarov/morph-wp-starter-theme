@@ -18,7 +18,7 @@ class TooltipManager {
    */
   constructor(options = {}) {
     this.options = {
-      triggerSelector: '[data-tooltip-trigger]',
+      triggerSelector: '[data-tooltip-target]',
       placement: 'top',
       offset: [0, 8],
       ...options
@@ -48,9 +48,9 @@ class TooltipManager {
     }
 
     // Получить ID tooltip элемента
-    const tooltipId = trigger.getAttribute('data-tooltip-trigger');
+    const tooltipId = trigger.getAttribute('data-tooltip-target');
     if (!tooltipId) {
-      console.warn('Tooltip trigger missing data-tooltip-trigger attribute:', trigger);
+      console.warn('Tooltip trigger missing data-tooltip-target attribute:', trigger);
       return;
     }
 

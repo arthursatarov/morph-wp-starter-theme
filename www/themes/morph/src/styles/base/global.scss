@@ -41,6 +41,10 @@ h5 { font-size: get-token("font-size", "md"); }
 h6 { font-size: get-token("font-size", "sm"); }
 /* stylelint-enable prettier/prettier */
 
+p {
+	max-inline-size: get-token("max-width", "prose");
+}
+
 a {
 	color: get-token("color", "foreground", "link", "rest");
 	text-decoration: underline;

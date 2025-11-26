@@ -11,11 +11,12 @@
 ////
 
 @use "sass:map";
-@use "mixins/generate-color-variables" as mixin;
-@use "tokens/colors" as colors;
+@use "mixins/generate-css-variables" as *;
+@use "tokens/theme-default" as *;
 
 // Generate CSS custom properties for the default theme
 // Output format: --clr-{category}-{variant}: {value}
 [data-theme="default"] {
-	@include mixin.generate-color-variables(colors.$theme-default);
+	@include generate-css-variables($theme-default-colors, "clr");
+	@include generate-css-variables($theme-default-shadows, "shadow");
 }

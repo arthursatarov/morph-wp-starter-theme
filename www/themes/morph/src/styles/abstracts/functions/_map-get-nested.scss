@@ -1,0 +1,125 @@
+////
+/// Nested Map Value Retrieval Function
+///
+/// This function provides safe access to values from deeply nested maps
+/// with comprehensive error handling and validation at each level of nesting.
+/// It can be used for any type of nested map structure, not just colors.
+///
+/// @group Functions
+/// @since 0.0.1
+////
+
+@use "sass:map";
+@use "sass:meta";
+
+/// Retrieves a value from a nested map using a variadic key path.
+///
+/// This function safely extracts values from nested maps of arbitrary depth
+/// by validating the existence of each key in the path before proceeding.
+/// It provides detailed error messages showing available keys at each level
+/// if a key is not found.
+///
+/// The function navigates through the map structure following the provided
+/// key path and returns the final value once a non-map value is reached.
+///
+/// @group Functions
+/// @since 0.0.2
+///
+/// @param {Map} $map - The base map to search in
+/// @param {String|Number...} $keys - Variadic list of keys forming the path to the desired value
+///
+/// @return {*} The value at the specified path
+///
+/// @throw Error if any key in the path doesn't exist
+/// @throw Error if the path is incomplete (stops at a nested map)
+///
+/// @example scss - Two-level access (replacing get-base-color)
+///   $colors: (
+///     "neutral": (
+///       0: #ffffff,
+///       1: #f6f8fa,
+///       "white": #ffffff,
+///     ),
+///   );
+///
+///   $color: map-get-nested($colors, "neutral", 0);
+///   // Returns: #ffffff
+///
+/// @example scss - Three-level access
+///   $theme: (
+///     "background": (
+///       "neutral": (
+///         1: #ffffff,
+///       ),
+///     ),
+///   );
+///
+///   $value: map-get-nested($theme, "background", "neutral", 1);
+///   // Returns: #ffffff
+///
+/// @example scss - Four-level access
+///   $tokens: (
+///     "component": (
+///       "button": (
+///         "primary": (
+///           "rest": #0969da,
+///         ),
+///       ),
+///     ),
+///   );
+///
+///   $color: map-get-nested($tokens, "component", "button", "primary", "rest");
+///   // Returns: #0969da
+///
+/// @example scss - Using with shadows
+///   $shadows: (
+///     "elevation": (
+///       1: "0 0 2px rgba(0,0,0,0.12)",
+///       2: "0 0 4px rgba(0,0,0,0.14)",
+///     ),
+///   );
+///
+///   $shadow: map-get-nested($shadows, "elevation", 2);
+///   // Returns: "0 0 4px rgba(0,0,0,0.14)"
+///
+/// @example scss - Using with spacing
+///   $sizes: (
+///     "space": (
+///       1: 0.25rem,
+///       2: 0.5rem,
+///     ),
+///   );
+///
+///   $spacing: map-get-nested($sizes, "space", 2);
+///   // Returns: 0.5rem
+@function map-get-nested($map, $keys...) {
+	$current-map: $map;
+	$path: "";
+
+	// Iterate through each key in the path
+	@each $key in $keys {
+		// Build readable path for error messages
+		$path: if($path == "", "#{$key}", $path + " → #{$key}");
+
+		// Validate that current value is a map before trying to access it
+		@if meta.type-of($current-map) != "map" {
+			@error "Cannot access key '#{$key}' - value at '#{$path}' is not a map. Current value type: #{meta.type-of($current-map)}";
+		}
+
+		// Validate that the key exists in the current map
+		@if not map.has-key($current-map, $key) {
+			@error "Key '#{$key}' not found in path '#{$path}'. Available keys: #{map.keys($current-map)}";
+		}
+
+		// Get the value for the current key
+		$current-map: map.get($current-map, $key);
+	}
+
+	// Check if we stopped at a nested map (incomplete path)
+	@if meta.type-of($current-map) == "map" {
+		@error "Incomplete path '#{$path}' - reached a nested map. Available keys: #{map.keys($current-map)}";
+	}
+
+	// Return the final value
+	@return $current-map;
+}

@@ -8,8 +8,8 @@ body {
 	font-family: get-token("font-family", "base");
 	font-weight: get-token("font-weight", "normal");
 	line-height: get-token("leading", "normal");
-	color: get-token("color", "text", "default");
-	background-color: get-token("color", "bg", "default");
+	color: get-token("color", "foreground", "neutral", 1);
+	background-color: get-token("color", "background", "neutral", 1, "rest");
 
 	& > :where(header, main, footer) {
 		flex: 0 0 auto;
@@ -29,7 +29,7 @@ h6 {
 	font-family: get-token("font-family", "heading");
 	font-weight: get-token("font-weight", "bold");
 	line-height: get-token("leading", "tight");
-	color: get-token("color", "text", "default");
+	color: get-token("color", "foreground", "neutral", 1);
 }
 
 /* stylelint-disable prettier/prettier */
@@ -42,7 +42,7 @@ h6 { font-size: get-token("font-size", "sm"); }
 /* stylelint-enable prettier/prettier */
 
 a {
-	color: get-token("color", "text", "link");
+	color: get-token("color", "foreground", "link", "rest");
 	text-decoration: underline;
 
 	&:hover {

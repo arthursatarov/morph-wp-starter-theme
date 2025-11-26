@@ -20,7 +20,9 @@
 /// 		}
 ///   }
 @mixin focus-visible() {
-	outline: get-token("focus", "focus-width") solid get-token("color", "focus", "outlineColor");
+	outline-width: get-token("focus", "focus-width");
+	outline-style: solid;
+	outline-color: get-token("color", "border", "accent", 1);
 	outline-offset: get-token("focus", "focus-offset");
 	box-shadow: none;
 }

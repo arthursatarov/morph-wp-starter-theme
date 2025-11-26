@@ -1,0 +1,217 @@
+////
+/// Color Token Definitions
+///
+/// This file defines the complete color system for the design system,
+/// including base color palettes and semantic theme mappings. Base colors
+/// provide the raw color scales, while theme maps assign semantic meaning
+/// to those colors for specific use cases.
+///
+/// @group Tokens
+/// @since 0.0.1
+////
+
+@use "sass:map";
+@use "sass:color";
+@use "../functions/map-get-nested" as *;
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 BASE COLORS
+	2.0 SEMANTIC COLORS
+	3.0 SHADOWS
+====================================================== */
+
+/* ======================================================
+  1.0 BASE COLORS
+====================================================== */
+$theme-default-base-colors: (
+	"neutral": (
+		"white": #ffffff,
+		"black": #1f2328,
+		0: #ffffff,
+		1: #f6f8fa,
+		2: #eff2f5,
+		3: #e6eaef,
+		4: #e0e6eb,
+		5: #dae0e7,
+		6: #d1d9e0,
+		7: #c8d1da,
+		8: #818b98,
+		9: #59636e,
+		10: #454c54,
+		11: #393f46,
+		12: #25292e,
+		13: #1f2328,
+	),
+	"accent": (
+		0: #ddf4ff,
+		1: #b6e3ff,
+		2: #80ccff,
+		3: #54aeff,
+		4: #218bff,
+		5: #0969da,
+		6: #0550ae,
+		7: #033d8b,
+		8: #0a3069,
+		9: #002155,
+	),
+	"success": (
+		0: #dafbe1,
+		1: #aceebb,
+		2: #6fdd8b,
+		3: #4ac26b,
+		4: #2da44e,
+		5: #1a7f37,
+		6: #116329,
+		7: #044f1e,
+		8: #003d16,
+		9: #002d11,
+	),
+	"attention": (
+		0: #fff8c5,
+		1: #fae17d,
+		2: #eac54f,
+		3: #d4a72c,
+		4: #bf8700,
+		5: #9a6700,
+		6: #7d4e00,
+		7: #633c01,
+		8: #4d2d00,
+		9: #3b2300,
+	),
+	"danger": (
+		0: #ffebe9,
+		1: #ffcecb,
+		2: #ffaba8,
+		3: #ff8182,
+		4: #fa4549,
+		5: #cf222e,
+		6: #a40e26,
+		7: #82071e,
+		8: #660018,
+		9: #4c0014,
+	),
+);
+
+/* ======================================================
+  2.0 SEMANTIC COLORS
+====================================================== */
+$theme-default-colors: (
+	"background": (
+		"neutral": (
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 0),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 2),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 1),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 4),
+			),
+			3: (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 3),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 5),
+			),
+		),
+		"disabled": map-get-nested($theme-default-base-colors, "neutral", 2),
+		"inverted": map-get-nested($theme-default-base-colors, "neutral", 13),
+		"accent": (
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "accent", 5),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 6),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "accent", 1),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 2),
+			),
+		),
+		"success": (
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "success", 5),
+				"hover": map-get-nested($theme-default-base-colors, "success", 6),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "success", 1),
+				"hover": map-get-nested($theme-default-base-colors, "success", 2),
+			),
+		),
+		"attention": (
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "attention", 5),
+				"hover": map-get-nested($theme-default-base-colors, "attention", 6),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "attention", 1),
+				"hover": map-get-nested($theme-default-base-colors, "attention", 2),
+			),
+		),
+		"danger": (
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "danger", 5),
+				"hover": map-get-nested($theme-default-base-colors, "danger", 6),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "danger", 1),
+				"hover": map-get-nested($theme-default-base-colors, "danger", 2),
+			),
+		),
+	),
+	"foreground": (
+		"neutral": (
+			1: map-get-nested($theme-default-base-colors, "neutral", 13),
+			2: map-get-nested($theme-default-base-colors, "neutral", 10),
+			3: map-get-nested($theme-default-base-colors, "neutral", 8),
+		),
+		"disabled": map-get-nested($theme-default-base-colors, "neutral", 7),
+		"on-emphasis": map-get-nested($theme-default-base-colors, "neutral", 0),
+		"inverted": map-get-nested($theme-default-base-colors, "neutral", 0),
+		"link": (
+			"rest": map-get-nested($theme-default-base-colors, "accent", 5),
+			"hover": map-get-nested($theme-default-base-colors, "neutral", 6),
+			"visited": map-get-nested($theme-default-base-colors, "neutral", 4),
+		),
+		"accent": map-get-nested($theme-default-base-colors, "accent", 5),
+		"success": map-get-nested($theme-default-base-colors, "success", 5),
+		"attention": map-get-nested($theme-default-base-colors, "attention", 5),
+		"danger": map-get-nested($theme-default-base-colors, "danger", 5),
+	),
+	"border": (
+		"neutral": (
+			1: map-get-nested($theme-default-base-colors, "neutral", 8),
+			2: map-get-nested($theme-default-base-colors, "neutral", 6),
+		),
+		"on-emphasis": (
+			1: map-get-nested($theme-default-base-colors, "neutral", 0),
+			2: map-get-nested($theme-default-base-colors, "neutral", 0),
+		),
+		"disabled": map-get-nested($theme-default-base-colors, "neutral", 7),
+		"accent": (
+			1: map-get-nested($theme-default-base-colors, "accent", 5),
+			2: map-get-nested($theme-default-base-colors, "accent", 3),
+		),
+		"success": (
+			1: map-get-nested($theme-default-base-colors, "success", 5),
+			2: map-get-nested($theme-default-base-colors, "success", 3),
+		),
+		"attention": (
+			1: map-get-nested($theme-default-base-colors, "attention", 5),
+			2: map-get-nested($theme-default-base-colors, "attention", 3),
+		),
+		"danger": (
+			1: map-get-nested($theme-default-base-colors, "danger", 5),
+			2: map-get-nested($theme-default-base-colors, "danger", 3),
+		),
+	),
+);
+
+/* ======================================================
+  3.0 SHADOWS
+====================================================== */
+$shadow-color: map.get($theme-default-base-colors, "neutral", "black");
+$theme-default-shadows: (
+	"xs": "0 0 2px #{rgb($shadow-color, 0.12)}, 0 1px 2px #{rgb($shadow-color, 0.14)}",
+	"sm": "0 0 2px #{rgb($shadow-color, 0.12)}, 0 2px 4px #{rgb($shadow-color, 0.14)}",
+	"md": "0 0 2px #{rgb($shadow-color, 0.12)}, 0 4px 8px #{rgb($shadow-color, 0.14)}",
+	"lg": "0 0 2px #{rgb($shadow-color, 0.12)}, 0 8px 16px #{rgb($shadow-color, 0.14)}",
+	"xl": "0 0 8px #{rgb($shadow-color, 0.12)}, 0 14px 28px #{rgb($shadow-color, 0.14)}",
+);

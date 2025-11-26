@@ -76,6 +76,18 @@ class DropdownManager {
           name: 'flip',
           enabled: false  // ← Отключить flip
         },
+        {
+          name: 'sameWidth',
+          enabled: true,
+          phase: 'beforeWrite',
+          requires: ['computeStyles'],
+          fn: ({ state }) => {
+            state.styles.popper.minWidth = `${state.rects.reference.width}px`;
+          },
+          effect: ({ state }) => {
+            state.elements.popper.style.minWidth = `${state.elements.reference.offsetWidth}px`;
+          }
+        },
       ]
     });
 
@@ -162,4 +174,3 @@ class DropdownManager {
 }
 
 export default DropdownManager;
-

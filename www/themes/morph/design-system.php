@@ -160,6 +160,116 @@ get_header();
 
 <div class="wrapper region">
 	<div class="stack" style="--stack-space: 2rem;">
+		<h3>Tabs</h3>
+		<div class="tabs" style="max-inline-size: 40rem;" data-tabs>
+			<div class="tabs__list" role="tablist" aria-label="Примеры табов">
+				<button
+					class="tabs__trigger"
+					role="tab"
+					aria-selected="true"
+					aria-controls="tabs-panel-1"
+					id="tabs-tab-1"
+					data-tabs-trigger
+				>
+					<?php morph_print_sprite_icon( [
+						'icon' => 'globe',
+						'class' => 'tabs__trigger-icon'
+					] ); ?>
+					<span class="tabs__trigger-label">Profile</span>
+				</button>
+				<button
+					class="tabs__trigger"
+					role="tab"
+					aria-selected="false"
+					aria-controls="tabs-panel-2"
+					id="tabs-tab-2"
+					data-tabs-trigger
+				>
+					<?php morph_print_sprite_icon( [
+						'icon' => 'globe',
+						'class' => 'tabs__trigger-icon'
+					] ); ?>
+					<span class="tabs__trigger-label">Dashboard</span>
+				</button>
+				<button
+					class="tabs__trigger"
+					role="tab"
+					aria-selected="false"
+					aria-controls="tabs-panel-3"
+					id="tabs-tab-3"
+					data-tabs-trigger
+				>
+					<?php morph_print_sprite_icon( [
+						'icon' => 'globe',
+						'class' => 'tabs__trigger-icon'
+					] ); ?>
+					<span class="tabs__trigger-label">Settings</span>
+				</button>
+				<button
+					class="tabs__trigger"
+					role="tab"
+					aria-selected="false"
+					aria-controls="tabs-panel-3"
+					id="tabs-tab-4"
+					data-tabs-trigger
+					disabled
+				>
+					<?php morph_print_sprite_icon( [
+						'icon' => 'globe',
+						'class' => 'tabs__trigger-icon'
+					] ); ?>
+					<span class="tabs__trigger-label">Overview</span>
+				</button>
+			</div>
+			<div class="tabs__panels">
+				<div
+					class="tabs__panel"
+					role="tabpanel"
+					id="tabs-panel-1"
+					aria-labelledby="tabs-tab-1"
+					data-tabs-panel
+				>
+					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam saepe esse veniam in omnis, laudantium voluptatem vero. Assumenda, qui cumque quisquam totam debitis itaque at, quam sit quia animi sint?</p>
+				</div>
+
+				<div
+					class="tabs__panel"
+					role="tabpanel"
+					id="tabs-panel-2"
+					aria-labelledby="tabs-tab-2"
+					hidden
+					data-tabs-panel
+				>
+					<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio magnam necessitatibus ducimus, voluptates neque ullam nemo. Rerum accusamus consectetur recusandae in necessitatibus! Ratione, ducimus sit?</p>
+				</div>
+
+				<div
+					class="tabs__panel"
+					role="tabpanel"
+					id="tabs-panel-3"
+					aria-labelledby="tabs-tab-3"
+					hidden
+					data-tabs-panel
+				>
+					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum dolores quisquam velit sint perferendis exercitationem, neque alias itaque consequuntur non?</p>
+				</div>
+				<div
+					class="tabs__panel"
+					role="tabpanel"
+					id="tabs-panel-4"
+					aria-labelledby="tabs-tab-4"
+					hidden
+					data-tabs-panel
+				>
+					<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum dolores quisquam velit sint perferendis exercitationem, neque alias itaque consequuntur non?</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper region">
+	<div class="stack" style="--stack-space: 2rem;">
 		<h3>Tables</h3>
 		<table class="table">
 			<thead>

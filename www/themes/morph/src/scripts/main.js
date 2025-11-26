@@ -7,12 +7,14 @@
 
 import AccordionManager from './components/accordion.js';
 import DropdownManager from './components/dropdown.js';
+import TabsManager from './components/tabs.js';
 import TooltipManager from './components/tooltip.js';
 
 class App {
   constructor() {
     this.accordionManager = null;
     this.dropdownManager = null;
+		this.tabsManager = null;
     this.tooltipManager = null;
     this.init();
   }
@@ -30,6 +32,7 @@ class App {
 
     this.initAccordions();
     this.initDropdowns();
+    this.initTabs();
     this.initTooltips();
   }
 
@@ -42,6 +45,11 @@ class App {
     this.dropdownManager = new DropdownManager();
     this.dropdownManager.init();
   }
+
+	initTabs() {
+		this.tabsManager = new TabsManager();
+		this.tabsManager.init();
+	}
 
   initTooltips() {
     this.tooltipManager = new TooltipManager();

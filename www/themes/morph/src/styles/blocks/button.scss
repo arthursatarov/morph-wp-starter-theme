@@ -58,9 +58,9 @@ Table of Contents
 		--btn-bg-color: #{get-token("color", "background", "neutral", 2, "hover")};
 	}
 
-	// &:focus-visible:not(:disabled) {
-	// 	@include focus-visible;
-	// }
+	&:focus-visible:not(:disabled) {
+		@include focus-visible;
+	}
 
 	// Adjust horizontal padding based on icon position
 	&:has(.btn__icon + .btn__label) {

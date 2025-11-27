@@ -6,6 +6,7 @@
  */
 
 import AccordionManager from './components/accordion.js';
+import DrawerManager from './components/drawer.js';
 import DropdownManager from './components/dropdown.js';
 import ModalManager from './components/modal.js';
 import TabsManager from './components/tabs.js';
@@ -14,6 +15,7 @@ import TooltipManager from './components/tooltip.js';
 class App {
   constructor() {
     this.accordionManager = null;
+		this.drawerManager = null;
     this.dropdownManager = null;
     this.modalManager = null;
 		this.tabsManager = null;
@@ -33,6 +35,7 @@ class App {
     console.log('🚀 Morph theme initialized');
 
     this.initAccordions();
+		this.initDrawers();
     this.initDropdowns();
 		this.initModals();
     this.initTabs();
@@ -42,6 +45,11 @@ class App {
 	initAccordions() {
 		this.accordionManager = new AccordionManager();
 		this.accordionManager.init();
+	}
+
+	initDrawers() {
+		this.drawerManager = new DrawerManager();
+		this.drawerManager.init();
 	}
 
 	initDropdowns() {

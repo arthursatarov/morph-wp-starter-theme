@@ -328,13 +328,23 @@ get_header();
 
 <div class="wrapper region">
 	<div class="stack" style="--stack-space: 2rem;">
-		<h3>Modal</h3>
-		<button
-			class="btn"
-			data-modal-target="modal-1"
-			aria-haspopup="dialog">
-			<span class="btn__label">Open Modal</span>
-		</button>
+		<h3>Modal / Drawer</h3>
+		<div class="cluster">
+			<button
+				class="btn"
+				data-modal-target="modal-1"
+				aria-haspopup="dialog">
+				<span class="btn__label">Open Modal</span>
+			</button>
+			<button
+				class="btn"
+				data-drawer-target="drawer-1"
+				aria-label="Open Drawer"
+				aria-expanded="false"
+				aria-controls="drawer-1">
+				<span class="btn__label">Open Drawer</span>
+			</button>
+		</div>
 	</div>
 	<div
 		id="modal-1"
@@ -354,6 +364,24 @@ get_header();
 			<div class="stack">
 				<h4>Modal Heading</h4>
 				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum a maiores modi vitae fugit, facere perspiciatis dicta voluptatibus, veniam, repudiandae vero suscipit in. Laudantium maxime hic sapiente est dolor?</p>
+			</div>
+		</div>
+	</div>
+	<div id="drawer-1" class="drawer">
+		<div class="drawer__backdrop"></div>
+		<div class="drawer__wrapper">
+			<button
+				class="modal__close btn btn--icon"
+				data-drawer-hide="drawer-1"
+				aria-label="Close Drawer">
+				<?php morph_print_sprite_icon( [
+					'icon' => 'dismiss',
+					'class' => 'btn__icon'
+				] ); ?>
+			</button>
+			<div class="stack">
+				<h4>Drawer</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis dolor, eius officiis dolorum, numquam sit in iure cum at aliquid nulla deserunt? Aut minus molestias ipsam cum ab laborum dolores.</p>
 			</div>
 		</div>
 	</div>

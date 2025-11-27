@@ -326,6 +326,39 @@ get_header();
 	</div>
 </div>
 
+<div class="wrapper region">
+	<div class="stack" style="--stack-space: 2rem;">
+		<h3>Modal</h3>
+		<button
+			class="btn"
+			data-modal-target="modal-1"
+			aria-haspopup="dialog">
+			<span class="btn__label">Open Modal</span>
+		</button>
+	</div>
+	<div
+		id="modal-1"
+		class="modal"
+		data-modal-state="hidden"
+		data-modal-backdrop="static">
+		<div class="modal__backdrop"></div>
+		<div class="modal__wrapper">
+			<button
+				class="modal__close btn btn--icon"
+				data-modal-hide="modal-1">
+				<?php morph_print_sprite_icon( [
+					'icon' => 'dismiss',
+					'class' => 'btn__icon'
+				] ); ?>
+			</button>
+			<div class="stack">
+				<h4>Modal Heading</h4>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque laborum a maiores modi vitae fugit, facere perspiciatis dicta voluptatibus, veniam, repudiandae vero suscipit in. Laudantium maxime hic sapiente est dolor?</p>
+			</div>
+		</div>
+	</div>
+</div>
+
 <?php
 get_footer();
 

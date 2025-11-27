@@ -155,6 +155,7 @@ $theme-default-colors: (
 				"hover": map-get-nested($theme-default-base-colors, "danger", 2),
 			),
 		),
+		"backdrop": rgb(map-get-nested($theme-default-base-colors, "neutral", "black"), 0.4),
 	),
 	"foreground": (
 		"neutral": (

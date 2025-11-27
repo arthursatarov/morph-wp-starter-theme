@@ -96,6 +96,28 @@ get_header();
 
 <div class="wrapper region">
 	<div class="stack" style="--stack-space: 2rem;">
+		<h3>Tags</h3>
+		<div class="cluster">
+			<a class="tag tag--primary">
+				<?php morph_print_sprite_icon( [
+					'icon' => 'globe',
+					'class' => 'tag__icon'
+				] ); ?>
+				<span class="tag__label">Tag</span>
+			</a>
+			<a class="tag">
+				<?php morph_print_sprite_icon( [
+					'icon' => 'globe',
+					'class' => 'tag__icon'
+				] ); ?>
+				<span class="tag__label">Tag</span>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper region">
+	<div class="stack" style="--stack-space: 2rem;">
 		<h3>Accordion</h3>
 		<div class="accordion" data-accordion="collapse" style="max-inline-size: 40rem;">
 			<div class="accordion__item">

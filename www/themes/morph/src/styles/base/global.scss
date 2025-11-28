@@ -69,16 +69,6 @@ h6 {
 
 /* 2.2 INLINE TEXT
 /––––––––––––––––––––––––------------ */
-a {
-	color: get-token("color", "foreground", "link", "rest");
-	text-decoration: none;
-
-	&:hover {
-		color: get-token("color", "foreground", "link", "hover");
-		text-decoration: underline;
-	}
-}
-
 strong,
 b {
 	font-weight: get-token("font-weight", "bold");

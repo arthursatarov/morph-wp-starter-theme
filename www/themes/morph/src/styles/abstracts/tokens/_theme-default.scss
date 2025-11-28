@@ -167,8 +167,18 @@ $theme-default-colors: (
 		"on-emphasis": map-get-nested($theme-default-base-colors, "neutral", 0),
 		"inverted": map-get-nested($theme-default-base-colors, "neutral", 0),
 		"link": (
-			"rest": map-get-nested($theme-default-base-colors, "accent", 5),
-			"hover": map-get-nested($theme-default-base-colors, "accent", 6),
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "accent", 5),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 6),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 10),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 6),
+			),
+			"on-emphasis": (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 0),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 2),
+			),
 		),
 		"accent": map-get-nested($theme-default-base-colors, "accent", 5),
 		"success": map-get-nested($theme-default-base-colors, "success", 5),

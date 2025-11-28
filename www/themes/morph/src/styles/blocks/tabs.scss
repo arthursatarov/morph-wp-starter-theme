@@ -1,0 +1,98 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+Table of Contents
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+	1.0 BASE STYLES
+====================================================== */
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 TABS CONTAINER
+/––––––––––––––––––––––––------------ */
+.tabs {
+}
+
+/* 1.2 TABS LIST
+/––––––––––––––––––––––––------------ */
+.tabs__list {
+	display: flex;
+	border-block-end: get-token("border-width", "default") solid
+		get-token("color", "border", "neutral", 2);
+}
+
+/* 1.3 TABS TRIGGER
+/––––––––––––––––––––––––------------ */
+.tabs__trigger {
+	--tabs-trigger-block-size: #{get-token("control-size", "md")};
+	--tabs-trigger-inline-size: 100%;
+	--tabs-trigger-fg-color: #{get-token("color", "foreground", "neutral", 1)};
+	--tabs-trigger-bg-color: transparent;
+	--tabs-trigger-border-color: transparent;
+
+	position: relative;
+	display: flex;
+	gap: get-token("space", 8);
+	align-items: center;
+	justify-content: center;
+	inline-size: var(--tabs-trigger-inline-size);
+	block-size: var(--tabs-trigger-block-size);
+	padding-inline: get-token("space", 16);
+	font-size: get-token("font-size", "md");
+	font-weight: get-token("font-weight", "normal");
+	line-height: get-token("leading", "none");
+	color: var(--tabs-trigger-fg-color);
+	text-decoration: none;
+	cursor: pointer;
+	user-select: none;
+	background-color: var(--tabs-trigger-bg-color);
+	border: 0;
+
+	@include transition((color, border-color), 100, "prod-standard");
+
+	&:disabled {
+		--tabs-trigger-fg-color: #{get-token("color", "foreground", "disabled")};
+
+		cursor: auto;
+	}
+
+	&:hover:not(:disabled, [aria-selected="true"]) {
+		--tabs-trigger-fg-color: #{get-token("color", "foreground", "accent")};
+	}
+
+	&:focus-visible:not(:disabled) {
+		@include focus-visible;
+	}
+
+	&::after {
+		position: absolute;
+		inset-block-end: -1px;
+		inset-inline: 0;
+		block-size: get-token("border-width", "thick");
+		content: "";
+	}
+
+	&[aria-selected="true"] {
+		--tabs-trigger-fg-color: #{get-token("color", "foreground", "accent")};
+	}
+
+	&[aria-selected="true"]::after {
+		background-color: get-token("color", "border", "accent", 1);
+	}
+}
+
+/* 1.4 TABS PANELS
+/––––––––––––––––––––––––------------ */
+.tabs__panels {
+	min-block-size: 8rem;
+	padding-block-start: get-token("space", 16);
+}
+
+/* 1.5 TABS PANEL
+/––––––––––––––––––––––––------------ */
+.tabs__panel {
+}

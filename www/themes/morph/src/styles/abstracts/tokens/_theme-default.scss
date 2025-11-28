@@ -102,15 +102,15 @@ $theme-default-colors: (
 		"neutral": (
 			1: (
 				"rest": map-get-nested($theme-default-base-colors, "neutral", 0),
-				"hover": map-get-nested($theme-default-base-colors, "neutral", 2),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 1),
 			),
 			2: (
 				"rest": map-get-nested($theme-default-base-colors, "neutral", 1),
-				"hover": map-get-nested($theme-default-base-colors, "neutral", 4),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 2),
 			),
 			3: (
-				"rest": map-get-nested($theme-default-base-colors, "neutral", 3),
-				"hover": map-get-nested($theme-default-base-colors, "neutral", 5),
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 2),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 3),
 			),
 		),
 		"disabled": map-get-nested($theme-default-base-colors, "neutral", 2),
@@ -121,8 +121,8 @@ $theme-default-colors: (
 				"hover": map-get-nested($theme-default-base-colors, "accent", 6),
 			),
 			2: (
-				"rest": map-get-nested($theme-default-base-colors, "accent", 1),
-				"hover": map-get-nested($theme-default-base-colors, "accent", 2),
+				"rest": map-get-nested($theme-default-base-colors, "accent", 0),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 1),
 			),
 		),
 		"success": (
@@ -131,8 +131,8 @@ $theme-default-colors: (
 				"hover": map-get-nested($theme-default-base-colors, "success", 6),
 			),
 			2: (
-				"rest": map-get-nested($theme-default-base-colors, "success", 1),
-				"hover": map-get-nested($theme-default-base-colors, "success", 2),
+				"rest": map-get-nested($theme-default-base-colors, "success", 0),
+				"hover": map-get-nested($theme-default-base-colors, "success", 1),
 			),
 		),
 		"attention": (
@@ -141,8 +141,8 @@ $theme-default-colors: (
 				"hover": map-get-nested($theme-default-base-colors, "attention", 6),
 			),
 			2: (
-				"rest": map-get-nested($theme-default-base-colors, "attention", 1),
-				"hover": map-get-nested($theme-default-base-colors, "attention", 2),
+				"rest": map-get-nested($theme-default-base-colors, "attention", 0),
+				"hover": map-get-nested($theme-default-base-colors, "attention", 1),
 			),
 		),
 		"danger": (
@@ -151,10 +151,11 @@ $theme-default-colors: (
 				"hover": map-get-nested($theme-default-base-colors, "danger", 6),
 			),
 			2: (
-				"rest": map-get-nested($theme-default-base-colors, "danger", 1),
-				"hover": map-get-nested($theme-default-base-colors, "danger", 2),
+				"rest": map-get-nested($theme-default-base-colors, "danger", 0),
+				"hover": map-get-nested($theme-default-base-colors, "danger", 1),
 			),
 		),
+		"backdrop": rgb(map-get-nested($theme-default-base-colors, "neutral", "black"), 0.4),
 	),
 	"foreground": (
 		"neutral": (
@@ -166,9 +167,18 @@ $theme-default-colors: (
 		"on-emphasis": map-get-nested($theme-default-base-colors, "neutral", 0),
 		"inverted": map-get-nested($theme-default-base-colors, "neutral", 0),
 		"link": (
-			"rest": map-get-nested($theme-default-base-colors, "accent", 5),
-			"hover": map-get-nested($theme-default-base-colors, "neutral", 6),
-			"visited": map-get-nested($theme-default-base-colors, "neutral", 4),
+			1: (
+				"rest": map-get-nested($theme-default-base-colors, "accent", 5),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 6),
+			),
+			2: (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 10),
+				"hover": map-get-nested($theme-default-base-colors, "accent", 6),
+			),
+			"on-emphasis": (
+				"rest": map-get-nested($theme-default-base-colors, "neutral", 0),
+				"hover": map-get-nested($theme-default-base-colors, "neutral", 2),
+			),
 		),
 		"accent": map-get-nested($theme-default-base-colors, "accent", 5),
 		"success": map-get-nested($theme-default-base-colors, "success", 5),

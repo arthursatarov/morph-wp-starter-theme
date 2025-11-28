@@ -1,0 +1,79 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 WRAPPER
+/––––––––––––––––––––––––------------ */
+.input-text {
+	display: inline-flex;
+	gap: get-token("space", 8);
+	align-items: stretch;
+	block-size: get-token("control-size", "md");
+	padding-inline: get-token("space", 8);
+	cursor: text;
+	background-color: get-token("color", "background", "neutral", 1, "rest");
+	border: get-token("border-width", "default") solid get-token("color", "border", "neutral", 2);
+	border-radius: get-token("border-radius", "sm");
+
+	&:focus-within {
+		@include focus-visible;
+	}
+
+	&:has(.input-text__icon:first-child) {
+		padding-inline-end: 0;
+	}
+
+	&:has(.input-text__icon:last-child) {
+		padding-inline-start: 0;
+	}
+}
+
+/* 1.2 ICON
+/––––––––––––––––––––––––------------ */
+.input-text__icon {
+	--icon-size: #{get-token("icon-size", "lg")};
+
+	align-self: center;
+	color: get-token("color", "foreground", "neutral", 3);
+	pointer-events: none;
+}
+
+/* 1.3 INPUT
+/––––––––––––––––––––––––------------ */
+.input-text__input {
+	inline-size: 100%;
+	line-height: get-token("leading", "none");
+	background-color: transparent;
+	border: 0;
+
+	&::placeholder {
+		color: get-token("color", "foreground", "neutral", 3);
+	}
+
+	&:focus-visible {
+		outline: 0;
+	}
+
+	.input-text:has(.input-text__icon:first-child) & {
+		padding-inline-end: get-token("space", 8);
+	}
+
+	.input-text:has(.input-text__icon:last-child) & {
+		padding-inline-start: get-token("space", 8);
+	}
+}
+
+/* ======================================================
+  2.0 VALIDATION STATUS
+====================================================== */
+.input-text[data-validation-status="error"] {
+	border-color: get-token("color", "border", "danger", 1);
+
+	&:focus-within {
+		outline-color: get-token("color", "border", "danger", 1);
+	}
+}

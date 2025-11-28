@@ -24,11 +24,13 @@ Table of Contents
 ====================================================== */
 $font-base: "Inter", sans-serif;
 $font-heading: "Inter", sans-serif;
+$font-code: "JetBrains Mono", monospace;
 
 // Map
 $font-family: (
 	"base": $font-base,
 	"heading": $font-heading,
+	"code": $font-code,
 );
 
 /* ======================================================

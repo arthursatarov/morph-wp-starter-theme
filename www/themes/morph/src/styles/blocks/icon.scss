@@ -6,8 +6,8 @@
 ====================================================== */
 .icon {
 	display: block;
-	width: var(--icon-size, 1em);
-	height: var(--icon-size, 1em);
+	inline-size: var(--icon-size, 1em);
+	block-size: var(--icon-size, 1em);
 	line-height: get-token("leading", "none");
 	fill: currentColor;
 }

@@ -1,0 +1,68 @@
+@use "../abstracts/functions/get-token" as *;
+
+.prose {
+	--prose-space: 1.5em;
+
+	max-inline-size: get-token("max-width", "prose");
+	font-family: get-token("font-family", "base");
+	font-size: get-token("font-size", "md");
+	line-height: get-token("leading", "relaxed");
+	color: get-token("color", "foreground", "neutral", 1);
+
+	> * + * {
+		margin-block-start: var(--prose-space, 1em);
+	}
+
+	// Каскадные отступы между заголовками
+	h1 + h2 {
+		--prose-space: 1.2em;
+	}
+
+	h2 + h3 {
+		--prose-space: 1.3em;
+	}
+
+	h3 + h4 {
+		--prose-space: 1.4em;
+	}
+
+	// Меньший отступ после заголовков
+	:is(h1, h2, h3, h4, h5, h6) + :is(p, ul, ol) {
+		--prose-space: 0.75em;
+	}
+
+	// Меньший отступ от параграфа к списку
+	p + :is(ul, ol) {
+		--prose-space: 0.75em;
+	}
+
+	// Обычный отступ от списка к параграфу
+	:is(ul, ol) + p {
+		--prose-space: 1.5em;
+	}
+
+	// Средний отступ между списками
+	:is(ul, ol) + :is(ul, ol) {
+		--prose-space: 1.25em;
+	}
+
+	:is(blockquote, pre, figure, table) {
+		--prose-space: 2em;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+
+	hr {
+		--prose-space: 3em;
+	}
+
+	> *:first-child {
+		margin-block-start: 0;
+	}
+
+	> *:last-child {
+		margin-block-end: 0;
+	}
+}

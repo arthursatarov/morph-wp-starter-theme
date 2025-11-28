@@ -1,5 +1,8 @@
 @use "../abstracts/functions/get-token" as *;
 
+/* ======================================================
+  1.0 LAYOUT
+====================================================== */
 body {
 	position: relative;
 	display: flex;
@@ -20,6 +23,12 @@ body {
 	}
 }
 
+/* ======================================================
+  2.0 TYPOGRAPHY
+====================================================== */
+
+/* 2.1 HEADINGS
+/––––––––––––––––––––––––------------ */
 h1,
 h2,
 h3,
@@ -32,29 +41,114 @@ h6 {
 	color: get-token("color", "foreground", "neutral", 1);
 }
 
-/* stylelint-disable prettier/prettier */
-h1 { font-size: get-token("font-size", "3xl"); }
-h2 { font-size: get-token("font-size", "2xl"); }
-h3 { font-size: get-token("font-size", "xl"); }
-h4 { font-size: get-token("font-size", "lg"); }
-h5 { font-size: get-token("font-size", "md"); }
-h6 { font-size: get-token("font-size", "sm"); }
-/* stylelint-enable prettier/prettier */
-
-p {
-	max-inline-size: get-token("max-width", "prose");
+h1 {
+	font-size: get-token("font-size", "2xl");
 }
 
+h2 {
+	font-size: get-token("font-size", "xl");
+}
+
+h3 {
+	font-size: get-token("font-size", "lg");
+}
+
+h4 {
+	font-size: get-token("font-size", "md");
+}
+
+h5 {
+	font-size: get-token("font-size", "sm");
+	text-transform: uppercase;
+}
+
+h6 {
+	font-size: get-token("font-size", "xs");
+	text-transform: uppercase;
+}
+
+/* 2.2 INLINE TEXT
+/––––––––––––––––––––––––------------ */
 a {
 	color: get-token("color", "foreground", "link", "rest");
-	text-decoration: underline;
+	text-decoration: none;
 
 	&:hover {
-		text-decoration: none;
+		color: get-token("color", "foreground", "link", "hover");
+		text-decoration: underline;
 	}
 }
+
+strong,
+b {
+	font-weight: get-token("font-weight", "bold");
+	color: get-token("color", "foreground", "neutral", 1);
+}
+
+em,
+i {
+	font-style: italic;
+}
+
+mark {
+	padding: get-token("space", 2) get-token("space", 4);
+	background-color: get-token("color", "background", "accent", 2, "rest");
+	border-radius: 2px;
+}
+
+/* 2.3 LISTS
+/––––––––––––––––––––––––------------ */
 
 ul,
 ol {
 	list-style-position: inside;
+}
+
+/* 2.4 CODE BLOCKS
+/––––––––––––––––––––––––------------ */
+code {
+	padding: get-token("space", 2) get-token("space", 4);
+	font-family: get-token("font-family", "code");
+	font-size: get-token("font-size", "sm");
+	color: var(--color-text-code);
+	background-color: get-token("color", "background", "neutral", 2, "rest");
+	border-radius: get-token("border-radius", "sm");
+}
+
+pre {
+	padding: get-token("space", 24);
+	overflow-x: auto;
+	line-height: get-token("leading", "normal");
+	background-color: get-token("color", "background", "neutral", 2, "rest");
+	border-radius: get-token("border-radius", "md");
+
+	code {
+		padding: 0;
+		font-size: get-token("font-size", "sm");
+		background: none;
+	}
+}
+
+/* 2.4 MEDIA
+/––––––––––––––––––––––––------------ */
+figure {
+	img {
+		border-radius: get-token("border-radius", "md");
+	}
+
+	figcaption {
+		margin-block-start: get-token("space", 8);
+		font-size: get-token("font-size", "sm");
+		font-style: italic;
+		color: get-token("color", "foreground", "neutral", 2);
+		text-align: center;
+	}
+}
+
+/* 2.4 DIVIDERS
+/––––––––––––––––––––––––------------ */
+hr {
+	border: 0;
+	border-block-start: get-token("border-width", "default") solid
+		get-token("color", "border", "neutral", 2);
 }

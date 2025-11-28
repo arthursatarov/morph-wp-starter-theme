@@ -11,6 +11,7 @@ import DropdownManager from './components/dropdown.js';
 import ModalManager from './components/modal.js';
 import TabsManager from './components/tabs.js';
 import TooltipManager from './components/tooltip.js';
+import { initTextInputs } from './components/input-text.js';
 
 class App {
   constructor() {
@@ -40,6 +41,7 @@ class App {
 		this.initModals();
     this.initTabs();
     this.initTooltips();
+		initTextInputs();
   }
 
 	initAccordions() {

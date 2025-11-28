@@ -1,0 +1,68 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 WRAPPER
+/––––––––––––––––––––––––------------ */
+.form-control {
+	--form-control-space: #{get-token("space", 4)};
+
+	display: flex;
+	flex-direction: column;
+	border: 0;
+
+	> * {
+		margin-block: 0;
+	}
+
+	> * + * {
+		/// --form-control-item-space allows individual elements to override spacing
+		/// Falls back to --form-control-space (container-level) if not set
+		margin-block-start: var(--form-control-item-space, var(--form-control-space, 1rem));
+	}
+}
+
+/* 1.1 LABEL
+/––––––––––––––––––––––––------------ */
+.form-control__label {
+	font-size: get-token("font-size", "sm");
+	font-weight: get-token("font-weight", "bold");
+}
+
+.form-control__label--legend {
+	font-size: get-token("font-size", "md");
+	font-weight: get-token("font-weight", "normal");
+}
+
+.form-control__label-required {
+	color: get-token("color", "foreground", "danger");
+}
+
+/* 1.3 HINT
+/––––––––––––––––––––––––------------ */
+.form-control__hint {
+	font-size: get-token("font-size", "xs");
+	color: get-token("color", "foreground", "neutral", 3);
+}
+
+/* 1.3 VALIDATION
+/––––––––––––––––––––––––------------ */
+.form-control__validation {
+	display: inline-flex;
+	gap: get-token("space", 4);
+	align-items: center;
+	font-size: get-token("font-size", "xs");
+	color: get-token("color", "foreground", "neutral", 3);
+
+	&[data-validation-status="success"] {
+		color: get-token("color", "foreground", "success");
+	}
+
+	&[data-validation-status="error"] {
+		color: get-token("color", "foreground", "danger");
+	}
+}

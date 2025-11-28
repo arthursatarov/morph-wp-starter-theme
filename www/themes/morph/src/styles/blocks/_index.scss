@@ -3,24 +3,28 @@
 ====================================================== */
 @forward "icon";
 @forward "button";
-@forward "dropdown";
-@forward "table";
 @forward "tooltip";
 @forward "tag";
 @forward "link";
+@forward "input-text";
+@forward "textarea";
 
 /* ======================================================
   2.0 MOLECULES
 ====================================================== */
-@forward "accordion";
-@forward "tabs";
-@forward "modal";
-@forward "drawer";
+@forward "dropdown";
 @forward "prose";
+@forward "table";
+@forward "tabs";
+@forward "form-control";
 
 /* ======================================================
   3.0 ORGANISMS
 ====================================================== */
+@forward "accordion";
+@forward "drawer";
+@forward "modal";
+@forward "form";
 
 /* ======================================================
   4.0 TEMPLATES

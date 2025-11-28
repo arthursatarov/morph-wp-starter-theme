@@ -1,0 +1,21 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 WRAPPER
+/––––––––––––––––––––––––------------ */
+.textarea {
+	padding: get-token("space", 8);
+	cursor: text;
+	background-color: get-token("color", "background", "neutral", 1, "rest");
+	border: get-token("border-width", "default") solid get-token("color", "border", "neutral", 2);
+	border-radius: get-token("border-radius", "sm");
+
+	&:focus-visible {
+		@include focus-visible;
+	}
+}

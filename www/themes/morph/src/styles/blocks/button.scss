@@ -124,6 +124,10 @@ Table of Contents
 	&:hover:not(:disabled) {
 		--btn-bg-color: #{get-token("color", "background", "accent", 1, "hover")};
 	}
+
+	&:focus-visible:not(:disabled) {
+		@include focus-visible-emphasis;
+	}
 }
 
 /* 1.2 GHOST

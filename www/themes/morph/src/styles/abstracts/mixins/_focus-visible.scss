@@ -12,17 +12,38 @@
 
 @use "../functions/get-token" as *;
 
-/// Apply a focus styles to element
-/// @example
+/// Apply standard focus outline styles to an element
+///
+/// Creates a solid outline with design system tokens for width, color, and offset.
+/// Resets box-shadow to prevent conflicts with other styles.
+///
+/// @example scss
 ///   .button {
-/// 		&:focus-visible {
-/// 			@include focus-visible;
-/// 		}
+///     &:focus-visible {
+///       @include focus-visible;
+///     }
 ///   }
 @mixin focus-visible() {
-	outline-width: get-token("focus", "focus-width");
+	outline-width: get-token("focus", "width");
 	outline-style: solid;
-	outline-color: get-token("color", "border", "accent", 1);
-	outline-offset: get-token("focus", "focus-offset");
+	outline-color: get-token("color", "focus", "outline-color");
+	outline-offset: get-token("focus", "offset");
 	box-shadow: none;
+}
+
+/// Apply enhanced focus styles with additional shadow emphasis
+///
+/// Adds a box-shadow layer for stronger visual focus indication.
+/// Should be used in combination with the base focus-visible mixin
+/// or when additional emphasis is needed for complex components.
+///
+/// @example scss
+///   .input-wrapper {
+///     &:focus-within {
+///       @include focus-visible;
+///       @include focus-visible-emphasis;
+///     }
+///   }
+@mixin focus-visible-emphasis() {
+	box-shadow: get-token("focus", "shadow") get-token("color", "focus", "shadow-color");
 }

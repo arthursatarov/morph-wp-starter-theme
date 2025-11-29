@@ -1,400 +1,159 @@
 /**
  * Accordion Component
  *
- * Manages accessible accordion functionality with configurable behavior
+ * Simple accordion initialization with keyboard navigation and accessibility
  *
  * @package Morph
  * @since 0.0.1
  */
 
-class AccordionManager {
-  /**
-   * Constructor
-   *
-   * @param {Object} options - Configuration options
-   * @param {string} options.selector - Accordion container selector
-   * @param {string} options.itemSelector - Accordion item selector
-   * @param {string} options.triggerSelector - Accordion trigger selector
-   * @param {string} options.contentSelector - Accordion content selector
-   * @param {boolean} options.keyboardNav - Enable keyboard navigation
-   */
-  constructor(options = {}) {
-    this.options = {
-      selector: '[data-accordion]',
-      itemSelector: '.accordion__item',
-      triggerSelector: '.accordion__item-trigger',
-      contentSelector: '.accordion__item-content',
-      keyboardNav: true,
-      ...options
-    };
+/**
+ * Initialize all accordions
+ */
+export function initAccordions() {
+	const containers = document.querySelectorAll('[data-accordion]');
 
-    this.accordions = [];
-  }
+	containers.forEach((container, containerIndex) => {
+		// Get accordion mode: 'collapse' or 'open'
+		const mode = container.dataset.accordion || 'open';
+		const collapseOthers = mode === 'collapse';
 
-  /**
-   * Initialize all accordions
-   */
-  init() {
-    const containers = document.querySelectorAll(this.options.selector);
+		const items = container.querySelectorAll('.accordion__item');
 
-    containers.forEach(container => {
-      this.initAccordion(container);
-    });
+		if (items.length === 0) {
+			console.warn('⚠️ No accordion items found in:', container);
+			return;
+		}
 
-    console.log(`✅ Initialized ${this.accordions.length} accordion(s)`);
-  }
+		const triggers = [];
 
-  /**
-   * Initialize single accordion
-   *
-   * @param {HTMLElement} container - Accordion container element
-   */
-  initAccordion(container) {
-    // Get accordion mode: 'collapse' or 'open'
-    const mode = container.dataset.accordion || 'open';
-    const collapseOthers = mode === 'collapse';
+		items.forEach((item, index) => {
+			const trigger = item.querySelector('.accordion__item-trigger');
+			const content = item.querySelector('.accordion__item-content');
 
-    const items = container.querySelectorAll(this.options.itemSelector);
+			if (!trigger || !content) {
+				console.warn('⚠️ Incomplete accordion item:', item);
+				return;
+			}
 
-    if (items.length === 0) {
-      console.warn('⚠️ No accordion items found in:', container);
-      return;
-    }
+			// Get initial state from aria-expanded
+			const ariaExpanded = trigger.getAttribute('aria-expanded');
+			const isInitiallyOpen = ariaExpanded === 'true';
 
-    const triggers = [];
-    const accordionItems = [];
+			// Generate unique IDs
+			const triggerId = trigger.id || `accordion-trigger-${containerIndex}-${index}`;
+			const contentId = content.id || `accordion-content-${containerIndex}-${index}`;
 
-    items.forEach((item, index) => {
-      const trigger = item.querySelector(this.options.triggerSelector);
-      const content = item.querySelector(this.options.contentSelector);
+			trigger.id = triggerId;
+			content.id = contentId;
 
-      if (!trigger || !content) {
-        console.warn('⚠️ Incomplete accordion item:', item);
-        return;
-      }
+			// Set button type if not present
+			if (!trigger.hasAttribute('type') && trigger.tagName === 'BUTTON') {
+				trigger.setAttribute('type', 'button');
+			}
 
-      // Get initial state from aria-expanded
-      const ariaExpanded = trigger.getAttribute('aria-expanded');
-      const isInitiallyOpen = ariaExpanded === 'true';
+			// Set ARIA attributes
+			trigger.setAttribute('aria-expanded', String(isInitiallyOpen));
+			trigger.setAttribute('aria-controls', contentId);
+			content.setAttribute('role', 'region');
+			content.setAttribute('aria-labelledby', triggerId);
+			content.hidden = !isInitiallyOpen;
 
-      // Generate unique IDs
-      const triggerId = trigger.id || `accordion-trigger-${this.accordions.length}-${index}`;
-      const contentId = content.id || `accordion-content-${this.accordions.length}-${index}`;
+			triggers.push(trigger);
+		});
 
-      trigger.id = triggerId;
-      content.id = contentId;
+		// Toggle panel
+		const togglePanel = (trigger) => {
+			const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+			const content = document.getElementById(trigger.getAttribute('aria-controls'));
+			const item = trigger.closest('.accordion__item');
 
-      // Set button type if not present
-      if (!trigger.hasAttribute('type') && trigger.tagName === 'BUTTON') {
-        trigger.setAttribute('type', 'button');
-      }
+			if (!content) return;
 
-      // Set ARIA attributes
-      trigger.setAttribute('aria-expanded', String(isInitiallyOpen));
-      trigger.setAttribute('aria-controls', contentId);
-      trigger.setAttribute('data-accordion-target', contentId);
-      content.setAttribute('role', 'region');
-      content.setAttribute('aria-labelledby', triggerId);
-      content.hidden = !isInitiallyOpen;
+			// Close other panels if collapseOthers is true
+			if (collapseOthers && !isExpanded) {
+				triggers.forEach((t) => {
+					if (t !== trigger) {
+						const c = document.getElementById(t.getAttribute('aria-controls'));
+						t.setAttribute('aria-expanded', 'false');
+						if (c) c.hidden = true;
+					}
+				});
+			}
 
-      triggers.push(trigger);
-      accordionItems.push({ item, trigger, content });
-    });
+			// Toggle current panel
+			trigger.setAttribute('aria-expanded', String(!isExpanded));
+			content.hidden = isExpanded;
 
-    const accordion = {
-      container,
-      items: accordionItems,
-      triggers,
-      collapseOthers
-    };
+			// Dispatch custom event
+			const eventName = isExpanded ? 'accordion:close' : 'accordion:open';
+			dispatchEvent(container, eventName, { trigger, content, item });
+		};
 
-    // Bind events
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', (e) => this.handleClick(e, accordion));
+		// Handle click
+		triggers.forEach((trigger) => {
+			trigger.addEventListener('click', () => {
+				togglePanel(trigger);
+			});
+		});
 
-      if (this.options.keyboardNav) {
-        trigger.addEventListener('keydown', (e) => this.handleKeyboard(e, accordion));
-      }
-    });
+		// Handle keyboard navigation
+		triggers.forEach((trigger, index) => {
+			trigger.addEventListener('keydown', (e) => {
+				let targetIndex;
 
-    this.accordions.push(accordion);
-  }
+				switch (e.key) {
+					case 'ArrowDown':
+						e.preventDefault();
+						targetIndex = index + 1;
+						if (targetIndex >= triggers.length) {
+							targetIndex = 0;
+						}
+						break;
 
-  /**
-   * Handle trigger click
-   *
-   * @param {Event} event - Click event
-   * @param {Object} accordion - Accordion instance
-   */
-  handleClick(event, accordion) {
-    const trigger = event.currentTarget;
-    this.togglePanel(trigger, accordion);
-  }
+					case 'ArrowUp':
+						e.preventDefault();
+						targetIndex = index - 1;
+						if (targetIndex < 0) {
+							targetIndex = triggers.length - 1;
+						}
+						break;
 
-  /**
-   * Toggle accordion panel
-   *
-   * @param {HTMLElement} trigger - Trigger element
-   * @param {Object} accordion - Accordion instance
-   */
-  togglePanel(trigger, accordion) {
-    const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
-    const accordionItem = accordion.items.find(item => item.trigger === trigger);
+					case 'Home':
+						e.preventDefault();
+						targetIndex = 0;
+						break;
 
-    if (!accordionItem) return;
+					case 'End':
+						e.preventDefault();
+						targetIndex = triggers.length - 1;
+						break;
 
-    const { item, content } = accordionItem;
+					default:
+						return;
+				}
 
-    // Close other panels if collapseOthers is true
-    if (accordion.collapseOthers && !isExpanded) {
-      this.closeOtherPanels(trigger, accordion);
-    }
+				if (targetIndex !== undefined) {
+					triggers[targetIndex].focus();
+				}
+			});
+		});
+	});
 
-    // Toggle current panel
-    trigger.setAttribute('aria-expanded', String(!isExpanded));
-    content.hidden = isExpanded;
-
-    // Dispatch custom event
-    const eventName = isExpanded ? 'accordion:close' : 'accordion:open';
-    this.dispatchEvent(accordion.container, eventName, { trigger, content, item });
-  }
-
-  /**
-   * Close other panels in accordion
-   *
-   * @param {HTMLElement} activeTrigger - Currently clicked trigger
-   * @param {Object} accordion - Accordion instance
-   */
-  closeOtherPanels(activeTrigger, accordion) {
-    accordion.items.forEach(({ trigger, content }) => {
-      if (trigger !== activeTrigger) {
-        trigger.setAttribute('aria-expanded', 'false');
-        content.hidden = true;
-      }
-    });
-  }
-
-  /**
-   * Handle keyboard navigation
-   *
-   * @param {KeyboardEvent} event - Keyboard event
-   * @param {Object} accordion - Accordion instance
-   */
-  handleKeyboard(event, accordion) {
-    const trigger = event.currentTarget;
-    const currentIndex = accordion.triggers.indexOf(trigger);
-
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        this.focusTrigger(accordion, currentIndex + 1);
-        break;
-
-      case 'ArrowUp':
-        event.preventDefault();
-        this.focusTrigger(accordion, currentIndex - 1);
-        break;
-
-      case 'Home':
-        event.preventDefault();
-        this.focusTrigger(accordion, 0);
-        break;
-
-      case 'End':
-        event.preventDefault();
-        this.focusTrigger(accordion, accordion.triggers.length - 1);
-        break;
-    }
-  }
-
-  /**
-   * Focus trigger by index with wrapping
-   *
-   * @param {Object} accordion - Accordion instance
-   * @param {number} index - Trigger index
-   */
-  focusTrigger(accordion, index) {
-    const length = accordion.triggers.length;
-    const wrappedIndex = ((index % length) + length) % length;
-    accordion.triggers[wrappedIndex].focus();
-  }
-
-  /**
-   * Dispatch custom event
-   *
-   * @param {HTMLElement} element - Element to dispatch event from
-   * @param {string} eventName - Event name
-   * @param {Object} detail - Event detail data
-   */
-  dispatchEvent(element, eventName, detail = {}) {
-    const event = new CustomEvent(eventName, {
-      bubbles: true,
-      detail
-    });
-    element.dispatchEvent(event);
-  }
-
-  /**
-   * Open specific panel by content ID
-   *
-   * @param {string} contentId - Content ID to open
-   */
-  openPanel(contentId) {
-    const content = document.getElementById(contentId);
-    if (!content) return;
-
-    const trigger = document.querySelector(`[aria-controls="${contentId}"]`);
-
-    if (trigger) {
-      const accordion = this.accordions.find(acc =>
-        acc.container.contains(trigger)
-      );
-      if (accordion && trigger.getAttribute('aria-expanded') !== 'true') {
-        this.togglePanel(trigger, accordion);
-      }
-    }
-  }
-
-  /**
-   * Close specific panel by content ID
-   *
-   * @param {string} contentId - Content ID to close
-   */
-  closePanel(contentId) {
-    const content = document.getElementById(contentId);
-    if (!content) return;
-
-    const trigger = document.querySelector(`[aria-controls="${contentId}"]`);
-
-    if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
-      const accordion = this.accordions.find(acc =>
-        acc.container.contains(trigger)
-      );
-      if (accordion) {
-        this.togglePanel(trigger, accordion);
-      }
-    }
-  }
-
-  /**
-   * Toggle specific panel by content ID
-   *
-   * @param {string} contentId - Content ID to toggle
-   */
-  togglePanelById(contentId) {
-    const content = document.getElementById(contentId);
-    if (!content) return;
-
-    const trigger = document.querySelector(`[aria-controls="${contentId}"]`);
-
-    if (trigger) {
-      const accordion = this.accordions.find(acc =>
-        acc.container.contains(trigger)
-      );
-      if (accordion) {
-        this.togglePanel(trigger, accordion);
-      }
-    }
-  }
-
-  /**
-   * Open all panels in accordion
-   *
-   * @param {HTMLElement|string} accordion - Accordion element or selector
-   */
-  openAll(accordion) {
-    const container = typeof accordion === 'string'
-      ? document.querySelector(accordion)
-      : accordion;
-
-    const accordionInstance = this.accordions.find(acc => acc.container === container);
-
-    if (accordionInstance) {
-      accordionInstance.items.forEach(({ trigger }) => {
-        if (trigger.getAttribute('aria-expanded') !== 'true') {
-          this.togglePanel(trigger, accordionInstance);
-        }
-      });
-    }
-  }
-
-  /**
-   * Close all panels in accordion
-   *
-   * @param {HTMLElement|string} accordion - Accordion element or selector
-   */
-  closeAll(accordion) {
-    const container = typeof accordion === 'string'
-      ? document.querySelector(accordion)
-      : accordion;
-
-    const accordionInstance = this.accordions.find(acc => acc.container === container);
-
-    if (accordionInstance) {
-      accordionInstance.items.forEach(({ trigger }) => {
-        if (trigger.getAttribute('aria-expanded') === 'true') {
-          this.togglePanel(trigger, accordionInstance);
-        }
-      });
-    }
-  }
-
-  /**
-   * Get accordion state
-   *
-   * @param {HTMLElement|string} accordion - Accordion element or selector
-   * @returns {Array} Array of panel states
-   */
-  getState(accordion) {
-    const container = typeof accordion === 'string'
-      ? document.querySelector(accordion)
-      : accordion;
-
-    const accordionInstance = this.accordions.find(acc => acc.container === container);
-
-    if (!accordionInstance) return [];
-
-    return accordionInstance.items.map(({ trigger, content }) => ({
-      id: content.id,
-      isOpen: trigger.getAttribute('aria-expanded') === 'true'
-    }));
-  }
-
-  /**
-   * Refresh accordions after dynamic content change
-   */
-  refresh() {
-    this.destroy();
-    this.init();
-    console.log('🔄 Accordions refreshed');
-  }
-
-  /**
-   * Destroy all accordions
-   */
-  destroy() {
-    this.accordions.forEach(accordion => {
-      accordion.triggers.forEach(trigger => {
-        // Remove event listeners by cloning
-        const newTrigger = trigger.cloneNode(true);
-        trigger.parentNode.replaceChild(newTrigger, trigger);
-
-        // Remove ARIA attributes
-        newTrigger.removeAttribute('aria-expanded');
-        newTrigger.removeAttribute('aria-controls');
-        newTrigger.removeAttribute('data-accordion-target');
-      });
-
-      accordion.items.forEach(({ content }) => {
-        content.removeAttribute('role');
-        content.removeAttribute('aria-labelledby');
-        content.removeAttribute('hidden');
-      });
-    });
-
-    this.accordions = [];
-    console.log('🗑️ Accordions destroyed');
-  }
+	console.log(`✅ Initialized ${containers.length} accordion(s)`);
 }
 
-export default AccordionManager;
+/**
+ * Dispatch custom event
+ *
+ * @param {HTMLElement} element - Element to dispatch event from
+ * @param {string} eventName - Event name
+ * @param {Object} detail - Event detail data
+ */
+function dispatchEvent(element, eventName, detail = {}) {
+	const event = new CustomEvent(eventName, {
+		bubbles: true,
+		detail,
+	});
+	element.dispatchEvent(event);
+}

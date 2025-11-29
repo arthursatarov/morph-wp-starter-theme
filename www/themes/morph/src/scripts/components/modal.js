@@ -1,419 +1,278 @@
 /**
  * Modal Component
  *
- * Manages accessible modal functionality with full ARIA support
+ * Simple modal initialization with accessibility support
  *
  * @package Morph
  * @since 0.0.1
  */
 
-class ModalManager {
-  /**
-   * Constructor
-   *
-   * @param {Object} options - Configuration options
-   * @param {string} options.modalSelector - Modal element selector
-   * @param {string} options.backdropSelector - Backdrop element selector
-   * @param {string} options.targetAttr - Data attribute for trigger buttons
-   * @param {string} options.toggleAttr - Data attribute for toggle buttons
-   * @param {string} options.showAttr - Data attribute for show buttons
-   * @param {string} options.hideAttr - Data attribute for hide buttons
-   * @param {string} options.stateAttr - Data attribute for modal state
-   * @param {string} options.backdropAttr - Data attribute for backdrop behavior
-   * @param {boolean} options.closeOnBackdrop - Close on backdrop click
-   * @param {boolean} options.closeOnEscape - Close on Escape key
-   * @param {boolean} options.lockScroll - Lock body scroll when open
-   * @param {boolean} options.returnFocus - Return focus to trigger on close
-   */
-  constructor(options = {}) {
-    this.options = {
-      modalSelector: '.modal',
-      backdropSelector: '.modal__backdrop',
-      targetAttr: 'data-modal-target',
-      toggleAttr: 'data-modal-toggle',
-      showAttr: 'data-modal-show',
-      hideAttr: 'data-modal-hide',
-      stateAttr: 'data-modal-state',
-      backdropAttr: 'data-modal-backdrop',
-      closeOnBackdrop: true,
-      closeOnEscape: true,
-      lockScroll: true,
-      returnFocus: true,
-      ...options
-    };
+/**
+ * Initialize all modals
+ */
+export function initModals() {
+	const modals = document.querySelectorAll('.modal');
+	let activeModals = [];
+	let focusedElementBeforeModal = null;
 
-    this.modals = new Map();
-    this.activeModals = new Set();
-    this.focusedElementBeforeModal = null;
-  }
+	modals.forEach((modal) => {
+		const id = modal.id;
 
-  /**
-   * Initialize all modals
-   */
-  init() {
-    this.registerModals();
-    this.bindEvents();
+		if (!id) {
+			console.warn('⚠️ Modal missing ID attribute:', modal);
+			return;
+		}
 
-    console.log(`✅ Initialized ${this.modals.size} modal(s)`);
-  }
+		// Set required ARIA attributes
+		if (!modal.hasAttribute('role')) {
+			modal.setAttribute('role', 'dialog');
+		}
+		if (!modal.hasAttribute('aria-modal')) {
+			modal.setAttribute('aria-modal', 'true');
+		}
+		modal.setAttribute('aria-hidden', 'true');
 
-  /**
-   * Register all modals in the DOM
-   */
-  registerModals() {
-    const modalElements = document.querySelectorAll(this.options.modalSelector);
+		// Set initial state
+		if (!modal.hasAttribute('data-modal-state')) {
+			modal.setAttribute('data-modal-state', 'hidden');
+		}
 
-    modalElements.forEach(modal => {
-      const id = modal.id;
+		// Warn if missing aria-labelledby
+		if (!modal.hasAttribute('aria-labelledby')) {
+			console.warn(`⚠️ Modal "${id}" missing aria-labelledby attribute`);
+		}
+	});
 
-      if (!id) {
-        console.warn('⚠️ Modal missing ID attribute:', modal);
-        return;
-      }
+	// Show modal
+	const show = (modalId, triggerElement = null) => {
+		const modal = document.getElementById(modalId);
+		if (!modal) {
+			console.warn(`⚠️ Modal not found: ${modalId}`);
+			return;
+		}
 
-      // Set required ARIA attributes
-      if (!modal.hasAttribute('role')) {
-        modal.setAttribute('role', 'dialog');
-      }
-      if (!modal.hasAttribute('aria-modal')) {
-        modal.setAttribute('aria-modal', 'true');
-      }
-      modal.setAttribute('aria-hidden', 'true');
+		const isAlreadyOpen = modal.getAttribute('data-modal-state') === 'open';
+		if (isAlreadyOpen) return;
 
-      // Set initial state
-      if (!modal.hasAttribute(this.options.stateAttr)) {
-        modal.setAttribute(this.options.stateAttr, 'hidden');
-      }
+		// Store previously focused element
+		if (triggerElement) {
+			focusedElementBeforeModal = triggerElement;
+		} else if (!focusedElementBeforeModal) {
+			focusedElementBeforeModal = document.activeElement;
+		}
 
-      // Warn if missing aria-labelledby
-      if (!modal.hasAttribute('aria-labelledby')) {
-        console.warn(`⚠️ Modal "${id}" missing aria-labelledby attribute`);
-      }
+		// Show modal
+		modal.setAttribute('data-modal-state', 'open');
+		modal.setAttribute('aria-hidden', 'false');
+		activeModals.push(modalId);
 
-      this.modals.set(id, {
-        element: modal,
-        id,
-        isOpen: false
-      });
-    });
-  }
+		// Lock body scroll
+		lockBodyScroll();
 
-  /**
-   * Bind all event listeners
-   */
-  bindEvents() {
-    // Target buttons (show modal)
-    document.addEventListener('click', (e) => {
-      const targetBtn = e.target.closest(`[${this.options.targetAttr}]`);
-      if (targetBtn) {
-        e.preventDefault();
-        const modalId = targetBtn.getAttribute(this.options.targetAttr);
-        this.show(modalId, targetBtn);
-      }
-    });
+		// Setup focus trap
+		setupFocusTrap(modal);
 
-    // Toggle buttons
-    document.addEventListener('click', (e) => {
-      const toggleBtn = e.target.closest(`[${this.options.toggleAttr}]`);
-      if (toggleBtn) {
-        e.preventDefault();
-        const modalId = toggleBtn.getAttribute(this.options.toggleAttr);
-        this.toggle(modalId, toggleBtn);
-      }
-    });
+		// Dispatch custom event
+		dispatchEvent(modal, 'modal:show', { modalId, triggerElement });
+	};
 
-    // Show buttons
-    document.addEventListener('click', (e) => {
-      const showBtn = e.target.closest(`[${this.options.showAttr}]`);
-      if (showBtn) {
-        e.preventDefault();
-        const modalId = showBtn.getAttribute(this.options.showAttr);
-        this.show(modalId, showBtn);
-      }
-    });
+	// Hide modal
+	const hide = (modalId) => {
+		const modal = document.getElementById(modalId);
+		if (!modal) {
+			console.warn(`⚠️ Modal not found: ${modalId}`);
+			return;
+		}
 
-    // Hide buttons
-    document.addEventListener('click', (e) => {
-      const hideBtn = e.target.closest(`[${this.options.hideAttr}]`);
-      if (hideBtn) {
-        e.preventDefault();
-        const modalId = hideBtn.getAttribute(this.options.hideAttr);
-        this.hide(modalId);
-      }
-    });
+		const isOpen = modal.getAttribute('data-modal-state') === 'open';
+		if (!isOpen) return;
 
-    // Backdrop click
-    if (this.options.closeOnBackdrop) {
-      document.addEventListener('click', (e) => {
-        // Check if click is on backdrop element
-        const backdrop = e.target.closest(this.options.backdropSelector);
-        if (backdrop) {
-          // Find parent modal
-          const modal = backdrop.closest(this.options.modalSelector);
-          if (modal && modal.id) {
-            // Check if backdrop is static
-            const backdropBehavior = modal.getAttribute(this.options.backdropAttr);
-            if (backdropBehavior !== 'static') {
-              e.preventDefault();
-              this.hide(modal.id);
-            }
-          }
-        }
-      });
-    }
+		// Hide modal
+		modal.setAttribute('data-modal-state', 'hidden');
+		modal.setAttribute('aria-hidden', 'true');
 
-    // Escape key
-    if (this.options.closeOnEscape) {
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && this.activeModals.size > 0) {
-          // Close the most recently opened modal
-          const lastModalId = Array.from(this.activeModals).pop();
-          this.hide(lastModalId);
-        }
-      });
-    }
-  }
+		// Remove from active modals
+		activeModals = activeModals.filter((id) => id !== modalId);
 
-  /**
-   * Toggle modal visibility
-   *
-   * @param {string} modalId - Modal ID to toggle
-   * @param {HTMLElement} triggerElement - Element that triggered the action
-   */
-  toggle(modalId, triggerElement = null) {
-    const modal = this.modals.get(modalId);
+		// Unlock body scroll if no modals are open
+		if (activeModals.length === 0) {
+			unlockBodyScroll();
 
-    if (!modal) {
-      console.warn(`⚠️ Modal not found: ${modalId}`);
-      return;
-    }
+			// Return focus to trigger element
+			if (focusedElementBeforeModal) {
+				focusedElementBeforeModal.focus();
+				focusedElementBeforeModal = null;
+			}
+		}
 
-    modal.isOpen ? this.hide(modalId) : this.show(modalId, triggerElement);
-  }
+		// Dispatch custom event
+		dispatchEvent(modal, 'modal:hide', { modalId });
+	};
 
-  /**
-   * Show modal
-   *
-   * @param {string} modalId - Modal ID to show
-   * @param {HTMLElement} triggerElement - Element that triggered the action
-   */
-  show(modalId, triggerElement = null) {
-    const modal = this.modals.get(modalId);
+	// Toggle modal
+	const toggle = (modalId, triggerElement = null) => {
+		const modal = document.getElementById(modalId);
+		if (!modal) return;
 
-    if (!modal) {
-      console.warn(`⚠️ Modal not found: ${modalId}`);
-      return;
-    }
+		const isOpen = modal.getAttribute('data-modal-state') === 'open';
+		isOpen ? hide(modalId) : show(modalId, triggerElement);
+	};
 
-    if (modal.isOpen) return;
+	// Target buttons (show modal)
+	document.addEventListener('click', (e) => {
+		const targetBtn = e.target.closest('[data-modal-target]');
+		if (targetBtn) {
+			e.preventDefault();
+			const modalId = targetBtn.getAttribute('data-modal-target');
+			show(modalId, targetBtn);
+		}
+	});
 
-    // Store previously focused element for return focus
-    if (this.options.returnFocus) {
-      if (triggerElement) {
-        this.focusedElementBeforeModal = triggerElement;
-      } else if (!this.focusedElementBeforeModal) {
-        this.focusedElementBeforeModal = document.activeElement;
-      }
-    }
+	// Toggle buttons
+	document.addEventListener('click', (e) => {
+		const toggleBtn = e.target.closest('[data-modal-toggle]');
+		if (toggleBtn) {
+			e.preventDefault();
+			const modalId = toggleBtn.getAttribute('data-modal-toggle');
+			toggle(modalId, toggleBtn);
+		}
+	});
 
-    // Show modal
-    modal.element.setAttribute(this.options.stateAttr, 'open');
-    modal.element.setAttribute('aria-hidden', 'false');
-    modal.isOpen = true;
+	// Show buttons
+	document.addEventListener('click', (e) => {
+		const showBtn = e.target.closest('[data-modal-show]');
+		if (showBtn) {
+			e.preventDefault();
+			const modalId = showBtn.getAttribute('data-modal-show');
+			show(modalId, showBtn);
+		}
+	});
 
-    this.activeModals.add(modalId);
+	// Hide buttons
+	document.addEventListener('click', (e) => {
+		const hideBtn = e.target.closest('[data-modal-hide]');
+		if (hideBtn) {
+			e.preventDefault();
+			const modalId = hideBtn.getAttribute('data-modal-hide');
+			hide(modalId);
+		}
+	});
 
-    // Lock body scroll
-    if (this.options.lockScroll) {
-      this.lockBodyScroll();
-    }
+	// Backdrop click
+	document.addEventListener('click', (e) => {
+		const backdrop = e.target.closest('.modal__backdrop');
+		if (backdrop) {
+			const modal = backdrop.closest('.modal');
+			if (modal && modal.id) {
+				const backdropBehavior = modal.getAttribute('data-modal-backdrop');
+				if (backdropBehavior !== 'static') {
+					e.preventDefault();
+					hide(modal.id);
+				}
+			}
+		}
+	});
 
-    // Set focus trap and move focus to modal
-    this.setupFocusTrap(modal.element);
+	// Escape key
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && activeModals.length > 0) {
+			const lastModalId = activeModals[activeModals.length - 1];
+			hide(lastModalId);
+		}
+	});
 
-    // Dispatch custom event
-    this.dispatchEvent(modal.element, 'modal:show', {
-      modalId,
-      triggerElement
-    });
-  }
-
-  /**
-   * Hide modal
-   *
-   * @param {string} modalId - Modal ID to hide
-   */
-  hide(modalId) {
-    const modal = this.modals.get(modalId);
-
-    if (!modal) {
-      console.warn(`⚠️ Modal not found: ${modalId}`);
-      return;
-    }
-
-    if (!modal.isOpen) return;
-
-    // Hide modal
-    modal.element.setAttribute(this.options.stateAttr, 'hidden');
-    modal.element.setAttribute('aria-hidden', 'true');
-    modal.isOpen = false;
-
-    this.activeModals.delete(modalId);
-
-    // Unlock body scroll if no modals are open
-    if (this.options.lockScroll && this.activeModals.size === 0) {
-      this.unlockBodyScroll();
-    }
-
-    // Return focus to previously focused element
-    if (this.options.returnFocus &&
-        this.focusedElementBeforeModal &&
-        this.activeModals.size === 0) {
-      this.focusedElementBeforeModal.focus();
-      this.focusedElementBeforeModal = null;
-    }
-
-    // Dispatch custom event
-    this.dispatchEvent(modal.element, 'modal:hide', { modalId });
-  }
-
-  /**
-   * Hide all open modals
-   */
-  hideAll() {
-    // Create array copy to avoid modification during iteration
-    const modalsToClose = Array.from(this.activeModals);
-    modalsToClose.forEach(modalId => {
-      this.hide(modalId);
-    });
-  }
-
-  /**
-   * Setup focus trap for modal
-   *
-   * @param {HTMLElement} modalElement - Modal element
-   */
-  setupFocusTrap(modalElement) {
-    const focusableSelectors = [
-      'a[href]',
-      'button:not([disabled])',
-      'textarea:not([disabled])',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])'
-    ].join(', ');
-
-    const focusableElements = modalElement.querySelectorAll(focusableSelectors);
-
-    if (focusableElements.length === 0) {
-      console.warn('⚠️ No focusable elements in modal');
-      return;
-    }
-
-    const firstFocusable = focusableElements[0];
-    const lastFocusable = focusableElements[focusableElements.length - 1];
-
-    // Focus first element
-    firstFocusable.focus();
-
-    // Trap focus within modal
-    const handleTabKey = (e) => {
-      if (e.key !== 'Tab') return;
-
-      // Shift + Tab
-      if (e.shiftKey) {
-        if (document.activeElement === firstFocusable) {
-          e.preventDefault();
-          lastFocusable.focus();
-        }
-      }
-      // Tab
-      else {
-        if (document.activeElement === lastFocusable) {
-          e.preventDefault();
-          firstFocusable.focus();
-        }
-      }
-    };
-
-    // Remove old listener if exists
-    modalElement.removeEventListener('keydown', handleTabKey);
-    // Add new listener
-    modalElement.addEventListener('keydown', handleTabKey);
-  }
-
-  /**
-   * Lock body scroll
-   */
-  lockBodyScroll() {
-		document.documentElement.style.overflow = 'hidden';
-  }
-
-  /**
-   * Unlock body scroll
-   */
-  unlockBodyScroll() {
-		document.documentElement.style.overflow = '';
-  }
-
-  /**
-   * Check if modal is open
-   *
-   * @param {string} modalId - Modal ID to check
-   * @returns {boolean} True if modal is open
-   */
-  isOpen(modalId) {
-    const modal = this.modals.get(modalId);
-    return modal ? modal.isOpen : false;
-  }
-
-  /**
-   * Get all open modals
-   *
-   * @returns {Array} Array of open modal IDs
-   */
-  getOpenModals() {
-    return Array.from(this.activeModals);
-  }
-
-  /**
-   * Dispatch custom event
-   *
-   * @param {HTMLElement} element - Element to dispatch event from
-   * @param {string} eventName - Event name
-   * @param {Object} detail - Event detail data
-   */
-  dispatchEvent(element, eventName, detail = {}) {
-    const event = new CustomEvent(eventName, {
-      bubbles: true,
-      detail
-    });
-    element.dispatchEvent(event);
-  }
-
-  /**
-   * Refresh modals after dynamic content change
-   */
-  refresh() {
-    this.destroy();
-    this.init();
-    console.log('🔄 Modals refreshed');
-  }
-
-  /**
-   * Destroy all modals
-   */
-  destroy() {
-    // Hide all open modals
-    this.hideAll();
-
-    // Clear maps and sets
-    this.modals.clear();
-    this.activeModals.clear();
-    this.focusedElementBeforeModal = null;
-
-    console.log('🗑️ Modals destroyed');
-  }
+	console.log(`✅ Initialized ${modals.length} modal(s)`);
 }
 
-export default ModalManager;
+/**
+ * Setup focus trap for modal
+ *
+ * @param {HTMLElement} modal - Modal element
+ */
+function setupFocusTrap(modal) {
+	const focusableSelectors = [
+		'a[href]',
+		'button:not([disabled])',
+		'textarea:not([disabled])',
+		'input:not([disabled])',
+		'select:not([disabled])',
+		'[tabindex]:not([tabindex="-1"])',
+	].join(', ');
+
+	const focusableElements = modal.querySelectorAll(focusableSelectors);
+
+	if (focusableElements.length === 0) {
+		console.warn('⚠️ No focusable elements in modal');
+		return;
+	}
+
+	const firstFocusable = focusableElements[0];
+	const lastFocusable = focusableElements[focusableElements.length - 1];
+
+	// Focus first element
+	firstFocusable.focus();
+
+	// Trap focus within modal
+	const handleTabKey = (e) => {
+		if (e.key !== 'Tab') return;
+
+		// Shift + Tab
+		if (e.shiftKey) {
+			if (document.activeElement === firstFocusable) {
+				e.preventDefault();
+				lastFocusable.focus();
+			}
+		}
+		// Tab
+		else {
+			if (document.activeElement === lastFocusable) {
+				e.preventDefault();
+				firstFocusable.focus();
+			}
+		}
+	};
+
+	// Remove old listener if exists
+	modal.removeEventListener('keydown', handleTabKey);
+	// Add new listener
+	modal.addEventListener('keydown', handleTabKey);
+}
+
+/**
+ * Lock body scroll
+ */
+function lockBodyScroll() {
+	const scrollY = window.scrollY;
+	document.body.style.position = 'fixed';
+	document.body.style.top = `-${scrollY}px`;
+	document.body.style.width = '100%';
+}
+
+/**
+ * Unlock body scroll
+ */
+function unlockBodyScroll() {
+	const scrollY = document.body.style.top;
+	document.body.style.position = '';
+	document.body.style.top = '';
+	document.body.style.width = '';
+
+	if (scrollY) {
+		window.scrollTo(0, parseInt(scrollY || '0') * -1);
+	}
+}
+
+/**
+ * Dispatch custom event
+ *
+ * @param {HTMLElement} element - Element to dispatch event from
+ * @param {string} eventName - Event name
+ * @param {Object} detail - Event detail data
+ */
+function dispatchEvent(element, eventName, detail = {}) {
+	const event = new CustomEvent(eventName, {
+		bubbles: true,
+		detail,
+	});
+	element.dispatchEvent(event);
+}

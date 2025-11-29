@@ -15,7 +15,7 @@
 /––––––––––––––––––––––––------------ */
 .accordion__item {
 	overflow: hidden;
-	border-color: get-token("color", "border", "neutral", 1);
+	border-color: get-token("color", "border", "neutral", 2);
 	border-style: solid;
 	border-width: 0 0 get-token("border-width", "default");
 }

@@ -62,7 +62,10 @@ Table of Contents
 	z-index: get-token("z-index", "local", "base");
 	inline-size: 100%;
 	max-inline-size: get-token("max-width", "lg");
+	max-block-size: calc(100vh - (2 * get-token("space", 16)));
 	padding: get-token("space", 16);
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 	background-color: get-token("color", "background", "neutral", 1, "rest");
 	border-radius: get-token("border-radius", "md");
 	box-shadow: get-token("shadow", "xl");

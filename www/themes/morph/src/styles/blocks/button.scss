@@ -113,6 +113,9 @@ Table of Contents
 /* ======================================================
   4.0 STYLE VARIANTS
 ====================================================== */
+
+/* 1.1 PRIMARY
+/––––––––––––––––––––––––------------ */
 .btn--primary {
 	--btn-fg-color: #{get-token("color", "foreground", "on-emphasis")};
 	--btn-bg-color: #{get-token("color", "background", "accent", 1, "rest")};
@@ -120,5 +123,18 @@ Table of Contents
 
 	&:hover:not(:disabled) {
 		--btn-bg-color: #{get-token("color", "background", "accent", 1, "hover")};
+	}
+}
+
+/* 1.2 GHOST
+/––––––––––––––––––––––––------------ */
+.btn--ghost {
+	--btn-fg-color: #{get-token("color", "foreground", "neutral", 1)};
+	--btn-bg-color: transparent;
+	--btn-border-color: transparent;
+
+	&:hover:not(:disabled) {
+		--btn-bg-color: #{get-token("color", "background", "neutral", 1, "hover")};
+		--btn-border-color: #{get-token("color", "border", "neutral", 2)};
 	}
 }

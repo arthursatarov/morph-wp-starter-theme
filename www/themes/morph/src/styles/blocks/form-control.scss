@@ -26,30 +26,50 @@
 	}
 }
 
-/* 1.1 LABEL
+/* 1.2 LEGEND
 /––––––––––––––––––––––––------------ */
-.form-control__label {
-	font-size: get-token("font-size", "sm");
-	font-weight: get-token("font-weight", "bold");
-}
-
-.form-control__label--legend {
+.form-control__legend {
+	display: block;
 	font-size: get-token("font-size", "md");
 	font-weight: get-token("font-weight", "normal");
 }
 
-.form-control__label-required {
+/* 1.3 LABEL
+/––––––––––––––––––––––––------------ */
+.form-control__label {
+	display: block;
+	font-size: get-token("font-size", "sm");
+	font-weight: get-token("font-weight", "bold");
+}
+
+/* 1.4 REQUIRED
+/––––––––––––––––––––––––------------ */
+.form-control__required {
 	color: get-token("color", "foreground", "danger");
 }
 
-/* 1.3 HINT
+/* 1.5 HINT
 /––––––––––––––––––––––––------------ */
 .form-control__hint {
+	display: block;
 	font-size: get-token("font-size", "xs");
 	color: get-token("color", "foreground", "neutral", 3);
+
+	:is(.form-control__label, .form-control__legend) + & {
+		--form-control-item-space: 0;
+	}
 }
 
-/* 1.3 VALIDATION
+/* 1.6 LIST
+/––––––––––––––––––––––––------------ */
+.form-control__list {
+	--form-control-item-space: #{get-token("space", 8)};
+
+	display: flex;
+	flex-direction: column;
+}
+
+/* 1.7 VALIDATION
 /––––––––––––––––––––––––------------ */
 .form-control__validation {
 	display: inline-flex;

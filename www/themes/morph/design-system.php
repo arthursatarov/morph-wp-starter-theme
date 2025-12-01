@@ -116,7 +116,7 @@ get_header();
 				<form class="form stack" novalidate>
 					<div class="form-control">
 						<label for="name" class="form-control__label">
-							Имя <span class="form-control__label-required" aria-label="обязательное поле">*</span>
+							Имя <span class="form-control__required" aria-label="обязательное поле">*</span>
 						</label>
 						<div class="input-text">
 							<input type="text" id="name" name="name" class="input-text__input" required aria-required="true"
@@ -127,7 +127,7 @@ get_header();
 					</div>
 					<div class="form-control">
 						<label for="email" class="form-control__label">
-							Email <span class="form-control__label-required" aria-label="обязательное поле">*</span>
+							Email <span class="form-control__required" aria-label="обязательное поле">*</span>
 						</label>
 						<div class="input-text">
 							<input type="email" id="email" name="email" class="input-text__input" required aria-required="true"
@@ -137,24 +137,26 @@ get_header();
 						<!-- <span id="email-error" class="form-control__validation" role="alert" aria-live="polite"></span> -->
 					</div>
 					<fieldset class="form-control">
-						<legend class="form-control__label form-control__label--legend">
-							Предпочитаемый способ связи <span class="form-control__label-required"
-								aria-label="обязательное поле">*</span>
+						<legend class="form-control__label">
+							Предпочитаемый способ связи <span class="form-control__required" aria-label="обязательное поле">*</span>
 						</legend>
-						<div class="radio-group">
-							<div class="radio-item">
-								<input type="radio" id="contact-email" name="contact-method" value="email" checked>
-								<label for="contact-email">Email</label>
+						<span class="form-control__hint">Можно выбрать один</span>
+						<div class="form-control__list">
+							<div class="radio">
+								<input type="radio" id="contact-email" name="contact-method" value="email" class="radio__input" checked>
+								<span class="radio__box"></span>
+								<label for="contact-email" class="radio__label">Email</label>
 							</div>
-							<div class="radio-item">
-								<input type="radio" id="contact-phone" name="contact-method" value="phone">
-								<label for="contact-phone">Телефон</label>
+							<div class="radio">
+								<input type="radio" id="contact-phone" name="contact-method" value="phone" class="radio__input">
+								<span class="radio__box"></span>
+								<label for="contact-phone" class="radio__label">Телефон</label>
 							</div>
 						</div>
 					</fieldset>
 					<div class="form-control">
 						<label for="message" class="form-control__label">
-							Сообщение <span class="form-control__label-required" aria-label="обязательное поле">*</span>
+							Сообщение <span class="form-control__required" aria-label="обязательное поле">*</span>
 						</label>
 						<textarea id="message" name="message" class="textarea" rows="5" required aria-required="true"
 							aria-describedby="message-error message-hint" maxlength="500"></textarea>
@@ -165,7 +167,8 @@ get_header();
 					</div>
 					<div class="form-control">
 						<div class="checkbox-item">
-							<input type="checkbox" id="agree" name="agree" required aria-required="true" aria-describedby="agree-error">
+							<input type="checkbox" id="agree" name="agree" required aria-required="true"
+								aria-describedby="agree-error">
 							<label for="agree">
 								Я согласен с <a href="/privacy">политикой конфиденциальности</a>
 							</label>

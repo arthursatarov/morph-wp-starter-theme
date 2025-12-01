@@ -6,7 +6,7 @@
 	max-inline-size: get-token("max-width", "prose");
 	font-family: get-token("font-family", "base");
 	font-size: get-token("font-size", "md");
-	line-height: get-token("leading", "relaxed");
+	line-height: get-token("leading", "lg");
 	color: get-token("color", "foreground", "neutral", 1);
 
 	> * + * {

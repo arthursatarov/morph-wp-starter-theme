@@ -10,7 +10,7 @@ body {
 	min-block-size: 100vh;
 	font-family: get-token("font-family", "base");
 	font-weight: get-token("font-weight", "normal");
-	line-height: get-token("leading", "normal");
+	line-height: get-token("leading", "md");
 	color: get-token("color", "foreground", "neutral", 1);
 	background-color: get-token("color", "background", "neutral", 1, "rest");
 
@@ -37,7 +37,7 @@ h5,
 h6 {
 	font-family: get-token("font-family", "heading");
 	font-weight: get-token("font-weight", "bold");
-	line-height: get-token("leading", "tight");
+	line-height: get-token("leading", "sm");
 	color: get-token("color", "foreground", "neutral", 1);
 }
 
@@ -108,7 +108,7 @@ code {
 pre {
 	padding: get-token("space", 24);
 	overflow-x: auto;
-	line-height: get-token("leading", "normal");
+	line-height: get-token("leading", "md");
 	background-color: get-token("color", "background", "neutral", 2, "rest");
 	border-radius: get-token("border-radius", "md");
 

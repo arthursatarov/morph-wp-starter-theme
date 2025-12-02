@@ -72,7 +72,7 @@ Table of Contents
 		position: absolute;
 		inset-block-end: -1px;
 		inset-inline: 0;
-		block-size: get-token("border-width", "thick");
+		block-size: get-token("border-width", "md");
 		content: "";
 	}
 

@@ -12,8 +12,9 @@
     2.2. STYLES
     2.3. FONTS
     2.4. IMAGES
-    2.5. SERVER & WATCHERS
-    2.6. CLEAN
+    2.5. SVG SPRITES
+    2.6. SERVER & WATCHERS
+    2.7. CLEAN
   3.0. SERIES & EXPORTS
 ==================================================================================*/
 
@@ -41,6 +42,9 @@ const sass = gulpSass(dartSass);
 // JavaScript
 import esbuild from 'gulp-esbuild';
 
+// SVG
+import svgSprite from 'gulp-svg-sprite';
+
 // utilities
 import browserSync from 'browser-sync';
 import { deleteAsync } from 'del';
@@ -60,7 +64,8 @@ const paths = {
 		styles: path.join(srcDir, 'styles/*.scss'),
 		scripts: path.join(srcDir, 'scripts/*.js'),
 		fonts: path.join(srcDir, 'fonts/**/*.{woff,woff2}'),
-		images: path.join(srcDir, 'images/**/*.{jpg,png,svg,gif,webp}'),
+		images: path.join(srcDir, 'images/**/*.{jpg,png,gif,webp}'),
+		icons: path.join(srcDir, 'images/icons/**/*.svg'),
 	},
 	build: {
 		styles: path.join(buildDir, 'styles/'),
@@ -72,8 +77,9 @@ const paths = {
 		php: '**/*.php',
 		styles: path.join(srcDir, 'styles/**/*.scss'),
 		scripts: path.join(srcDir, 'scripts/**/*.js'),
-		images: path.join(srcDir, 'images/**/*.{jpg,png,svg,gif,webp}'),
+		images: path.join(srcDir, 'images/**/*.{jpg,png,gif,webp}'),
 		fonts: path.join(srcDir, 'fonts/**/*.{woff,woff2}'),
+		icons: path.join(srcDir, 'images/icons/**/*.svg'),
 	},
 };
 
@@ -92,6 +98,41 @@ const onError = function (err) {
 	})(err);
 
 	this.emit('end');
+};
+
+// SVG sprite config
+const svgSpriteConfig = {
+	mode: {
+		symbol: {
+			dest: '.',
+			sprite: 'sprite.svg',
+			inline: true,
+			example: !isProd,
+		}
+	},
+	shape: {
+		id: {
+			generator: 'icon-%s'
+		},
+		transform: [
+			{
+				svgo: {
+					plugins: [
+						{ name: 'removeAttrs', params: { attrs: '(fill|stroke|style)' } },
+						{ name: 'removeTitle' },
+						{ name: 'removeDesc' },
+						{ name: 'removeViewBox', active: false },
+						{ name: 'removeDimensions' },
+					]
+				}
+			}
+		]
+	},
+	svg: {
+		xmlDeclaration: false,
+		doctypeDeclaration: false,
+		dimensionAttributes: false,
+	}
 };
 
 /*==================================================================================
@@ -151,7 +192,17 @@ function copyImages() {
 		.pipe(browserSync.stream());
 }
 
-/* 2.5. SERVER & WATCHERS
+/* 2.5. SVG SPRITES
+/––––––––––––––––––––––––*/
+function icons() {
+	return src(paths.src.icons)
+		.pipe(plumber({ errorHandler: onError }))
+		.pipe(svgSprite(svgSpriteConfig))
+		.pipe(dest(paths.build.images))
+		.pipe(browserSync.stream());
+}
+
+/* 2.6. SERVER & WATCHERS
 /––––––––––––––––––––––––*/
 function serve() {
 	browserSync.init({
@@ -166,9 +217,10 @@ function serve() {
 	watch(paths.watch.styles, styles);
 	watch(paths.watch.fonts, copyFonts);
 	watch(paths.watch.images, copyImages);
+	watch(paths.watch.icons, icons);
 }
 
-/* 2.6. CLEAN
+/* 2.7. CLEAN
 /––––––––––––––––––––––––*/
 async function clean() {
 	await deleteAsync([buildDir]);
@@ -179,13 +231,15 @@ async function clean() {
 ==================================================================================*/
 export const dev = series(
 	clean,
-	parallel(scripts, styles, copyFonts, copyImages),
+	parallel(scripts, styles, copyFonts, copyImages, icons),
 	serve
 );
 
 export const build = series(
 	clean,
-	parallel(scripts, styles, copyFonts, copyImages)
+	parallel(scripts, styles, copyFonts, copyImages, icons)
 );
+
+export { icons };
 
 export default dev;

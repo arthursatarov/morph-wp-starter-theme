@@ -212,6 +212,10 @@ $theme-default-colors: (
 			2: map-get-nested($theme-default-base-colors, "danger", 3),
 		),
 	),
+	"focus": (
+		"outline-color": map-get-nested($theme-default-base-colors, "accent", 5),
+		"shadow-color": map-get-nested($theme-default-base-colors, "neutral", "white"),
+	),
 );
 
 /* ======================================================

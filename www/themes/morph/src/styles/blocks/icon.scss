@@ -5,6 +5,8 @@
   1.0 BASE STYLES
 ====================================================== */
 .icon {
+	--icon-size: #{get-token("icon-size", "md")};
+
 	display: block;
 	inline-size: var(--icon-size, 1em);
 	block-size: var(--icon-size, 1em);

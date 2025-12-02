@@ -82,10 +82,10 @@ $control-sizes: (
 /––––––––––––––––––––––––------------ */
 /// Icon size values (em-based for relative sizing)
 $icon-sizes: (
-	"sm": 0.75em,
-	"md": 1em,
-	"lg": 1.25em,
-	"xl": 1.5em,
+	"xs": map.get($base-sizes, 12),
+	"sm": map.get($base-sizes, 16),
+	"md": map.get($base-sizes, 20),
+	"lg": map.get($base-sizes, 24),
 );
 
 /* 2.3 MAX WIDTHS

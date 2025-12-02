@@ -172,7 +172,8 @@ get_header();
 							<span class="checkbox__box">
 								<?php morph_print_sprite_icon( [
 									'icon' => 'icon-checkmark-filled',
-									'class' => 'checkbox__icon'
+									'class' => 'checkbox__icon',
+									'size' => 'xs'
 								] ); ?>
 							</span>
 							<label class="checkbox__label" for="agree">

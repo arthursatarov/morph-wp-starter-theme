@@ -116,7 +116,7 @@ get_header();
 				<form class="form stack" novalidate>
 					<div class="form-control">
 						<label for="name" class="form-control__label">
-							Имя <span class="form-control__required" aria-label="обязательное поле">*</span>
+							Имя<span class="form-control__required" aria-label="обязательное поле">*</span>
 						</label>
 						<div class="input-text">
 							<input type="text" id="name" name="name" class="input-text__input" required aria-required="true"
@@ -127,7 +127,7 @@ get_header();
 					</div>
 					<div class="form-control">
 						<label for="email" class="form-control__label">
-							Email <span class="form-control__required" aria-label="обязательное поле">*</span>
+							Email<span class="form-control__required" aria-label="обязательное поле">*</span>
 						</label>
 						<div class="input-text">
 							<input type="email" id="email" name="email" class="input-text__input" required aria-required="true"
@@ -138,7 +138,7 @@ get_header();
 					</div>
 					<fieldset class="form-control">
 						<legend class="form-control__label">
-							Предпочитаемый способ связи <span class="form-control__required" aria-label="обязательное поле">*</span>
+							Предпочитаемый способ связи<span class="form-control__required" aria-label="обязательное поле">*</span>
 						</legend>
 						<span class="form-control__hint">Можно выбрать один</span>
 						<div class="form-control__list">

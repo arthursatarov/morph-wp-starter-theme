@@ -45,6 +45,8 @@
 /* 1.4 REQUIRED
 /––––––––––––––––––––––––------------ */
 .form-control__required {
+	padding-inline-start: get-token("space", 4);
+	font-weight: get-token("font-weight", "normal");
 	color: get-token("color", "foreground", "danger");
 }
 

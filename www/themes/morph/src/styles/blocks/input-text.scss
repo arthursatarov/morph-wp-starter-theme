@@ -10,7 +10,6 @@
 /––––––––––––––––––––––––------------ */
 .input-text {
 	display: inline-flex;
-	gap: get-token("space", 8);
 	align-items: stretch;
 	block-size: get-token("control-size", "md");
 	padding-inline: get-token("space", 8);
@@ -21,6 +20,10 @@
 
 	&:focus-within {
 		@include focus-visible;
+	}
+
+	&:has(.input-text__action) {
+		padding-inline-end: get-token("space", 4);
 	}
 
 	&:has(.input-text__icon:first-child) {
@@ -37,8 +40,40 @@
 .input-text__icon {
 	--icon-size: #{get-token("icon-size", "lg")};
 
+	flex-shrink: 0;
 	align-self: center;
+	margin-inline-end: get-token("space", 8);
 	color: get-token("color", "foreground", "neutral", 3);
+	pointer-events: none;
+}
+
+/* 1.2 ACTION
+/––––––––––––––––––––––––------------ */
+.input-text__action {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	padding-inline: get-token("space", 4);
+	color: get-token("color", "foreground", "neutral", 3);
+	cursor: pointer;
+	background-color: none;
+	border: 0;
+
+	&:focus-visible {
+		@include focus-visible;
+	}
+
+	&:hover {
+		color: get-token("color", "foreground", "neutral", 1);
+	}
+
+	&[hidden] {
+		display: none;
+	}
+}
+
+.input-text__action-icon {
 	pointer-events: none;
 }
 
@@ -56,6 +91,10 @@
 
 	&:focus-visible {
 		outline: 0;
+	}
+
+	.input-text:has(.input-text__action) & {
+		padding-inline-end: get-token("space", 4);
 	}
 
 	.input-text:has(.input-text__icon:first-child) & {

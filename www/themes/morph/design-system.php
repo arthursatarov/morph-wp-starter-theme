@@ -19,7 +19,7 @@ get_header();
 				<p>Button icon</p>
 				<button class="btn btn--icon" data-tooltip-target="tooltip-1" aria-label="Add file">
 					<?php morph_print_sprite_icon( [
-						'icon' => 'add',
+						'icon' => 'icon-add-regular',
 						'class' => 'btn__icon'
 					] ); ?>
 				</button>
@@ -45,21 +45,21 @@ get_header();
 					<div class="cluster">
 						<button class="btn btn--primary">
 							<?php morph_print_sprite_icon( [
-								'icon' => 'add',
+								'icon' => 'icon-add-regular',
 								'class' => 'btn__icon'
 							] ); ?>
 							<span class="btn__label">Button</span>
 						</button>
 						<button class="btn">
 							<?php morph_print_sprite_icon( [
-								'icon' => 'add',
+								'icon' => 'icon-add-regular',
 								'class' => 'btn__icon'
 							] ); ?>
 							<span class="btn__label">Button</span>
 						</button>
 						<button class="btn" disabled>
 							<?php morph_print_sprite_icon( [
-								'icon' => 'add',
+								'icon' => 'icon-add-regular',
 								'class' => 'btn__icon'
 							] ); ?>
 							<span class="btn__label">Button</span>
@@ -72,7 +72,7 @@ get_header();
 				<button class="btn" data-dropdown-target="dropdown-1">
 					<span class="btn__label">Dropdown</span>
 					<?php morph_print_sprite_icon( [
-						'icon' => 'chevron-down',
+						'icon' => 'icon-chevron-down-regular',
 						'class' => 'btn__icon'
 					] ); ?>
 				</button>
@@ -107,7 +107,7 @@ get_header();
 		<div class="modal__wrapper" style="padding: 1.5rem;">
 			<button class="modal__close btn btn--icon btn--ghost" data-modal-hide="modal-1">
 				<?php morph_print_sprite_icon( [
-					'icon' => 'dismiss',
+					'icon' => 'icon-dismiss-regular',
 					'class' => 'btn__icon'
 				] ); ?>
 			</button>
@@ -171,7 +171,7 @@ get_header();
 								aria-describedby="agree-error">
 							<span class="checkbox__box">
 								<?php morph_print_sprite_icon( [
-									'icon' => 'add',
+									'icon' => 'icon-checkmark-filled',
 									'class' => 'checkbox__icon'
 								] ); ?>
 							</span>
@@ -200,7 +200,7 @@ get_header();
 		<div class="drawer__wrapper">
 			<button class="modal__close btn btn--icon btn--ghost" data-drawer-hide="drawer-1" aria-label="Close Drawer">
 				<?php morph_print_sprite_icon( [
-					'icon' => 'dismiss',
+					'icon' => 'icon-dismiss-regular',
 					'class' => 'btn__icon'
 				] ); ?>
 			</button>
@@ -219,7 +219,7 @@ get_header();
 					<button class="accordion__item-trigger">
 						<span>Section 1</span>
 						<?php morph_print_sprite_icon( [
-							'icon' => 'chevron-right',
+							'icon' => 'icon-chevron-right-regular',
 							'class' => 'accordion__item-icon'
 						] ); ?>
 					</button>
@@ -234,7 +234,7 @@ get_header();
 					<button class="accordion__item-trigger">
 						<span>Section 2</span>
 						<?php morph_print_sprite_icon( [
-							'icon' => 'chevron-right',
+							'icon' => 'icon-chevron-right-regular',
 							'class' => 'accordion__item-icon'
 						] ); ?>
 					</button>
@@ -249,7 +249,7 @@ get_header();
 					<button class="accordion__item-trigger">
 						<span>Section 3</span>
 						<?php morph_print_sprite_icon( [
-							'icon' => 'chevron-right',
+							'icon' => 'icon-chevron-right-regular',
 							'class' => 'accordion__item-icon'
 						] ); ?>
 					</button>
@@ -264,7 +264,7 @@ get_header();
 					<button class="accordion__item-trigger">
 						<span>Section 4</span>
 						<?php morph_print_sprite_icon( [
-							'icon' => 'chevron-right',
+							'icon' => 'icon-chevron-right-regular',
 							'class' => 'accordion__item-icon'
 						] ); ?>
 					</button>
@@ -286,7 +286,7 @@ get_header();
 				<button class="tabs__trigger" role="tab" aria-selected="true" aria-controls="tabs-panel-1" id="tabs-tab-1"
 					data-tabs-trigger>
 					<?php morph_print_sprite_icon( [
-						'icon' => 'globe',
+						'icon' => 'icon-globe-regular',
 						'class' => 'tabs__trigger-icon'
 					] ); ?>
 					<span class="tabs__trigger-label">Profile</span>
@@ -294,7 +294,7 @@ get_header();
 				<button class="tabs__trigger" role="tab" aria-selected="false" aria-controls="tabs-panel-2" id="tabs-tab-2"
 					data-tabs-trigger>
 					<?php morph_print_sprite_icon( [
-						'icon' => 'globe',
+						'icon' => 'icon-globe-regular',
 						'class' => 'tabs__trigger-icon'
 					] ); ?>
 					<span class="tabs__trigger-label">Dashboard</span>
@@ -302,7 +302,7 @@ get_header();
 				<button class="tabs__trigger" role="tab" aria-selected="false" aria-controls="tabs-panel-3" id="tabs-tab-3"
 					data-tabs-trigger>
 					<?php morph_print_sprite_icon( [
-						'icon' => 'globe',
+						'icon' => 'icon-globe-regular',
 						'class' => 'tabs__trigger-icon'
 					] ); ?>
 					<span class="tabs__trigger-label">Settings</span>
@@ -310,7 +310,7 @@ get_header();
 				<button class="tabs__trigger" role="tab" aria-selected="false" aria-controls="tabs-panel-3" id="tabs-tab-4"
 					data-tabs-trigger disabled>
 					<?php morph_print_sprite_icon( [
-						'icon' => 'globe',
+						'icon' => 'icon-globe-regular',
 						'class' => 'tabs__trigger-icon'
 					] ); ?>
 					<span class="tabs__trigger-label">Overview</span>

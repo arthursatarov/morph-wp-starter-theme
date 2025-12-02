@@ -136,6 +136,27 @@ get_header();
 						<span id="email-hint" class="form-control__hint">Мы никогда не передадим ваш email третьим лицам</span>
 						<!-- <span id="email-error" class="form-control__validation" role="alert" aria-live="polite"></span> -->
 					</div>
+					<div class="form-control">
+						<label for="email" class="form-control__label">
+							Страна
+						</label>
+						<div class="select">
+							<select id="country" name="country" class="select__input" aria-describedby="country-error country-hint"
+								aria-invalid="false">
+								<option value="">Выберите страну</option>
+								<option value="uz">Узбекистан</option>
+								<option value="ru">Россия</option>
+								<option value="kz">Казахстан</option>
+								<option value="ua">Украина</option>
+							</select>
+							<?php morph_print_sprite_icon( [
+								'icon' => 'icon-chevron-down-regular',
+								'class' => 'select__icon',
+								'size' => 'md'
+							] ); ?>
+						</div>
+						<span id="email-hint" class="form-control__hint">Выберите вашу страну проживания</span>
+					</div>
 					<fieldset class="form-control">
 						<legend class="form-control__label">
 							Предпочитаемый способ связи<span class="form-control__required" aria-label="обязательное поле">*</span>

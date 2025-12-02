@@ -166,10 +166,16 @@ get_header();
 						<span id="message-error" class="form-control__validation" role="alert" aria-live="polite"></span>
 					</div>
 					<div class="form-control">
-						<div class="checkbox-item">
-							<input type="checkbox" id="agree" name="agree" required aria-required="true"
+						<div class="checkbox">
+							<input type="checkbox" id="agree" name="agree" class="checkbox__input" required aria-required="true"
 								aria-describedby="agree-error">
-							<label for="agree">
+							<span class="checkbox__box">
+								<?php morph_print_sprite_icon( [
+									'icon' => 'add',
+									'class' => 'checkbox__icon'
+								] ); ?>
+							</span>
+							<label class="checkbox__label" for="agree">
 								Я согласен с <a href="/privacy">политикой конфиденциальности</a>
 							</label>
 						</div>

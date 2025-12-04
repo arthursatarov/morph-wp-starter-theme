@@ -15,6 +15,7 @@
 	border: get-token("border-width", "default") solid get-token("color", "border", "neutral", 2);
 	border-radius: get-token("border-radius", "sm");
 
+	// Focus state
 	&:focus-visible {
 		@include focus-visible;
 	}

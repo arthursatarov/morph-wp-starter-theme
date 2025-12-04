@@ -18,14 +18,23 @@
 	border: get-token("border-width", "default") solid get-token("color", "border", "neutral", 2);
 	border-radius: get-token("border-radius", "sm");
 
-	&:focus-within {
-		@include focus-visible;
-	}
-
+	// Adjust horizontal padding based on trailing action
 	&:has(.input-text__action) {
 		padding-inline-end: get-token("space", 4);
 	}
 
+	// Focus state
+	&:has(.input-text__input:focus-visible) {
+		@include focus-visible;
+	}
+
+	// Disabled state
+	&:has(.input-text__input[disabled]) {
+		background-color: get-token("color", "background", "disabled");
+		border-color: get-token("color", "border", "disabled");
+	}
+
+	// Adjust horizontal padding based on icon position
 	&:has(.input-text__icon:first-child) {
 		padding-inline-end: 0;
 	}
@@ -35,64 +44,26 @@
 	}
 }
 
-/* 1.2 ICON
-/––––––––––––––––––––––––------------ */
-.input-text__icon {
-	--icon-size: #{get-token("icon-size", "lg")};
-
-	flex-shrink: 0;
-	align-self: center;
-	margin-inline-end: get-token("space", 8);
-	color: get-token("color", "foreground", "neutral", 3);
-	pointer-events: none;
-}
-
-/* 1.2 ACTION
-/––––––––––––––––––––––––------------ */
-.input-text__action {
-	display: inline-flex;
-	flex-shrink: 0;
-	align-items: center;
-	justify-content: center;
-	padding-inline: get-token("space", 4);
-	color: get-token("color", "foreground", "neutral", 3);
-	cursor: pointer;
-	background-color: none;
-	border: 0;
-
-	&:focus-visible {
-		@include focus-visible;
-	}
-
-	&:hover {
-		color: get-token("color", "foreground", "neutral", 1);
-	}
-
-	&[hidden] {
-		display: none;
-	}
-}
-
-.input-text__action-icon {
-	pointer-events: none;
-}
-
-/* 1.3 INPUT
+/* 1.2 INPUT
 /––––––––––––––––––––––––------------ */
 .input-text__input {
 	inline-size: 100%;
+	font-size: get-token("font-size", "sm");
 	line-height: get-token("leading", "none");
 	background-color: transparent;
 	border: 0;
 
+	// Placeholder
 	&::placeholder {
 		color: get-token("color", "foreground", "neutral", 3);
 	}
 
+	// Focus state
 	&:focus-visible {
 		outline: 0;
 	}
 
+	// Adjust horizontal padding based on icon/action position
 	.input-text:has(.input-text__action) & {
 		padding-inline-end: get-token("space", 4);
 	}
@@ -106,9 +77,58 @@
 	}
 }
 
+/* 1.3 ICON
+/––––––––––––––––––––––––------------ */
+.input-text__icon {
+	--icon-size: #{get-token("icon-size", "md")};
+	--icon-color: #{get-token("color", "foreground", "neutral", 3)};
+
+	flex-shrink: 0;
+	align-self: center;
+	margin-inline-end: get-token("space", 8);
+	pointer-events: none;
+}
+
+/* 1.4 ACTION
+/––––––––––––––––––––––––------------ */
+.input-text__action {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	padding-inline: get-token("space", 4);
+	color: get-token("color", "foreground", "neutral", 3);
+	cursor: pointer;
+	background-color: none;
+	border: 0;
+
+	&[hidden] {
+		display: none;
+	}
+
+	// Hover state
+	&:hover {
+		color: get-token("color", "foreground", "neutral", 1);
+	}
+
+	// Focus state
+	&:focus-visible {
+		@include focus-visible;
+	}
+}
+
+.input-text__action-icon {
+	--icon-size: #{get-token("icon-size", "md")};
+
+	pointer-events: none;
+}
+
 /* ======================================================
   2.0 VALIDATION STATUS
 ====================================================== */
+
+/* 2.1 ERROR
+/––––––––––––––––––––––––------------ */
 .input-text[data-validation-status="error"] {
 	border-color: get-token("color", "border", "danger", 1);
 

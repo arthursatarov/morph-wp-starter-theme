@@ -27,10 +27,12 @@
 	cursor: pointer;
 	opacity: 0;
 
+	// Focus state
 	&:focus-visible {
 		outline: 0;
 	}
 
+	// Disabled
 	&:disabled {
 		cursor: not-allowed;
 	}
@@ -77,7 +79,9 @@
 /* 1.4 ICON
 /––––––––––––––––––––––––------------ */
 .checkbox__icon {
-	color: get-token("color", "foreground", "on-emphasis");
+	--icon-size: #{get-token("icon-size", "xs")};
+	--icon-color: #{get-token("color", "foreground", "on-emphasis")};
+
 	opacity: 0;
 	transform: scale(0.8);
 

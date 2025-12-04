@@ -19,6 +19,7 @@
 	border: get-token("border-width", "default") solid get-token("color", "border", "neutral", 2);
 	border-radius: get-token("border-radius", "sm");
 
+	// Focus state
 	&:focus-within {
 		@include focus-visible;
 	}
@@ -47,10 +48,7 @@
 	background-color: transparent;
 	border: 0;
 
-	&::placeholder {
-		color: get-token("color", "foreground", "neutral", 3);
-	}
-
+	// Focus state
 	&:focus-visible {
 		outline: 0;
 	}
@@ -59,6 +57,9 @@
 /* ======================================================
   2.0 VALIDATION STATUS
 ====================================================== */
+
+/* 2.1 ERROR
+/––––––––––––––––––––––––------------ */
 .select[data-validation-status="error"] {
 	border-color: get-token("color", "border", "danger", 1);
 

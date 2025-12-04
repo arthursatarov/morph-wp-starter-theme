@@ -29,7 +29,7 @@ Table of Contents
 /––––––––––––––––––––––––------------ */
 .tabs__trigger {
 	--tabs-trigger-block-size: #{get-token("control-size", "md")};
-	--tabs-trigger-inline-size: 100%;
+	--tabs-trigger-inline-size: fit-content;
 	--tabs-trigger-fg-color: #{get-token("color", "foreground", "neutral", 1)};
 	--tabs-trigger-bg-color: transparent;
 	--tabs-trigger-border-color: transparent;
@@ -54,20 +54,24 @@ Table of Contents
 
 	@include transition((color, border-color), 100, "prod-standard");
 
+	// Disabled state
 	&:disabled {
 		--tabs-trigger-fg-color: #{get-token("color", "foreground", "disabled")};
 
 		cursor: auto;
 	}
 
+	// Hover state
 	&:hover:not(:disabled, [aria-selected="true"]) {
 		--tabs-trigger-fg-color: #{get-token("color", "foreground", "accent")};
 	}
 
+	// Focus state
 	&:focus-visible:not(:disabled) {
 		@include focus-visible;
 	}
 
+	// Border bottom
 	&::after {
 		position: absolute;
 		inset-block-end: -1px;
@@ -85,14 +89,26 @@ Table of Contents
 	}
 }
 
-/* 1.4 TABS PANELS
+/* 1.4 TABS TRIGGER ICON
+/––––––––––––––––––––––––------------ */
+.tabs__trigger-icon {
+	--icon-size: #{get-token("icon-size", "md")};
+}
+
+/* 1.5 TABS TRIGGER LABEL
+/––––––––––––––––––––––––------------ */
+.tabs__trigger-label {
+	font-weight: get-token("font-weight", "medium");
+}
+
+/* 1.6 TABS PANELS
 /––––––––––––––––––––––––------------ */
 .tabs__panels {
 	min-block-size: 8rem;
 	padding-block-start: get-token("space", 16);
 }
 
-/* 1.5 TABS PANEL
+/* 1.7 TABS PANEL
 /––––––––––––––––––––––––------------ */
 .tabs__panel {
 }

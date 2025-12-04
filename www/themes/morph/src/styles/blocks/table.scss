@@ -7,7 +7,7 @@
 
 /* 1.1 TABLE
 /––––––––––––––––––––––––------------ */
-table,
+table:not([class]),
 .table {
 	position: relative;
 	inline-size: 100%;
@@ -21,6 +21,7 @@ table,
 /––––––––––––––––––––––––------------ */
 th {
 	font-size: get-token("font-size", "md");
+	font-weight: get-token("font-weight", "medium");
 	background-color: get-token("color", "background", "neutral", 2, "rest");
 }
 

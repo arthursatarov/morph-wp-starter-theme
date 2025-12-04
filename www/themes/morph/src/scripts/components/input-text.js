@@ -108,13 +108,13 @@ export function initTextInputs() {
     initFocusHandling(wrapper, input);
 
     // Actions: Clear button
-    const clearButton = wrapper.querySelector('[data-clear-input]');
+    const clearButton = wrapper.querySelector('[data-input-action="clear"]');
     if (clearButton) {
       initClearAction(clearButton, wrapper);
     }
 
     // Actions: Password toggle
-    const toggleButton = wrapper.querySelector('[data-toggle-password]');
+    const toggleButton = wrapper.querySelector('[data-input-action="toggle"]');
     if (toggleButton) {
       initPasswordToggle(toggleButton, wrapper);
     }

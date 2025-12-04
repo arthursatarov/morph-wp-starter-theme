@@ -23,12 +23,14 @@ Table of Contents
 	justify-content: center;
 	padding: get-token("space", 16);
 
+	// Hidden state
 	&[data-modal-state="hidden"] {
 		visibility: hidden;
 		pointer-events: none;
 		opacity: 0;
 	}
 
+	// Open state
 	&[data-modal-state="open"] {
 		visibility: visible;
 		pointer-events: auto;
@@ -46,10 +48,12 @@ Table of Contents
 
 	@include transition(transform, 200, "prod-standard");
 
+	// Hidden state
 	.modal[data-modal-state="hidden"] & {
 		opacity: 0;
 	}
 
+	// Open state
 	.modal[data-modal-state="open"] & {
 		opacity: 1;
 	}
@@ -72,11 +76,13 @@ Table of Contents
 
 	@include transition((transform, opacity), 200, "prod-standard");
 
+	// Hidden state
 	.modal[data-modal-state="hidden"] {
 		opacity: 0;
 		transform: scale(0.95);
 	}
 
+	// Open state
 	.modal[data-modal-state="open"] {
 		opacity: 1;
 		transform: scale(1);

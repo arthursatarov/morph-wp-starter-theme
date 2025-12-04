@@ -6,12 +6,13 @@
 ====================================================== */
 .icon {
 	--icon-size: #{get-token("icon-size", "md")};
+	--icon-color: currentColor;
 
 	display: block;
 	inline-size: var(--icon-size, 1em);
 	block-size: var(--icon-size, 1em);
 	line-height: get-token("leading", "none");
-	fill: currentColor;
+	fill: var(--icon-color);
 }
 
 /* ======================================================

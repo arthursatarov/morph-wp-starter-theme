@@ -29,12 +29,13 @@
 	inline-size: 100%;
 	padding-block: get-token("space", 16);
 	font-size: get-token("font-size", "md");
-	font-weight: get-token("font-weight", "bold");
+	font-weight: get-token("font-weight", "medium");
 	line-height: get-token("leading", "sm");
 	cursor: pointer;
 	background-color: transparent;
 	border: 0;
 
+	// Focus state
 	&:focus-visible {
 		@include focus-visible;
 	}
@@ -43,6 +44,7 @@
 .accordion__item-icon {
 	@include transition(transform, 200, "prod-standard");
 
+	// Expanded state
 	.accordion__item-trigger[aria-expanded="true"] & {
 		transform: rotate(90deg);
 	}
@@ -51,14 +53,11 @@
 /* 1.4 ACCORDION CONTENT
 /––––––––––––––––––––––––------------ */
 .accordion__item-content {
+	padding-block-start: 0;
+	padding-block-end: get-token("space", 16);
 	overflow: hidden;
-
-	&:not([hidden]) {
-		padding-block-start: 0;
-		padding-block-end: get-token("space", 16);
-		animation: accordion-slide-down get-token("animation-duration", 200)
-			get-token("animation-easing", "prod-standard");
-	}
+	animation: accordion-slide-down get-token("animation-duration", 200)
+		get-token("animation-easing", "prod-standard");
 }
 
 /* ======================================================
@@ -75,173 +74,3 @@
 		transform: translateY(0);
 	}
 }
-
-/* ======================================================
-  3.0 MARKUP DOCUMENTATION
-====================================================== */
-
-/*
-ACCORDION COMPONENT
-===================
-
-Basic Usage:
-------------
-The accordion component provides an accessible way to show/hide content sections.
-Supports two modes: 'collapse' (single panel) and 'open' (multiple panels).
-
-Minimal Markup:
---------------
-<div class="accordion" data-accordion="collapse">
-	<div class="accordion__item">
-		<h2 class="accordion__heading">
-			<button type="button" class="accordion__btn" aria-expanded="false">
-				<span class="accordion__btn-label">Section Title</span>
-				<span class="accordion__btn-icon">
-					<!-- Icon here -->
-				</span>
-			</button>
-		</h2>
-		<div class="accordion__item-content">
-			<p>Content goes here...</p>
-		</div>
-	</div>
-</div>
-
-Required Attributes:
--------------------
-- data-accordion="collapse|open"  → On container (collapse = single panel, open = multiple panels)
-- type="button"                   → On button element
-- aria-expanded="true|false"      → On button (defines initial state)
-
-JavaScript generates automatically:
-----------------------------------
-- id attributes for buttons and content
-- aria-controls on button
-- aria-labelledby on content
-- data-accordion-target on button
-- role="region" on content
-- hidden attribute on closed panels
-
-Data Attribute Options:
-----------------------
-data-accordion="collapse"  → Only one panel can be open at a time (accordion behavior)
-data-accordion="open"      → Multiple panels can be open simultaneously
-
-Initial State:
--------------
-Set aria-expanded="true" on button to open panel by default:
-
-<button type="button" class="accordion__btn" aria-expanded="true">
-	...
-</button>
-
-Examples:
----------
-
-1. Single Panel Open (Collapse Mode):
-<div class="accordion" data-accordion="collapse">
-	<div class="accordion__item">
-		<h2 class="accordion__heading">
-			<button type="button" class="accordion__btn" aria-expanded="false">
-				<span class="accordion__btn-label">Question 1</span>
-				<span class="accordion__btn-icon">→</span>
-			</button>
-		</h2>
-		<div class="accordion__item-content">
-			<p>Answer 1</p>
-		</div>
-	</div>
-	<div class="accordion__item">
-		<h2 class="accordion__heading">
-			<button type="button" class="accordion__btn" aria-expanded="true">
-				<span class="accordion__btn-label">Question 2</span>
-				<span class="accordion__btn-icon">→</span>
-			</button>
-		</h2>
-		<div class="accordion__item-content">
-			<p>Answer 2</p>
-		</div>
-	</div>
-</div>
-
-2. Multiple Panels Open (Open Mode):
-<div class="accordion" data-accordion="open">
-	<div class="accordion__item">
-		<h2 class="accordion__heading">
-			<button type="button" class="accordion__btn" aria-expanded="true">
-				<span class="accordion__btn-label">Section 1</span>
-				<span class="accordion__btn-icon">+</span>
-			</button>
-		</h2>
-		<div class="accordion__item-content">
-			<p>Content 1</p>
-		</div>
-	</div>
-	<div class="accordion__item">
-		<h2 class="accordion__heading">
-			<button type="button" class="accordion__btn" aria-expanded="true">
-				<span class="accordion__btn-label">Section 2</span>
-				<span class="accordion__btn-icon">+</span>
-			</button>
-		</h2>
-		<div class="accordion__item-content">
-			<p>Content 2</p>
-		</div>
-	</div>
-</div>
-
-Accessibility Features:
-----------------------
-- Full keyboard navigation (↑, ↓, Home, End)
-- Proper ARIA attributes for screen readers
-- Semantic heading structure
-- Focus management
-- Hidden attribute for closed panels
-
-Styling Hooks:
--------------
-.accordion__btn[aria-expanded="true"]  → Style open state
-.accordion__btn[aria-expanded="false"] → Style closed state
-.accordion__btn-icon                   → Rotate/transform icon
-
-JavaScript API:
---------------
-// Open specific panel
-morphApp.accordionManager.openPanel('accordion-content-0-0');
-
-// Close specific panel
-morphApp.accordionManager.closePanel('accordion-content-0-0');
-
-// Toggle specific panel
-morphApp.accordionManager.togglePanelById('accordion-content-0-0');
-
-// Open all panels
-morphApp.accordionManager.openAll('[data-accordion]');
-
-// Close all panels
-morphApp.accordionManager.closeAll('[data-accordion]');
-
-// Get state
-const state = morphApp.accordionManager.getState('[data-accordion]');
-
-// Refresh after dynamic content
-morphApp.accordionManager.refresh();
-
-Events:
--------
-document.addEventListener('accordion:open', (e) => {
-	console.log('Opened:', e.detail.content.id);
-});
-
-document.addEventListener('accordion:close', (e) => {
-	console.log('Closed:', e.detail.content.id);
-});
-
-Notes:
-------
-- JavaScript is required for functionality
-- Headings (h2, h3, etc.) should match document outline
-- Use appropriate heading level based on page structure
-- Icon rotation handled via CSS transform
-- Content IDs are auto-generated if not provided
-*/

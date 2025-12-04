@@ -27,6 +27,7 @@
 	cursor: pointer;
 	opacity: 0;
 
+	// Focus state
 	&:focus-visible {
 		outline: 0;
 	}
@@ -64,13 +65,13 @@
 		border-radius: get-token("border-radius", "circle");
 	}
 
-	// Focus
+	// Focus state
 	.radio__input:focus-visible ~ & {
 		@include focus-visible;
 		@include focus-visible-emphasis;
 	}
 
-	// Checked
+	// Checked state
 	.radio__input:checked ~ & {
 		background-color: get-token("color", "background", "accent", 1, "rest");
 		border-color: get-token("color", "border", "accent", 1);
@@ -80,7 +81,7 @@
 		}
 	}
 
-	// Disabled
+	// Disabled state
 	.radio__input:disabled ~ & {
 		background-color: get-token("color", "background", "disabled");
 		border-color: get-token("color", "border", "disabled");
@@ -98,7 +99,7 @@
 	color: get-token("color", "foreground", "neutral", 1);
 	cursor: pointer;
 
-	// Disabled
+	// Disabled state
 	.radio__input:disabled ~ & {
 		color: get-token("color", "foreground", "disabled");
 		cursor: not-allowed;

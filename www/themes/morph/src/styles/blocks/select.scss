@@ -1,0 +1,69 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 WRAPPER
+/––––––––––––––––––––––––------------ */
+.select {
+	position: relative;
+	display: inline-flex;
+	gap: get-token("space", 8);
+	align-items: stretch;
+	block-size: get-token("control-size", "md");
+	cursor: pointer;
+	background-color: get-token("color", "background", "neutral", 1, "rest");
+	border: get-token("border-width", "default") solid get-token("color", "border", "neutral", 2);
+	border-radius: get-token("border-radius", "sm");
+
+	// Focus state
+	&:focus-within {
+		@include focus-visible;
+	}
+}
+
+/* 1.2 ICON
+/––––––––––––––––––––––––------------ */
+.select__icon {
+	position: absolute;
+	inset-block-start: 50%;
+	inset-inline-end: get-token("space", 8);
+	color: get-token("color", "foreground", "neutral", 3);
+	pointer-events: none;
+	transform: translateY(-50%);
+}
+
+/* 1.3 INPUT
+/––––––––––––––––––––––––------------ */
+.select__input {
+	inline-size: 100%;
+	padding-inline-start: get-token("space", 8);
+	padding-inline-end: calc(get-token("icon-size", "md") + get-token("space", 16));
+	line-height: get-token("leading", "none");
+	appearance: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: 0;
+
+	// Focus state
+	&:focus-visible {
+		outline: 0;
+	}
+}
+
+/* ======================================================
+  2.0 VALIDATION STATUS
+====================================================== */
+
+/* 2.1 ERROR
+/––––––––––––––––––––––––------------ */
+.select[data-validation-status="error"] {
+	border-color: get-token("color", "border", "danger", 1);
+
+	&:focus-within {
+		outline-color: get-token("color", "border", "danger", 1);
+	}
+}

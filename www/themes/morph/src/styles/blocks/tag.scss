@@ -15,13 +15,13 @@ Table of Contents
   1.0 BASE STYLES
 ====================================================== */
 
-/* 1.1 BUTTON
+/* 1.1 TAG
 /––––––––––––––––––––––––------------ */
 .tag {
-	--tag-block-size: #{get-token("control-size", "sm")};
+	--tag-block-size: #{get-token("control-size", "xs")};
 	--tag-inline-size: fit-content;
-	--tag-fg-color: #{get-token("color", "foreground", "neutral", 1)};
-	--tag-bg-color: #{get-token("color", "background", "neutral", 2, "rest")};
+	--tag-fg-color: #{get-token("color", "foreground", "neutral", 2)};
+	--tag-bg-color: transparent;
 	--tag-border-color: #{get-token("color", "border", "neutral", 2)};
 
 	display: flex;
@@ -46,7 +46,12 @@ Table of Contents
 
 	@include transition((background-color, border-color), 100, "prod-standard");
 
-	&:disabled {
+	&[href] {
+		cursor: pointer;
+	}
+
+	// Disabled state
+	&[aria-disabled="true"] {
 		--tag-fg-color: #{get-token("color", "foreground", "disabled")};
 		--tag-bg-color: #{get-token("color", "background", "disabled")};
 		--tag-border-color: #{get-token("color", "border", "disabled")};
@@ -54,58 +59,24 @@ Table of Contents
 		cursor: auto;
 	}
 
-	&:has([href]) {
-		cursor: pointer;
+	// Hover state
+	&[href]:hover:not([aria-disabled="true"]) {
+		--tag-bg-color: #{get-token("color", "background", "neutral", 1, "hover")};
 	}
 
-	&:has([href]):hover:not(:disabled) {
-		--tag-bg-color: #{get-token("color", "background", "neutral", 2, "hover")};
-	}
-
-	&:focus-visible:not(:disabled) {
+	// Focus state
+	&:focus-visible {
 		@include focus-visible;
 	}
 }
 
-/* 1.2 BUTTON ICON
+/* 1.2 ICON
 /––––––––––––––––––––––––------------ */
 .tag__icon {
-	--icon-size: #{get-token("icon-size", "md")};
-
-	// Adjust icon vertical alignment when both icon and label are present
-	.tag:has(.tag__icon):has(.tag__label) & {
-		margin-block-start: calc(get-token("space", 2) * -1);
-	}
+	--icon-size: #{get-token("icon-size", "sm")};
 }
 
-/* 1.3 BUTTON LABEL
+/* 1.3 LABEL
 /––––––––––––––––––––––––------------ */
-.tag__label {}
-
-/* ======================================================
-  2.0 SIZE VARIANTS
-====================================================== */
-.tag--sm {
-	--tag-block-size: #{get-token("control-size", "xs")};
-}
-
-.tag--lg {
-	--tag-block-size: #{get-token("control-size", "md")};
-}
-
-/* ======================================================
-  3.0 TYPE VARIANTS
-====================================================== */
-
-/* ======================================================
-  4.0 STYLE VARIANTS
-====================================================== */
-.tag--primary {
-	--tag-fg-color: #{get-token("color", "foreground", "on-emphasis")};
-	--tag-bg-color: #{get-token("color", "background", "accent", 1, "rest")};
-	--tag-border-color: var(--tag-bg-color);
-
-	&:has([href]):hover:not(:disabled) {
-		--tag-bg-color: #{get-token("color", "background", "accent", 1, "hover")};
-	}
+.tag__label {
 }

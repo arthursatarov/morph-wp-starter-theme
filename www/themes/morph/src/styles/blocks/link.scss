@@ -4,7 +4,7 @@
 /* ======================================================
   1.0 BASE STYLES
 ====================================================== */
-a,
+a:not([class]),
 .link {
 	--link-fg-color: #{get-token("color", "foreground", "link", 1, "rest")};
 	--link-underline: none;
@@ -18,12 +18,14 @@ a,
 		align-items: center;
 	}
 
+	// Hover state
 	&:hover {
 		--link-fg-color: #{get-token("color", "foreground", "link", 1, "hover")};
 		--link-underline: underline;
 	}
 
-	&:focus-visible:not(:disabled) {
+	// Focus state
+	&:focus-visible {
 		@include focus-visible;
 	}
 }
@@ -37,6 +39,7 @@ a,
 .link--subtle {
 	--link-fg-color: #{get-token("color", "foreground", "link", 2, "rest")};
 
+	// Hover state
 	&:hover {
 		--link-fg-color: #{get-token("color", "foreground", "link", 2, "hover")};
 	}
@@ -54,6 +57,7 @@ a,
 	--link-fg-color: #{get-token("color", "foreground", "link", "on-emphasis", "rest")};
 	--link-underline: underline;
 
+	// Hover state
 	&:hover {
 		--link-fg-color: #{get-token("color", "foreground", "link", "on-emphasis", "hover")};
 		--link-underline: underline;

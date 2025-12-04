@@ -11,12 +11,12 @@
  * Initialize all accordions
  */
 export function initAccordions() {
-	const containers = document.querySelectorAll('[data-accordion]');
+	const containers = document.querySelectorAll('.accordion');
 
 	containers.forEach((container, containerIndex) => {
-		// Get accordion mode: 'collapse' or 'open'
-		const mode = container.dataset.accordion || 'open';
-		const collapseOthers = mode === 'collapse';
+		// Get accordion mode: 'single' or 'multiple'
+		const mode = container.dataset.accordionType || 'multiple';
+		const collapseOthers = mode === 'single';
 
 		const items = container.querySelectorAll('.accordion__item');
 

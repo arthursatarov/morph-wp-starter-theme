@@ -21,6 +21,7 @@ Table of Contents
 	z-index: get-token("z-index", "global", "off-canvas");
 	pointer-events: none;
 
+	// Open state
 	&[data-drawer-state="open"] {
 		pointer-events: auto;
 	}
@@ -37,6 +38,7 @@ Table of Contents
 
 	@include transition(opacity, 200, "prod-standard");
 
+	// Open state
 	.drawer[data-drawer-state="open"] & {
 		opacity: 1;
 	}
@@ -59,6 +61,7 @@ Table of Contents
 
 	@include transition(transform, 300, "prod-standard");
 
+	// Open state
 	.drawer[data-drawer-state="open"] & {
 		transform: translateX(0);
 	}

@@ -13,6 +13,7 @@
 
 	@include transition((visibility, opacity), 100, "prod-standard");
 
+	// Open state
 	&[data-show] {
 		visibility: visible;
 		opacity: 1;

@@ -98,7 +98,7 @@ function morph_print_sprite_icon( array $args ) {
 		<?php if ( ! empty( $args['title'] ) ) : ?>
 			<title id="<?php echo esc_attr( $title_id ); ?>"><?php echo esc_html( $args['title'] ); ?></title>
 		<?php endif; ?>
-		<use xlink:href="<?php echo $href; ?>"></use>
+		<use href="<?php echo $href; ?>"></use>
 	</svg>
 	<?php
 }

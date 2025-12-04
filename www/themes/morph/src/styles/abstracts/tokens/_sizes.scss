@@ -11,7 +11,6 @@
 ////
 
 @use "sass:map";
-@use "../functions/get-base-size" as *;
 
 /* ======================================================
 Table of Contents
@@ -48,11 +47,14 @@ $base-sizes: (
 	6: 0.375rem,
 	8: 0.5rem,
 	12: 0.75rem,
+	14: 0.875rem,
 	16: 1rem,
+	18: 1.125rem,
 	20: 1.25rem,
 	24: 1.5rem,
 	32: 2rem,
 	40: 2.5rem,
+	44: 2.75rem,
 	48: 3rem,
 	56: 3.5rem,
 	64: 4rem,
@@ -70,20 +72,20 @@ $base-sizes: (
 /––––––––––––––––––––––––------------ */
 /// Height values for form controls and interactive elements
 $control-sizes: (
-	"xs": get-base-size($base-sizes, 24),
-	"sm": get-base-size($base-sizes, 32),
-	"md": get-base-size($base-sizes, 40),
-	"lg": get-base-size($base-sizes, 48),
+	"xs": map.get($base-sizes, 24),
+	"sm": map.get($base-sizes, 32),
+	"md": map.get($base-sizes, 40),
+	"lg": map.get($base-sizes, 48),
 );
 
 /* 2.2 ICON SIZES
 /––––––––––––––––––––––––------------ */
 /// Icon size values (em-based for relative sizing)
 $icon-sizes: (
-	"sm": 0.75em,
-	"md": 1em,
-	"lg": 1.25em,
-	"xl": 1.5em,
+	"xs": map.get($base-sizes, 12),
+	"sm": map.get($base-sizes, 16),
+	"md": map.get($base-sizes, 20),
+	"lg": map.get($base-sizes, 24),
 );
 
 /* 2.3 MAX WIDTHS
@@ -126,10 +128,10 @@ $aspect-ratio: (
 /// Border and outline thickness values
 $border-widths: (
 	"none": 0,
-	"default": get-base-size($base-sizes, 1),
-	"thin": get-base-size($base-sizes, 1),
-	"thick": get-base-size($base-sizes, 2),
-	"thicker": get-base-size($base-sizes, 4),
+	"default": map.get($base-sizes, 1),
+	"sm": map.get($base-sizes, 1),
+	"md": map.get($base-sizes, 2),
+	"lg": map.get($base-sizes, 4),
 );
 
 /* 3.2 BORDER RADIUS
@@ -137,12 +139,21 @@ $border-widths: (
 /// Corner radius values
 $border-radius: (
 	"none": 0,
-	"xs": get-base-size($base-sizes, 2),
-	"sm": get-base-size($base-sizes, 4),
-	"md": get-base-size($base-sizes, 8),
-	"lg": get-base-size($base-sizes, 12),
-	"xl": get-base-size($base-sizes, 16),
-	"full": 624.9375rem,
+	"xs": map.get($base-sizes, 2),
+	"sm": map.get($base-sizes, 4),
+	"md": map.get($base-sizes, 8),
+	"lg": map.get($base-sizes, 12),
+	"xl": map.get($base-sizes, 16),
+	"circle": 624.9375rem,
+);
+
+/* 3.3 OUTLINE
+/––––––––––––––––––––––––------------ */
+/// Outline offset and width
+$outline: (
+	"offset": calc(map.get($base-sizes, 2) * -1),
+	"width": map.get($base-sizes, 2),
+	"shadow": inset 0 0 0 0.1875rem,
 );
 
 /* ======================================================

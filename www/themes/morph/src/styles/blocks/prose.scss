@@ -1,0 +1,72 @@
+@use "../abstracts/functions/get-token" as *;
+
+.prose {
+	--prose-space: 1.5em;
+
+	max-inline-size: get-token("max-width", "prose");
+	font-family: get-token("font-family", "base");
+	font-size: get-token("font-size", "md");
+	line-height: get-token("leading", "lg");
+	color: get-token("color", "foreground", "neutral", 1);
+
+	> * + * {
+		margin-block-start: var(--prose-space, 1em);
+	}
+
+	// Cascading indents between headings
+	h1 + h2 {
+		--prose-space: 1.2em;
+	}
+
+	h2 + h3 {
+		--prose-space: 1.3em;
+	}
+
+	h3 + h4 {
+		--prose-space: 1.4em;
+	}
+
+	// Smaller indent after headings
+	:is(h1, h2, h3, h4, h5, h6) + :is(p, ul, ol) {
+		--prose-space: 0.75em;
+	}
+
+	// Smaller indentation from paragraph to list
+	p + :is(ul, ol) {
+		--prose-space: 0.75em;
+	}
+
+	// Normal indentation from list to paragraph
+	:is(ul, ol) + p {
+		--prose-space: 1.5em;
+	}
+
+	// Average indentation between lists
+	:is(ul, ol) + :is(ul, ol) {
+		--prose-space: 1.25em;
+	}
+
+	// Increased spacing
+	:is(blockquote, pre, figure, table) {
+		--prose-space: 2em;
+	}
+
+	// Add underline to inline links
+	a {
+		text-decoration: underline;
+	}
+
+	// Increased spacing
+	hr {
+		--prose-space: 3em;
+	}
+
+	// Reset spacing of the first/last child
+	> *:first-child {
+		margin-block-start: 0;
+	}
+
+	> *:last-child {
+		margin-block-end: 0;
+	}
+}

@@ -46,8 +46,9 @@ $z-navigation: $layer-above + $z-elevated; // 10 - header, main navigation
 $z-off-canvas: $layer-above + $z-navigation; // 15 - sidebars, slide-out menus
 $z-instant-interaction: $layer-above + $z-off-canvas; // 20 - dropdowns, popovers
 $z-modal: $layer-above + $z-instant-interaction; // 25 - modal dialogs
-$z-toast: $layer-above + $z-modal; // 30 - notifications, snackbars
-$z-critical: $layer-above + $z-toast; // 35 - critical overlays, loading screens
+$z-tooltip: $layer-above + $z-modal; // 30 - tooltips
+$z-toast: $layer-above + $z-tooltip; // 35 - notifications, snackbars
+$z-critical: $layer-above + $z-toast; // 40 - critical overlays, loading screens
 
 /* 2.2 AUXILIARY LAYERS
 /––––––––––––––––––––––––------------ */
@@ -64,7 +65,6 @@ $z-local-base: 1; // component base
 $z-local-dropdown: 2; // dropdown menus within component
 $z-local-sticky: 3; // sticky elements within component
 $z-local-overlay: 4; // overlays within component
-$z-local-tooltip: 5; // tooltips within component
 
 /* ======================================================
   4.0 LAYER MAP
@@ -78,6 +78,7 @@ $layer: (
 		"off-canvas": $z-off-canvas,
 		"instant-interaction": $z-instant-interaction,
 		"modal": $z-modal,
+		"tooltip": $z-tooltip,
 		"toast": $z-toast,
 		"critical": $z-critical,
 		"negative": $z-negative,
@@ -88,6 +89,5 @@ $layer: (
 		"dropdown": $z-local-dropdown,
 		"sticky": $z-local-sticky,
 		"overlay": $z-local-overlay,
-		"tooltip": $z-local-tooltip,
 	),
 );

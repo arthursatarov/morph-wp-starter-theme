@@ -185,7 +185,8 @@ add_action( 'wp_head', 'morph_preload_local_fonts', 1 );
  */
 function morph_get_google_fonts() {
 	return [
-		// 'Roboto:ital,wght@0,100..900;1,100..900',
+		'Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900',
+		'JetBrains+Mono:ital,wght@0,100..800;1,100..800',
 	];
 }
 

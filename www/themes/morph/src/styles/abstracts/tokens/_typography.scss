@@ -22,9 +22,15 @@ Table of Contents
 /* ======================================================
   1.0 FONT FAMILIES
 ====================================================== */
+$font-base: "Inter", sans-serif;
+$font-heading: "Inter", sans-serif;
+$font-code: "JetBrains Mono", monospace;
+
+// Map
 $font-family: (
-	"base": "Inter, system-ui",
-	"heading": "Inter, system-ui",
+	"base": $font-base,
+	"heading": $font-heading,
+	"code": $font-code,
 );
 
 /* ======================================================
@@ -59,7 +65,7 @@ $font-weight: (
 ====================================================== */
 $leading: (
 	"none": 1,
-	"tight": 1.2,
-	"normal": 1.5,
-	"relaxed": 1.6,
+	"sm": 1.2,
+	"md": 1.5,
+	"lg": 1.6,
 );

@@ -2,8 +2,8 @@
 /// Design Token Retrieval Function
 ///
 /// This function provides a unified interface for accessing design tokens
-/// across different categories (colors, typography, spacing, etc.). It navigates
-/// nested token maps and returns either CSS custom properties for colors or
+/// across different categories (colors, shadows, typography, spacing, etc.). It navigates
+/// nested token maps and returns either CSS custom properties for colors/shadows or
 /// direct values for other token types.
 ///
 /// @group Functions
@@ -16,7 +16,7 @@
 
 // Import tokens
 @use "../tokens/animation" as animation;
-@use "../tokens/colors" as colors;
+@use "../tokens/theme-default" as theme;
 @use "../tokens/sizes" as sizes;
 @use "../tokens/typography" as typo;
 @use "../tokens/z-index" as z-index;
@@ -24,16 +24,17 @@
 /// Central registry of all available token maps.
 ///
 /// This private map serves as a lookup table for all design token categories.
-/// Each key corresponds to a token type (color, font-family, etc.) and points
+/// Each key corresponds to a token type (color, shadow, font-family, etc.) and points
 /// to its respective token map.
 ///
 /// @group Configuration
-/// @since 0.0.1
+/// @since 0.0.2
 /// @access private
 ///
 /// @type Map
 ///
 /// @prop {Map} color - Theme color tokens
+/// @prop {Map} shadow - Shadow tokens
 /// @prop {Map} font-family - Font family definitions
 /// @prop {Map} font-size - Font size scale with responsive values
 /// @prop {Map} font-weight - Font weight scale
@@ -45,7 +46,8 @@ $_token-maps: (
 	"animation-delay": animation.$animation-delay,
 
 	// Colors
-	"color": colors.$theme-default,
+	"color": theme.$theme-default-colors,
+	"shadow": theme.$theme-default-shadows,
 
 	// Sizes
 	"space": sizes.$base-sizes,
@@ -55,6 +57,7 @@ $_token-maps: (
 	"aspect-ratio": sizes.$aspect-ratio,
 	"border-width": sizes.$border-widths,
 	"border-radius": sizes.$border-radius,
+	"focus": sizes.$outline,
 	"breakpoints": sizes.$breakpoints,
 
 	// Typography
@@ -70,23 +73,49 @@ $_token-maps: (
 /// Retrieves a design token value from the token system.
 ///
 /// This function provides a flexible way to access deeply nested token values
-/// using a variadic key path. For color tokens, it returns CSS custom property
-/// references (var(--clr-...)), while other tokens return their direct values.
+/// using a variadic key path. For color and shadow tokens, it returns CSS custom
+/// property references (var(--clr-...) or var(--shadow-...)), while other tokens
+/// return their direct values.
 ///
 /// The function validates each step of the path and provides helpful error
 /// messages showing available options when keys are not found.
 ///
 /// @group Functions
-/// @since 0.0.1
+/// @since 0.0.2
 ///
-/// @param {String} $map-name - Token category name (color, font-family, font-size, font-weight, leading)
+/// @param {String} $map-name - Token category name (color, shadow, font-family, font-size, font-weight, leading)
 /// @param {String...} $keys - Variadic list of keys forming the path to the desired token
 ///
-/// @return {*} CSS variable for colors, or direct value for other tokens
+/// @return {*} CSS variable for colors and shadows, or direct value for other tokens
 ///
 /// @throw Error if the token map doesn't exist
 /// @throw Error if any key in the path is not found
 /// @throw Error if the path is incomplete (stops at a nested map)
+///
+/// @example scss - Getting a color token
+///   .element {
+///     background-color: get-token("color", "background", "neutral", 1, "rest");
+///     // Returns: var(--clr-background-neutral-1-rest)
+///   }
+///
+/// @example scss - Getting a shadow token
+///   .card {
+///     box-shadow: get-token("shadow", "md");
+///     // Returns: var(--shadow-md)
+///   }
+///
+/// @example scss - Getting a shadow token (nested)
+///   // If shadows are nested:
+///   .dropdown {
+///     box-shadow: get-token("shadow", "elevation", 2);
+///     // Returns: var(--shadow-elevation-2)
+///   }
+///
+/// @example scss - Getting a spacing token
+///   .container {
+///     padding: get-token("space", 4);
+///     // Returns: 1rem (direct value)
+///   }
 @function get-token($map-name, $keys...) {
 	// Check if the token map exists
 	@if not map.has-key($_token-maps, $map-name) {
@@ -110,8 +139,8 @@ $_token-maps: (
 		@if meta.type-of($value) == "map" {
 			$map: $value;
 		} @else {
-			// For colors, return a CSS variable reference
-			@if $map-name == "color" or $map-name == "color-dark" {
+			// For colors, return a CSS variable reference with "clr" prefix
+			@if $map-name == "color" {
 				// Construct the CSS variable path from all keys
 				$css-var-path: "";
 
@@ -123,11 +152,24 @@ $_token-maps: (
 				@return var(--clr#{$css-var-path});
 			}
 
+			// For shadows, return a CSS variable reference with "shadow" prefix
+			@if $map-name == "shadow" {
+				// Construct the CSS variable path from all keys
+				$css-var-path: "";
+
+				@each $k in $keys {
+					$css-var-path: $css-var-path + "-" + $k;
+				}
+
+				// Return CSS custom property reference
+				@return var(--shadow#{$css-var-path});
+			}
+
 			// For all other token types, return the value directly
 			@return $value;
 		}
 	}
 
 	// Error if the path is incomplete (stopped on a nested map)
-	@error "Incomplete path to token value. Current location is a map with keys: #{map.keys($map)}";
+	@error "Incomplete path to token value in '#{$map-name}'. Current location is a map with keys: #{map.keys($map)}";
 }

@@ -1,0 +1,107 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 WRAPPER
+/––––––––––––––––––––––––------------ */
+.radio {
+	position: relative;
+	display: inline-flex;
+	inline-size: fit-content;
+}
+
+/* 1.2 INPUT
+/––––––––––––––––––––––––------------ */
+.radio__input {
+	position: absolute;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	box-sizing: border-box;
+	inline-size: get-token("control-size", "sm");
+	block-size: get-token("control-size", "sm");
+	margin: 0;
+	cursor: pointer;
+	opacity: 0;
+
+	// Focus state
+	&:focus-visible {
+		outline: 0;
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
+
+/* 1.3 CHECKBOX
+/––––––––––––––––––––––––------------ */
+.radio__box {
+	position: relative;
+	display: flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	inline-size: 1.25rem;
+	block-size: 1.25rem;
+	margin: get-token("space", 6);
+	overflow: hidden;
+	pointer-events: none;
+	background: transparent;
+	border: get-token("border-width", "sm") solid get-token("color", "border", "neutral", 2);
+	border-radius: get-token("border-radius", "circle");
+
+	@include transition(all, 100, "prod-standard");
+
+	&::after {
+		display: none;
+		width: 0.375rem;
+		height: 0.375rem;
+		content: "";
+		background-color: get-token("color", "background", "neutral", 1, "rest");
+		border-radius: get-token("border-radius", "circle");
+	}
+
+	// Focus state
+	.radio__input:focus-visible ~ & {
+		@include focus-visible;
+		@include focus-visible-emphasis;
+	}
+
+	// Checked state
+	.radio__input:checked ~ & {
+		background-color: get-token("color", "background", "accent", 1, "rest");
+		border-color: get-token("color", "border", "accent", 1);
+
+		&::after {
+			display: block;
+		}
+	}
+
+	// Disabled state
+	.radio__input:disabled ~ & {
+		background-color: get-token("color", "background", "disabled");
+		border-color: get-token("color", "border", "disabled");
+	}
+}
+
+/* 1.3 LABEL
+/––––––––––––––––––––––––------------ */
+.radio__label {
+	padding-block: get-token("space", 8);
+	padding-inline-start: get-token("space", 4);
+	padding-inline-end: get-token("space", 6);
+	font-size: get-token("font-size", "md");
+	line-height: get-token("leading", "none");
+	color: get-token("color", "foreground", "neutral", 1);
+	cursor: pointer;
+
+	// Disabled state
+	.radio__input:disabled ~ & {
+		color: get-token("color", "foreground", "disabled");
+		cursor: not-allowed;
+	}
+}

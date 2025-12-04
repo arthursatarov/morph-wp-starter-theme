@@ -1,3 +1,6 @@
+/* ======================================================
+  1.0 LAYOUT
+====================================================== */
 *,
 *::before,
 *::after {
@@ -14,12 +17,14 @@ html {
 	text-size-adjust: none;
 }
 
-// Prevent horizontal overflow in body
 html,
 body {
 	overflow-x: hidden;
 }
 
+/* ======================================================
+  2.0 TYPOGRAPHY
+====================================================== */
 h1,
 h2,
 h3,
@@ -35,11 +40,14 @@ p {
 	overflow-wrap: break-word;
 }
 
-:where(ul, ol)[role="list"],
-:where(ul, ol)[role="menu"] {
+ul[class],
+ol[class] {
 	list-style: none;
 }
 
+/* ======================================================
+  3.0 MEDIA
+====================================================== */
 img,
 svg,
 video,
@@ -49,6 +57,7 @@ iframe,
 embed,
 object {
 	display: block;
+	max-inline-size: 100%;
 }
 
 img,
@@ -58,22 +67,50 @@ canvas,
 svg {
 	inline-size: 100%;
 	block-size: auto;
+	vertical-align: middle;
 }
 
+/* ======================================================
+  4.0 CONTROLS
+====================================================== */
 input,
 button,
 textarea,
 select {
 	font: inherit;
+	color: inherit;
 }
 
-// Sets a min block size for textarea without rows
+button {
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		margin: 0;
+		-webkit-appearance: none;
+	}
+}
+
 textarea:not([rows]) {
 	min-block-size: 10em;
+	resize: vertical;
 }
 
+/* ======================================================
+  5.0 MISC.
+====================================================== */
 :target {
 	scroll-margin-block-start: 5ex;
+}
+
+[tabindex="-1"]:focus {
+	outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -84,6 +121,7 @@ textarea:not([rows]) {
 	*,
 	*::before,
 	*::after {
+		transition-delay: 0ms !important;
 		transition-duration: 0.01ms !important;
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;

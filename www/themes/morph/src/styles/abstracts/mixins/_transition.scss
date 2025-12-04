@@ -1,3 +1,15 @@
+////
+/// Transition Mixin
+///
+/// This mixin provides a standardized way to apply CSS transitions using
+/// design tokens for duration, easing functions, and delays. It ensures
+/// consistent animation timing across all components while allowing flexible
+/// property-specific transitions.
+///
+/// @group Mixins
+/// @since 0.0.1
+////
+
 @use "../functions/get-token" as *;
 
 /// Apply a transition to element

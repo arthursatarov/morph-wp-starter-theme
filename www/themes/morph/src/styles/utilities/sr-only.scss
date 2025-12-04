@@ -1,0 +1,47 @@
+// Screen reader only utility classes
+// Hides content visually while keeping it accessible to screen readers
+
+.sr-only {
+	inline-size: 1px;
+	block-size: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	white-space: nowrap; // Prevents text condensation that breaks screen readers
+	border: 0;
+	clip-path: inset(50%);
+
+	// Position absolute for most cases
+	// Exception: <caption> elements to preserve table border-collapse
+	&:not(caption) {
+		position: absolute !important; // Critical for proper stacking context
+	}
+
+	// Prevent focus on overflowing children when parent is hidden
+	&:not(:focus, :focus-within) * {
+		overflow: hidden;
+	}
+}
+
+// Focusable variant - shows content when focused or contains focused element
+// Perfect for skip links and keyboard navigation helpers
+.sr-only-focusable {
+	&:not(:focus, :focus-within) {
+		inline-size: 1px;
+		block-size: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		white-space: nowrap;
+		border: 0;
+		clip-path: inset(50%);
+
+		&:not(caption) {
+			position: absolute !important;
+		}
+
+		* {
+			overflow: hidden;
+		}
+	}
+}

@@ -1,0 +1,99 @@
+////
+/// CSS Variables Generator Mixin
+///
+/// This mixin provides functionality to generate CSS custom properties
+/// from nested Sass maps of arbitrary depth. It recursively iterates through
+/// token maps and creates CSS variables with configurable prefixes.
+///
+/// @group Mixins
+/// @since 0.0.1
+////
+
+@use "sass:map";
+@use "sass:meta";
+
+/// Generates CSS custom properties from a nested token map of any depth.
+///
+/// This mixin recursively processes nested map structures and creates
+/// CSS custom properties for each token. The resulting variables follow
+/// the naming convention: --{prefix}-{key1}-{key2}-{...}-{keyN}.
+///
+/// The mixin automatically detects the depth of nesting and handles maps
+/// of any complexity, from simple two-level structures to deeply nested
+/// hierarchies.
+///
+/// @group Mixins
+/// @since 0.0.2
+///
+/// @param {Map} $map - Nested map containing tokens
+/// @param {String} $variable-prefix - Prefix for CSS variable names (e.g., "clr", "shadow")
+/// @param {String} $path [""] - Internal parameter for building the variable path (do not use manually)
+///
+/// @example scss - Color tokens with "clr" prefix
+///   $theme: (
+///     "text": (
+///       "default": #1f2328,
+///       "muted": #59636e,
+///     ),
+///   );
+///
+///   :root {
+///     @include generate-variables($theme, "clr");
+///   }
+///
+///   // Output:
+///   // :root {
+///   //   --clr-text-default: #1f2328;
+///   //   --clr-text-muted: #59636e;
+///   // }
+///
+/// @example scss - Shadow tokens with "shadow" prefix
+///   $shadows: (
+///     "xs": "0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14)",
+///     "sm": "0 0 2px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.14)",
+///   );
+///
+///   :root {
+///     @include generate-variables($shadows, "shadow");
+///   }
+///
+///   // Output:
+///   // :root {
+///   //   --shadow-xs: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+///   //   --shadow-sm: 0 0 2px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.14);
+///   // }
+///
+/// @example scss - Three-level structure
+///   $theme: (
+///     "bg": (
+///       1: (
+///         "rest": #ffffff,
+///         "hover": #f6f8fa,
+///       ),
+///     ),
+///   );
+///
+///   :root {
+///     @include generate-variables($theme, "clr");
+///   }
+///
+///   // Output:
+///   // :root {
+///   //   --clr-bg-1-rest: #ffffff;
+///   //   --clr-bg-1-hover: #f6f8fa;
+///   // }
+@mixin generate-css-variables($map, $variable-prefix, $path: "") {
+	@each $key, $value in $map {
+		// Build the current path by appending the key
+		$current-path: if($path == "", $key, $path + "-" + $key);
+
+		// Check if the value is a nested map
+		@if meta.type-of($value) == "map" {
+			// Recursively process the nested map
+			@include generate-css-variables($value, $variable-prefix, $current-path);
+		} @else {
+			// Generate CSS custom property for the final value
+			--#{$variable-prefix}-#{$current-path}: #{$value};
+		}
+	}
+}

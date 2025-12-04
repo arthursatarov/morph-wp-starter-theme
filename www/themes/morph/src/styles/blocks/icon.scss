@@ -1,0 +1,25 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/tokens/sizes" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+.icon {
+	--icon-size: #{get-token("icon-size", "md")};
+	--icon-color: currentColor;
+
+	display: block;
+	inline-size: var(--icon-size, 1em);
+	block-size: var(--icon-size, 1em);
+	line-height: get-token("leading", "none");
+	fill: var(--icon-color);
+}
+
+/* ======================================================
+  2.0 SIZE VARIANTS
+====================================================== */
+@each $size, $value in $icon-sizes {
+	.icon--#{$size} {
+		--icon-size: #{$value};
+	}
+}

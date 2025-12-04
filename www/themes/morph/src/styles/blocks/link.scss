@@ -1,0 +1,65 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+a:not([class]),
+.link {
+	--link-fg-color: #{get-token("color", "foreground", "link", 1, "rest")};
+	--link-underline: none;
+
+	color: var(--link-fg-color);
+	text-decoration: var(--link-underline);
+
+	&:has(.link__icon) {
+		display: inline-flex;
+		gap: get-token("space", 4);
+		align-items: center;
+	}
+
+	// Hover state
+	&:hover {
+		--link-fg-color: #{get-token("color", "foreground", "link", 1, "hover")};
+		--link-underline: underline;
+	}
+
+	// Focus state
+	&:focus-visible {
+		@include focus-visible;
+	}
+}
+
+/* ======================================================
+  2.0 STYLE VARIANTS
+====================================================== */
+
+/* 2.1 LINK SUBTLE
+/––––––––––––––––––––––––------------ */
+.link--subtle {
+	--link-fg-color: #{get-token("color", "foreground", "link", 2, "rest")};
+
+	// Hover state
+	&:hover {
+		--link-fg-color: #{get-token("color", "foreground", "link", 2, "hover")};
+	}
+}
+
+/* 2.2 LINK INLINE
+/––––––––––––––––––––––––------------ */
+.link--inline {
+	--link-underline: underline;
+}
+
+/* 2.3 LINK ON EMPHASIS
+/––––––––––––––––––––––––------------ */
+.link--on-emphasis {
+	--link-fg-color: #{get-token("color", "foreground", "link", "on-emphasis", "rest")};
+	--link-underline: underline;
+
+	// Hover state
+	&:hover {
+		--link-fg-color: #{get-token("color", "foreground", "link", "on-emphasis", "hover")};
+		--link-underline: underline;
+	}
+}

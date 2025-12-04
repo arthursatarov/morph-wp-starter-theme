@@ -1,0 +1,120 @@
+@use "../abstracts/functions/get-token" as *;
+@use "../abstracts/mixins/focus-visible" as *;
+@use "../abstracts/mixins/transition" as *;
+
+/* ======================================================
+  1.0 BASE STYLES
+====================================================== */
+
+/* 1.1 WRAPPER
+/––––––––––––––––––––––––------------ */
+.form-control {
+	--form-control-space: #{get-token("space", 4)};
+
+	display: flex;
+	flex-direction: column;
+	border: 0;
+
+	> * {
+		margin-block: 0;
+	}
+
+	> * + * {
+		/// --form-control-item-space allows individual elements to override spacing
+		/// Falls back to --form-control-space (container-level) if not set
+		margin-block-start: var(--form-control-item-space, var(--form-control-space, 1rem));
+	}
+}
+
+/* 1.2 LEGEND
+/––––––––––––––––––––––––------------ */
+.form-control__legend {
+	display: block;
+	font-size: get-token("font-size", "md");
+	font-weight: get-token("font-weight", "medium");
+}
+
+/* 1.3 LABEL
+/––––––––––––––––––––––––------------ */
+.form-control__label {
+	position: relative;
+	display: block;
+	inline-size: fit-content;
+	font-size: get-token("font-size", "sm");
+	font-weight: get-token("font-weight", "medium");
+
+	// Required
+	.form-control[data-required] &::after {
+		position: absolute;
+		inset-block-start: 0;
+		inset-inline-start: calc(100% + get-token("space", 4));
+		font-weight: get-token("font-weight", "normal");
+		color: get-token("color", "foreground", "danger");
+		content: "*";
+	}
+}
+
+/* 1.5 HINT
+/––––––––––––––––––––––––------------ */
+.form-control__hint {
+	display: block;
+	font-size: get-token("font-size", "xs");
+	color: get-token("color", "foreground", "neutral", 3);
+
+	:is(.form-control__label, .form-control__legend) + & {
+		--form-control-item-space: 0;
+	}
+}
+
+/* 1.6 LIST
+/––––––––––––––––––––––––------------ */
+.form-control__list {
+	--form-control-item-space: #{get-token("space", 8)};
+
+	display: flex;
+	flex-direction: column;
+}
+
+/* 1.7 VALIDATION
+/––––––––––––––––––––––––------------ */
+.form-control__validation {
+	display: inline-flex;
+	gap: get-token("space", 4);
+	align-items: start;
+	font-size: get-token("font-size", "xs");
+	color: get-token("color", "foreground", "neutral", 3);
+
+	// Success state
+	&[data-validation-status="success"] {
+		color: get-token("color", "foreground", "neutral", 3);
+	}
+
+	// Warning state
+	&[data-validation-status="warning"] {
+		color: get-token("color", "foreground", "neutral", 3);
+	}
+
+	// Error state
+	&[data-validation-status="error"] {
+		color: get-token("color", "foreground", "danger");
+	}
+}
+
+.form-control__validation-icon {
+	--icon-size: #{get-token("icon-size", "sm")};
+
+	// Success state
+	.form-control__validation[data-validation-status="success"] & {
+		--icon-color: #{get-token("color", "foreground", "success")};
+	}
+
+	// Warning state
+	.form-control__validation[data-validation-status="warning"] & {
+		--icon-color: #{get-token("color", "foreground", "attention")};
+	}
+
+	// Error state
+	.form-control__validation[data-validation-status="error"] & {
+		--icon-color: #{get-token("color", "foreground", "danger")};
+	}
+}
